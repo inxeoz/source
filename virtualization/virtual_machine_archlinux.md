@@ -1,3 +1,13 @@
+---
+title: "KVM/QEMU Virtual Machine on Arch Linux"
+date: 2026-01-27
+draft: false
+tags: ["virtual", "machine", "archlinux", "quick", "prerequisites", "check", "your", "hardware"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # Quick prerequisites — check your hardware
 
 Confirm your CPU supports hardware virtualization (Intel VT-x or AMD-V):

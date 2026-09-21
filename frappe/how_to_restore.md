@@ -1,3 +1,13 @@
+---
+title: "How to Restore frappe_db_backup_utf8.sql"
+date: 2026-01-27
+draft: false
+tags: ["restore", "frappe", "db", "backup", "utf8", "sql"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # How to Restore frappe_db_backup_utf8.sql
 
 ## Prerequisites

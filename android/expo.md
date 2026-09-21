@@ -1,3 +1,13 @@
+---
+title: "Why `adb reverse tcp:8081 tcp:8081` Fixed My Expo Connection (And Why Everything Else Failed)"
+date: 2026-02-25
+draft: false
+tags: ["expo", "why", "adb", "reverse", "tcp", "8081", "fixed", "my"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # Why `adb reverse tcp:8081 tcp:8081` Fixed My Expo Connection (And Why Everything Else Failed)
 
 When developing with **React Native** using **Expo**, one of the most frustrating errors you can encounter is:

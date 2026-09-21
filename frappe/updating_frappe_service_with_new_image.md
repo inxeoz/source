@@ -1,3 +1,13 @@
+---
+title: "📘 How to Build, Ship, and Deploy a New Frappe Image with Updated Custom Apps (Without Affecting Existing Sites)"
+date: 2026-01-27
+draft: false
+tags: ["updating", "frappe", "service", "image", "build", "ship", "deploy", "updated"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # 📘 How to Build, Ship, and Deploy a New Frappe Image with Updated Custom Apps (Without Affecting Existing Sites)
 
 This guide explains how to **add or update custom apps (e.g. ERPNext)** in a Frappe Docker setup by:

@@ -1,3 +1,13 @@
+---
+title: "Running MotionPro (Array Networks SSL VPN) GUI on Arch Linux — Full Guide"
+date: 2026-08-06
+draft: false
+tags: ["motion", "pro", "archlinux", "running", "motionpro", "array", "networks", "ssl"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # Running MotionPro (Array Networks SSL VPN) GUI on Arch Linux — Full Guide
 
 MotionPro is the VPN client for Array Networks' AG (Access Gateway) SSL VPN appliances. Official builds only target Windows, macOS, Ubuntu, RedHat, and CentOS — there's no native Arch package from the vendor. This guide walks through getting it fully working on Arch, based on a real troubleshooting session that hit (and fixed) every common failure point.

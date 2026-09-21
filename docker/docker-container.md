@@ -1,3 +1,13 @@
+---
+title: "Managing Docker Containers Like a Pro"
+date: 2026-01-27
+draft: false
+tags: ["docker", "container", "managing", "containers", "like", "pro"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # Managing Docker Containers Like a Pro
 
 ---

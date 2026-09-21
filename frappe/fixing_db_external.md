@@ -1,3 +1,13 @@
+---
+title: "Fixing ERPNext / Frappe Error"
+date: 2026-01-27
+draft: false
+tags: ["fixing", "db", "external", "erpnext", "frappe", "error"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # Fixing ERPNext / Frappe Error
 
 ## `pymysql.err.OperationalError: (1045) Access denied for user`

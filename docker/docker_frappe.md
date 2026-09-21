@@ -1,3 +1,13 @@
+---
+title: "Fixing Common Frappe Docker Errors, Backing Up, and Restoring Databases"
+date: 2026-01-27
+draft: false
+tags: ["docker", "frappe", "fixing", "common", "errors", "backing", "up", "restoring"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # Fixing Common Frappe Docker Errors, Backing Up, and Restoring Databases
 
 ## 🧠 Introduction

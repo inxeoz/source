@@ -1,3 +1,13 @@
+---
+title: "Export Only Changed Files From Git (Branches or Commits) While Preserving Folder Structure"
+date: 2026-05-06
+draft: false
+tags: ["export", "changes", "only", "changed", "files", "git", "branches", "or"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # Export Only Changed Files From Git (Branches or Commits) While Preserving Folder Structure
 
 Sometimes you need to export only the files changed in Git instead of sharing the entire project. This is useful for deployments, patch updates, code reviews, or sharing incremental changes.

@@ -1,3 +1,13 @@
+---
+title: "How to Check the Port Valkey is Running On"
+date: 2026-01-27
+draft: false
+tags: ["redis", "1", "check", "valkey", "configuration", "file"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 You can check which port **Valkey** is running on in several ways. Here are the easiest methods:
 
 ---

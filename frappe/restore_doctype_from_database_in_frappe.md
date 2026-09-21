@@ -1,3 +1,13 @@
+---
+title: "Fixing Database DocTypes in Frappé After Restore"
+date: 2026-02-04
+draft: false
+tags: ["restore", "doctype", "database", "frappe", "fixing", "doctypes", "frapp", "after"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # Fixing Database DocTypes in Frappé After Restore
 
 ## Introduction

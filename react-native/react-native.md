@@ -1,3 +1,13 @@
+---
+title: "🐧 How to Run React Native on Arch Linux (and Fix Common Errors)"
+date: 2026-01-27
+draft: false
+tags: ["react", "native", "run", "arch", "linux", "common", "errors"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # 🐧 **How to Run React Native on Arch Linux (and Fix Common Errors)**
 
 React Native works beautifully on Arch Linux — but because Arch uses newer packages (Java, SDK Tools, etc.), developers often run into version mismatches or Gradle issues that do not appear on Ubuntu or macOS.

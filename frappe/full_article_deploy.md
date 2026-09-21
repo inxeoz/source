@@ -1,3 +1,13 @@
+---
+title: "🚀 Deploying ERPNext (Frappe) with Docker in an Offline / Air-Gapped Environment"
+date: 2026-01-27
+draft: false
+tags: ["full", "article", "deploy", "deploying", "erpnext", "frappe", "docker", "offline"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # 🚀 Deploying ERPNext (Frappe) with Docker in an Offline / Air-Gapped Environment
 
 **From Local Setup to Server Deployment (Complete Guide)**

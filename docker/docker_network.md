@@ -1,3 +1,13 @@
+---
+title: "How to Create and Manage Docker Networks"
+date: 2026-01-27
+draft: false
+tags: ["docker", "network", "create", "manage", "networks"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # How to Create and Manage Docker Networks
 
 ---

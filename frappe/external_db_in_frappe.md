@@ -1,3 +1,13 @@
+---
+title: "📘 Creating a New MariaDB Container for a Frappe Site"
+date: 2026-01-27
+draft: false
+tags: ["external", "db", "frappe", "creating", "mariadb", "container", "site"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # 📘 Creating a New MariaDB Container for a Frappe Site
 
 ### (and avoiding the 200 / 500 alternating error)

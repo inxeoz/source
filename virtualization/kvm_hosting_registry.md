@@ -1,3 +1,13 @@
+---
+title: "🧾 Working with KVM Virtual Machines and Creating Networks (NAT, Isolated, Bridged) + Hosting a Local Repository Server"
+date: 2026-01-27
+draft: false
+tags: ["kvm", "hosting", "registry", "working", "virtual", "machines", "creating", "networks"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # 🧾 **Working with KVM Virtual Machines and Creating Networks (NAT, Isolated, Bridged) + Hosting a Local Repository Server**
 
 KVM (Kernel-based Virtual Machine) combined with `libvirt` and `virt-manager` provides a powerful and flexible virtualization platform for Linux users. One of the most important aspects of virtualization is **networking** — giving VMs internet, isolating them, or letting them behave like physical machines on your LAN.

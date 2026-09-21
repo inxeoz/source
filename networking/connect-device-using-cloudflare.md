@@ -1,3 +1,13 @@
+---
+title: "Connect Linux and Android Using Cloudflare One"
+date: 2026-09-16
+draft: false
+tags: ["connect", "device", "cloudflare", "linux", "android", "one"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # Connect Linux and Android Using Cloudflare One
 
 You can connect a **Linux laptop and Android phone directly through Cloudflare One** without setting up a VPN server, port forwarding, or a Mesh node.

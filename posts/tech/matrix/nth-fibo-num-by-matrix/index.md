@@ -1,3 +1,13 @@
+---
+title: "Unlocking the Fibonacci Sequence: The Power of Matrix Exponentiation"
+date: 2026-09-21
+draft: false
+tags: ["index", "unlocking", "fibonacci", "sequence", "power", "matrix", "exponentiation"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # Unlocking the Fibonacci Sequence: The Power of Matrix Exponentiation
 
 Most programmers first encounter the Fibonacci sequence through a simple recursive function. But as `n` grows, that elegant recursion turns into an exponential nightmare. Dynamic programming (memoization or tabulation) brings it down to **O(n)**, which is great—until `n` is a million, or a billion.

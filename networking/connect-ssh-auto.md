@@ -1,3 +1,13 @@
+---
+title: "How to Connect to a Server Using SSH Keys and an SSH Config File"
+date: 2026-09-10
+draft: false
+tags: ["connect", "ssh", "auto", "server", "keys", "config", "file"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # How to Connect to a Server Using SSH Keys and an SSH Config File
 
 If you're still typing passwords every time you SSH into a server, you're doing it the hard way. SSH keys plus a well-written `~/.ssh/config` file turn a multi-step, password-prompting chore into a single short command — and they're the foundation for everything from port forwarding to automated tunnels.

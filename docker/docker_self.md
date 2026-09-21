@@ -1,3 +1,13 @@
+---
+title: "Mastering Docker: Building, Managing, and Maintaining Your Own Systems"
+date: 2026-01-27
+draft: false
+tags: ["docker", "self", "mastering", "building", "managing", "maintaining", "your", "own"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # Mastering Docker: Building, Managing, and Maintaining Your Own Systems
 
 ---

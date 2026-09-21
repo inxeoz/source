@@ -1,3 +1,13 @@
+---
+title: "How to Fix Redis Connection Errors in Frappe / ERPNext"
+date: 2026-01-27
+draft: false
+tags: ["redis", "connection", "errors", "frappe", "erpnext"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # How to Fix Redis Connection Errors in Frappe / ERPNext
 
 ---

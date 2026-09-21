@@ -1,3 +1,13 @@
+---
+title: "Multi Reverse Proxy Architecture on RHEL"
+date: 2026-01-27
+draft: false
+tags: ["reverse", "proxy", "80", "multi", "architecture", "rhel"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # Multi Reverse Proxy Architecture on RHEL
 
 ### NGINX → Traefik → Frappe (VPN-Only, Hostname-Based Routing)

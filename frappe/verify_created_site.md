@@ -1,3 +1,13 @@
+---
+title: "🟢 Verifying Offline Frappe/ERPNext Is Working (and Fixing Frontend Issues)"
+date: 2026-01-27
+draft: false
+tags: ["verify", "created", "site", "verifying", "offline", "frappe", "erpnext", "is"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # 🟢 Verifying Offline Frappe/ERPNext Is Working (and Fixing Frontend Issues)
 
 After loading Docker images from a `.tar` file and starting services with Docker Compose **without internet**, the final and most common hurdle is getting the **frontend (nginx)** container running correctly.

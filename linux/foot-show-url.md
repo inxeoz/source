@@ -1,3 +1,13 @@
+---
+title: "Foot Terminal: URL Handling Made Simple"
+date: 2026-08-31
+draft: false
+tags: ["foot", "show", "url", "terminal", "handling", "made", "simple"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # Foot Terminal: URL Handling Made Simple
 
 ## What is URL Mode?

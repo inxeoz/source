@@ -1,3 +1,13 @@
+---
+title: "Wildcard Domain Setup and LetsEncrypt Testing"
+date: 2026-01-27
+draft: false
+tags: ["wilddomain", "this", "version", "is", "publication", "ready"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 Here is the **final polished article**, now including a clean, complete **"How to Remove Wildcard Domain Resolution"** section.
 This version is publication-ready.
 

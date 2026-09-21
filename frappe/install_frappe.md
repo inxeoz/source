@@ -1,3 +1,13 @@
+---
+title: "How to Install Frappe Bench on Arch Linux"
+date: 2026-01-27
+draft: false
+tags: ["install", "frappe", "bench", "arch", "linux"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # How to Install Frappe Bench on Arch Linux
 
 # 📦 1. Install System Dependencies

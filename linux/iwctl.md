@@ -1,3 +1,13 @@
+---
+title: "Complete Guide: Setting up `iwctl` / iwd Networking on Linux (Arch-style)"
+date: 2026-03-11
+draft: false
+tags: ["iwctl", "up", "iwd", "networking", "linux", "arch", "style"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # Complete Guide: Setting up `iwctl` / iwd Networking on Linux (Arch-style)
 
 This article explains **how to properly set up Wi-Fi using `iwctl` with the Intel wireless daemon**, configure networking, fix DNS issues, and ensure commands like:

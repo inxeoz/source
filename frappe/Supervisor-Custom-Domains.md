@@ -1,3 +1,13 @@
+---
+title: "Frappe Production Setup: Supervisor, Process Management, Custom Domains, and Domain Sync"
+date: 2026-09-09
+draft: false
+tags: ["supervisor", "custom", "domains", "frappe", "production", "process", "management", "domain"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # Frappe Production Setup: Supervisor, Process Management, Custom Domains, and Domain Sync
 
 This guide documents a practical way to run a Frappe/ERPNext bench in production using **Supervisor**, and configure it so that sites are accessed through a real domain instead of manually specifying a `Host` header.

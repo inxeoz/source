@@ -1,3 +1,13 @@
+---
+title: "Learn Python by Projects"
+date: 2026-01-27
+draft: false
+tags: ["learn", "python", "by", "projects", "level", "0", "absolute", "beginner"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # ✅ **LEVEL 0 — ABSOLUTE BEGINNER (Basics)**
 
 ### 🎯 Skills Covered

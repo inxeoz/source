@@ -1,3 +1,13 @@
+---
+title: "How to Use python3-pysocks: A Complete Guide"
+date: 2026-09-10
+draft: false
+tags: ["socks", "proxy", "use", "python3", "pysocks"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # How to Use python3-pysocks: A Complete Guide
 
 **python3-pysocks** is a Python SOCKS client module that enables Python applications to route network traffic through SOCKS4 and SOCKS5 proxies. It's particularly valuable in enterprise environments where direct internet access is restricted and a proxy is required for package installations and network operations .

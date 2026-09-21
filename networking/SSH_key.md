@@ -1,3 +1,13 @@
+---
+title: "Complete GitHub SSH Setup Guide for Linux Developers"
+date: 2026-01-27
+draft: false
+tags: ["ssh", "key", "github", "linux", "developers"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # Complete GitHub SSH Setup Guide for Linux Developers
 
 SSH keys provide secure, passwordless authentication to GitHub repositories. This guide covers every step from enabling SSH to testing the connection, tailored for Arch Linux/Manjaro users with i3/Hyprland window managers.

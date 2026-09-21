@@ -1,3 +1,13 @@
+---
+title: "SSH into a Virtual Machine"
+date: 2026-01-30
+draft: false
+tags: ["ssh", "vm", "method", "1", "port", "forwarding", "workaround"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 ## Method 1: Port Forwarding (The "Workaround")
 
 If your VM is behind NAT (IP addresses like `10.0.2.15`), use Port Forwarding. This maps a port on your host (e.g., 2222) to the SSH port (22) on your VM.

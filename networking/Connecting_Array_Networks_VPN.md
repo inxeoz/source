@@ -1,3 +1,13 @@
+---
+title: "Connecting to an Array Networks VPN from Linux using MotionPro (Android) + Termux + SOCKS Proxy"
+date: 2026-01-27
+draft: false
+tags: ["connecting", "array", "networks", "vpn", "linux", "motionpro", "android", "termux"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # Connecting to an Array Networks VPN from Linux using MotionPro (Android) + Termux + SOCKS Proxy
 
 ## Abstract

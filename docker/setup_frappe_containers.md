@@ -1,3 +1,13 @@
+---
+title: "Setup Frappe Containers with Docker"
+date: 2026-01-27
+draft: false
+tags: ["frappe", "containers", "docker", "run", "d"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 docker run -d
 --name mariadb
 --network frappe-net

@@ -1,3 +1,13 @@
+---
+title: "Running Split VPNs on Linux"
+date: 2026-01-27
+draft: false
+tags: ["arrayvpn", "linux", "running", "split", "vpns"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 # Running Split VPNs on Linux
 
 ## Routing Specific Traffic via MotionPro (ArrayVPN) While Keeping Cloudflare WARP Enabled

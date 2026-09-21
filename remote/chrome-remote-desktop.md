@@ -1,3 +1,13 @@
+---
+title: "Complete Guide to Chrome Remote Desktop"
+date: 2026-04-17
+draft: false
+tags: ["chrome", "remote", "desktop"]
+categories: ["Tech"]
+viewMode: docs
+showToc: true
+---
+
 Complete Guide to Chrome Remote Desktop
 
 *Setup • Share your screen • Access another computer*
