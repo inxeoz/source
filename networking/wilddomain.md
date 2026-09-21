@@ -1,20 +1,14 @@
 ---
 title: "Wildcard Domain Setup and LetsEncrypt Testing"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["wilddomain", "this", "version", "is", "publication", "ready"]
 categories: ["Tech"]
 viewMode: docs
 showToc: true
 ---
 
-Here is the **final polished article**, now including a clean, complete **"How to Remove Wildcard Domain Resolution"** section.
-This version is publication-ready.
-
-
----
-
-# 📝 **How to Safely Set Up Wildcard Domain Resolution on Linux Without Breaking Your System**
+# **How to Safely Set Up Wildcard Domain Resolution on Linux Without Breaking Your System**
 
 ### *(Modern systemd-resolved + dnsmasq Split DNS Method)*
 
@@ -45,7 +39,7 @@ This article walks you through **the correct, safe, reversible approach** that w
 
 ---
 
-# 🎯 **Goal**
+# **Goal**
 
 We want:
 
@@ -70,25 +64,25 @@ The solution must be:
 
 ---
 
-# 🏆 The Best Method
+# The Best Method
 
 # **Use dnsmasq on a separate port + systemd-resolved split DNS routing**
 
 This gives:
 
-✔ Full wildcard `.test` support
-✔ No conflict with system services
-✔ systemd-resolved remains fully functional
-✔ No broken networking
-✔ Fully reversible
-✔ No changes to `/etc/resolv.conf`
-✔ No touching port 53
+Full wildcard `.test` support
+No conflict with system services
+systemd-resolved remains fully functional
+No broken networking
+Fully reversible
+No changes to `/etc/resolv.conf`
+No touching port 53
 
 This is how enterprise VPN clients and container systems (Podman, LXD, Kubernetes) implement split DNS.
 
 ---
 
-# 🛠️ Step 1 — Create a dedicated dnsmasq instance on port 5353
+# Step 1 — Create a dedicated dnsmasq instance on port 5353
 
 Create config directory:
 
@@ -113,7 +107,7 @@ This ensures dnsmasq **never conflicts** with system services.
 
 ---
 
-# 🛠️ Step 2 — Create a systemd service for this dnsmasq
+# Step 2 — Create a systemd service for this dnsmasq
 
 ```bash
 sudo nano /etc/systemd/system/dnsmasq-test.service
@@ -149,7 +143,7 @@ systemctl status dnsmasq-test
 
 ---
 
-# 🧪 Step 3 — Verify dnsmasq answers `.test` queries
+# Step 3 — Verify dnsmasq answers `.test` queries
 
 ```bash
 dig @127.0.0.1 -p 5353 hello.test
@@ -163,7 +157,7 @@ hello.test.  0  IN A  127.0.0.1
 
 ---
 
-# 🛠️ Step 4 — Configure systemd-resolved split DNS
+# Step 4 — Configure systemd-resolved split DNS
 
 ```bash
 sudo mkdir -p /etc/systemd/resolved.conf.d
@@ -191,7 +185,7 @@ sudo systemctl restart systemd-resolved
 
 ---
 
-# 🧪 Step 5 — Test wildcard resolution
+# Step 5 — Test wildcard resolution
 
 ```bash
 resolvectl query hello.test
@@ -215,7 +209,7 @@ This now resolves cleanly without modifying `/etc/hosts`.
 
 ---
 
-# 🤓 Why This Works (Deep Explanation)
+# Why This Works (Deep Explanation)
 
 systemd-resolved acts as the system DNS interceptor.
 When you add:
@@ -253,11 +247,11 @@ No override of system functions.
 
 ---
 
-# 🗑️ **How to Completely Remove Wildcard .test Configuration**
+# **How to Completely Remove Wildcard .test Configuration**
 
 *(100% rollback, safe)*
 
-### 1️⃣ Remove dnsmasq-test config & disable service
+### 1⃣ Remove dnsmasq-test config & disable service
 
 ```bash
 sudo systemctl disable --now dnsmasq-test
@@ -273,7 +267,7 @@ sudo systemctl daemon-reload
 
 ---
 
-### 2️⃣ Remove split-DNS rule from systemd-resolved
+### 2⃣ Remove split-DNS rule from systemd-resolved
 
 ```bash
 sudo rm /etc/systemd/resolved.conf.d/10-test-domain.conf
@@ -287,7 +281,7 @@ sudo systemctl restart systemd-resolved
 
 ---
 
-### 3️⃣ Verify cleanup
+### 3⃣ Verify cleanup
 
 ```bash
 resolvectl domain
@@ -298,7 +292,7 @@ Ensure `.test` no longer appears in routing.
 
 ---
 
-### 4️⃣ Test:
+### 4⃣ Test:
 
 ```bash
 resolvectl query hello.test
@@ -314,7 +308,7 @@ Wildcard setup removed successfully.
 
 ---
 
-# 🎉 Final Thoughts
+# Final Thoughts
 
 This method is:
 
@@ -340,9 +334,7 @@ It's the **safest way on modern Linux** to get `.test` (or `.dev`, `.lab`, `.loc
 
 If you want, I can also extend this article to cover:
 
-✔ Multiple wildcard domains (`*.dev`, `*.localtest`, `*.sandbox`)
-✔ How to set up HTTPS for `.test` using mkcert
-✔ Using CoreDNS instead of dnsmasq
-✔ Using this setup with Docker Compose or FM
-
-Just tell me what you want!
+Multiple wildcard domains (`*.dev`, `*.localtest`, `*.sandbox`)
+How to set up HTTPS for `.test` using mkcert
+Using CoreDNS instead of dnsmasq
+Using this setup with Docker Compose or FM

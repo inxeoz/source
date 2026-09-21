@@ -12,7 +12,7 @@ showToc: true
 
 ---
 
-## 🔍 Understanding Redis in Frappe
+## Understanding Redis in Frappe
 
 Frappe uses **three Redis instances**, each serving a distinct purpose:
 
@@ -31,7 +31,7 @@ When any of these services are stopped or unreachable, Frappe throws connection 
 
 ---
 
-## ⚠️ Common Error Example
+## Common Error Example
 
 Here’s what a typical Redis connection error looks like:
 
@@ -43,9 +43,9 @@ This means the Frappe process tried to connect to Redis on `127.0.0.1` (localhos
 
 ---
 
-## 🧩 Step-by-Step Fix
+## Step-by-Step Fix
 
-### 1️⃣ Verify if Redis is Running
+### 1⃣ Verify if Redis is Running
 
 Run the following command to check if Redis is active:
 
@@ -57,7 +57,7 @@ If Redis isn’t listed, it’s not running. Depending on your environment, fix 
 
 ---
 
-## 🖥️ A. Fix Redis on a Local (Bare-Metal) Frappe Setup
+## A. Fix Redis on a Local (Bare-Metal) Frappe Setup
 
 ### Step 1: Check Supervisor Status
 
@@ -97,7 +97,7 @@ This restarts all Frappe-related services, including Redis, workers, and SocketI
 
 ---
 
-## 🐳 B. Fix Redis Inside Docker
+## B. Fix Redis Inside Docker
 
 In a **Dockerized Frappe setup**, Redis usually runs in separate containers. If you’re using a custom Docker environment and encounter connection errors, follow these steps.
 
@@ -184,7 +184,7 @@ If all three respond, Redis is working correctly.
 
 ---
 
-## ⚙️ Optional: Check Redis Logs
+## Optional: Check Redis Logs
 
 You can inspect the Redis container logs for troubleshooting:
 
@@ -200,7 +200,7 @@ redis-cli -h redis-cache info memory
 
 ---
 
-## 🚀 Final Step: Reinstall or Retry the App
+## Final Step: Reinstall or Retry the App
 
 Once Redis is back online and reachable, re-run your original command:
 
@@ -212,7 +212,7 @@ This should complete without any connection errors.
 
 ---
 
-## 🧠 Pro Tips
+## Pro Tips
 
 * Always keep Redis containers on the **same Docker network** as Frappe and MariaDB.
 * Avoid using `127.0.0.1` in Docker — use **container names** instead.
@@ -225,7 +225,7 @@ This should complete without any connection errors.
 
 ---
 
-## ✅ Summary
+## Summary
 
 | Problem                                   | Cause                               | Solution                                                             |
 | ----------------------------------------- | ----------------------------------- | -------------------------------------------------------------------- |

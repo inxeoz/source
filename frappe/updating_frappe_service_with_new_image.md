@@ -1,5 +1,5 @@
 ---
-title: "📘 How to Build, Ship, and Deploy a New Frappe Image with Updated Custom Apps (Without Affecting Existing Sites)"
+title: "How to Build, Ship, and Deploy a New Frappe Image with Updated Custom Apps (Without Affecting Existing Sites)"
 date: 2026-01-27
 draft: false
 tags: ["updating", "frappe", "service", "image", "build", "ship", "deploy", "updated"]
@@ -8,7 +8,7 @@ viewMode: docs
 showToc: true
 ---
 
-# 📘 How to Build, Ship, and Deploy a New Frappe Image with Updated Custom Apps (Without Affecting Existing Sites)
+# How to Build, Ship, and Deploy a New Frappe Image with Updated Custom Apps (Without Affecting Existing Sites)
 
 This guide explains how to **add or update custom apps (e.g. ERPNext)** in a Frappe Docker setup by:
 
@@ -23,7 +23,7 @@ This is the **recommended and supported approach** for production Frappe deploym
 
 ---
 
-## 🧠 Core Principle (Very Important)
+## Core Principle (Very Important)
 
 > **Apps live in the Docker image**
 > **Sites & data live in Docker volumes**
@@ -36,9 +36,9 @@ Because of this separation:
 
 ---
 
-## 🏗️ PART 1 — Build a New Image with Updated Apps (Local Machine)
+## PART 1 — Build a New Image with Updated Apps (Local Machine)
 
-### 1️⃣ Define apps to include
+### 1⃣ Define apps to include
 
 Create or update `apps.json`:
 
@@ -55,7 +55,7 @@ Create or update `apps.json`:
 
 ---
 
-### 2️⃣ Encode `apps.json` as Base64
+### 2⃣ Encode `apps.json` as Base64
 
 ```bash
 export APPS_JSON_BASE64=$(base64 -w 0 apps.json)
@@ -69,7 +69,7 @@ echo $APPS_JSON_BASE64
 
 ---
 
-### 3️⃣ Build the new custom image
+### 3⃣ Build the new custom image
 
 Use the **layered image** approach:
 
@@ -82,7 +82,7 @@ docker build \
   --file=images/layered/Containerfile .
 ```
 
-✅ This image now contains:
+This image now contains:
 
 * Frappe
 * ERPNext
@@ -90,7 +90,7 @@ docker build \
 
 ---
 
-### 4️⃣ Verify image contents (important)
+### 4⃣ Verify image contents (important)
 
 ```bash
 docker run --rm customerp:15 ls apps
@@ -107,7 +107,7 @@ If the app is not listed here, **do not proceed**.
 
 ---
 
-## 📦 PART 2 — Export the Image for Server Deployment
+## PART 2 — Export the Image for Server Deployment
 
 Create a portable tar archive:
 
@@ -133,7 +133,7 @@ scp frappe-images-erp.tar user@server:/path/to/frappe_docker/
 
 ---
 
-## 🖥️ PART 3 — Load the Image on the Server
+## PART 3 — Load the Image on the Server
 
 On the server:
 
@@ -149,9 +149,9 @@ docker image ls | grep customerp
 
 ---
 
-## ⚙️ PART 4 — Update Configuration to Use the New Image
+## PART 4 — Update Configuration to Use the New Image
 
-### 1️⃣ Edit `custom.env`
+### 1⃣ Edit `custom.env`
 
 ```bash
 vi custom.env
@@ -164,7 +164,7 @@ CUSTOM_IMAGE=customerp
 CUSTOM_TAG=15
 ```
 
-⚠️ Do **not** change:
+Do **not** change:
 
 * Volume names
 * Database credentials
@@ -172,7 +172,7 @@ CUSTOM_TAG=15
 
 ---
 
-### 2️⃣ Re-generate the composed file
+### 2⃣ Re-generate the composed file
 
 ```bash
 docker compose --env-file custom.env -p frappe \
@@ -190,7 +190,7 @@ This ensures:
 
 ---
 
-## 🔻 PART 5 — Stop Services Safely
+## PART 5 — Stop Services Safely
 
 Stop all containers **without deleting volumes**:
 
@@ -206,7 +206,7 @@ Notes:
 
 ---
 
-## 🔼 PART 6 — Start Services with Scaling Restored
+## PART 6 — Start Services with Scaling Restored
 
 If you previously ran multiple backend containers, you **must re-apply scaling**.
 
@@ -231,11 +231,11 @@ frappe-backend-2
 
 ---
 
-## 🧩 PART 7 — Install the New App on Existing Sites
+## PART 7 — Install the New App on Existing Sites
 
 Even though the app code exists in the image, it must be **installed per site**.
 
-### 1️⃣ Enter a backend container
+### 1⃣ Enter a backend container
 
 ```bash
 docker compose -p frappe exec backend bash
@@ -243,7 +243,7 @@ docker compose -p frappe exec backend bash
 
 ---
 
-### 2️⃣ List sites
+### 2⃣ List sites
 
 ```bash
 ls sites
@@ -259,7 +259,7 @@ common_site_config.json
 
 ---
 
-### 3️⃣ Install app on each site
+### 3⃣ Install app on each site
 
 ```bash
 bench --site site1.local install-app erpnext
@@ -275,7 +275,7 @@ This:
 
 ---
 
-### 4️⃣ Enable scheduler (required for ERPNext)
+### 4⃣ Enable scheduler (required for ERPNext)
 
 ```bash
 bench --site site1.local set-config enable_scheduler 1
@@ -284,7 +284,7 @@ bench restart
 
 ---
 
-## 🌐 PART 8 — Access Verification
+## PART 8 — Access Verification
 
 Depending on your setup:
 
@@ -305,7 +305,7 @@ docker compose up -d
 
 ---
 
-## ❌ What NOT to Do (Critical Warnings)
+## What NOT to Do (Critical Warnings)
 
 | Action                                    | Why                     |
 | ----------------------------------------- | ----------------------- |
@@ -317,23 +317,23 @@ docker compose up -d
 
 ---
 
-## ✅ Final Checklist
+## Final Checklist
 
 | Item                       | Status |
 | -------------------------- | ------ |
-| New image built with apps  | ✅      |
-| Image verified (`ls apps`) | ✅      |
-| Image loaded on server     | ✅      |
-| `custom.env` updated       | ✅      |
-| Compose regenerated        | ✅      |
-| Services restarted         | ✅      |
-| Scaling restored           | ✅      |
-| App installed on site      | ✅      |
-| Scheduler enabled          | ✅      |
+| New image built with apps  |      |
+| Image verified (`ls apps`) |      |
+| Image loaded on server     |      |
+| `custom.env` updated       |      |
+| Compose regenerated        |      |
+| Services restarted         |      |
+| Scaling restored           |      |
+| App installed on site      |      |
+| Scheduler enabled          |      |
 
 ---
 
-## 🧭 Summary
+## Summary
 
 This workflow:
 

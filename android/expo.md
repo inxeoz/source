@@ -47,7 +47,7 @@ The connection method depends on how you start Expo.
 
 ---
 
-# 1️⃣ LAN Mode (Default) — Why It Failed
+# 1⃣ LAN Mode (Default) — Why It Failed
 
 When Expo shows something like:
 
@@ -85,7 +85,7 @@ But the phone cannot reach your computer.
 
 ---
 
-# 2️⃣ Tunnel Mode — Why It Also Failed
+# 2⃣ Tunnel Mode — Why It Also Failed
 
 Tunnel mode works differently:
 
@@ -112,7 +112,7 @@ Tunnel mode depends on external servers and network permissions. If those are bl
 
 ---
 
-# 3️⃣ Pressing `a` — Why It Triggered SDK Errors
+# 3⃣ Pressing `a` — Why It Triggered SDK Errors
 
 When you press:
 
@@ -142,7 +142,7 @@ If you're using Expo Go on a real device, you don’t need the SDK at all.
 
 ---
 
-# 4️⃣ Why `adb reverse tcp:8081 tcp:8081` Worked
+# 4⃣ Why `adb reverse tcp:8081 tcp:8081` Worked
 
 This command changes everything.
 

@@ -1,5 +1,5 @@
 ---
-title: "🐧 How to Run React Native on Arch Linux (and Fix Common Errors)"
+title: "How to Run React Native on Arch Linux (and Fix Common Errors)"
 date: 2026-01-27
 draft: false
 tags: ["react", "native", "run", "arch", "linux", "common", "errors"]
@@ -8,14 +8,14 @@ viewMode: docs
 showToc: true
 ---
 
-# 🐧 **How to Run React Native on Arch Linux (and Fix Common Errors)**
+# **How to Run React Native on Arch Linux (and Fix Common Errors)**
 
 React Native works beautifully on Arch Linux — but because Arch uses newer packages (Java, SDK Tools, etc.), developers often run into version mismatches or Gradle issues that do not appear on Ubuntu or macOS.
 This guide explains **how to correctly install the React Native Android toolchain on Arch**, run your app, and fix the most common errors.
 
 ---
 
-# ⚙️ **1. Install Required Packages on Arch**
+# **1. Install Required Packages on Arch**
 
 Install the base development environment:
 
@@ -28,7 +28,7 @@ Optional: use `nvm` or `fnm` to manage Node versions.
 
 ---
 
-# 📱 **2. Install Android Development Tools**
+# **2. Install Android Development Tools**
 
 ### Install JDK 17 (recommended for React Native 0.73+ and Expo SDK 50+):
 
@@ -70,7 +70,7 @@ sudo pacman -S android-sdk android-sdk-platform-tools android-sdk-build-tools an
 
 ---
 
-# 📁 **3. Set Environment Variables**
+# **3. Set Environment Variables**
 
 Add these to `~/.bashrc` or `~/.zshrc`:
 
@@ -93,7 +93,7 @@ source ~/.zshrc
 
 ---
 
-# 📦 **4. Install Required Android Packages**
+# **4. Install Required Android Packages**
 
 ```bash
 sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
@@ -104,7 +104,7 @@ sdkmanager --licenses
 
 ---
 
-# ▶️ **5. Create an Android Emulator**
+# ▶**5. Create an Android Emulator**
 
 ```bash
 avdmanager create avd -n pixel -k "system-images;android-34;default;x86_64"
@@ -113,7 +113,7 @@ emulator -avd pixel
 
 ---
 
-# 🚀 **6. Create and Run a React Native Project**
+# **6. Create and Run a React Native Project**
 
 ### Using React Native CLI
 
@@ -141,13 +141,13 @@ npm start   # or bun run android
 
 ---
 
-# ❗ **7. Fixing Common React Native Errors on Arch Linux**
+# **7. Fixing Common React Native Errors on Arch Linux**
 
 Because Arch Linux uses very fresh versions of Java, SDK tools, and kernel drivers, React Native often fails with errors like:
 
 ---
 
-## 🔥 **Error: Unsupported class file major version 69 / 70**
+## **Error: Unsupported class file major version 69 / 70**
 
 This means you are using **Java 19/20/21/25**, but React Native only supports **Java 17**.
 
@@ -161,7 +161,7 @@ java -version
 
 ---
 
-## 🔥 **Error: No connected device found**
+## **Error: No connected device found**
 
 Fix by:
 
@@ -181,7 +181,7 @@ adb devices
 
 ---
 
-## 🔥 **Error: Could not find SDK root / sdkmanager not found**
+## **Error: Could not find SDK root / sdkmanager not found**
 
 Fix:
 
@@ -199,7 +199,7 @@ export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
 
 ---
 
-## 🔥 **Error: NDK not found or missing source.properties**
+## **Error: NDK not found or missing source.properties**
 
 This happens A LOT on Arch when NDK downloads get interrupted.
 
@@ -220,7 +220,7 @@ mv android-ndk-r27b ~/Android/Sdk/ndk/27.1.12297006
 
 ---
 
-## 🔥 **Error: Build stuck at 9% / 27% CONFIGURING**
+## **Error: Build stuck at 9% / 27% CONFIGURING**
 
 This happens because:
 
@@ -244,7 +244,7 @@ Then rebuild:
 
 ---
 
-## 🔥 **Error: Gradle build extremely slow**
+## **Error: Gradle build extremely slow**
 
 Create `~/.gradle/gradle.properties`:
 
@@ -260,7 +260,7 @@ Speeds builds by 5–10×.
 
 ---
 
-# 📦 **8. Creating a Release APK (React Native / Expo)**
+# **8. Creating a Release APK (React Native / Expo)**
 
 ### React Native CLI:
 
@@ -287,12 +287,12 @@ cd android
 
 ---
 
-# 🎯 Final Tips for Arch Linux Users
+# Final Tips for Arch Linux Users
 
-✔ Always use **Java 17**
-✔ Use the **latest cmdline-tools**
-✔ Only install **NDK 27.X** unless your project requires another version
-✔ Don’t interrupt `gradlew` — it corrupts caches
-✔ If something is weird: delete `~/.gradle/caches` and rebuild
+Always use **Java 17**
+Use the **latest cmdline-tools**
+Only install **NDK 27.X** unless your project requires another version
+Don’t interrupt `gradlew` — it corrupts caches
+If something is weird: delete `~/.gradle/caches` and rebuild
 
 ---

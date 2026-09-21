@@ -32,7 +32,7 @@ showToc: false
 ## Select a game
 
 <details id="g-snake">
-<summary>🐍 Snake</summary>
+<summary>Snake</summary>
 <div class="game-body">
 <canvas id="snakeCanvas" width="400" height="400"></canvas>
 <div class="game-controls">
@@ -44,7 +44,7 @@ showToc: false
 </details>
 
 <details id="g-tetris">
-<summary>🧱 Tetris</summary>
+<summary>Tetris</summary>
 <div class="game-body">
 <canvas id="tetrisCanvas" width="300" height="600"></canvas>
 <div class="game-controls">
@@ -56,7 +56,7 @@ showToc: false
 </details>
 
 <details id="g-pong">
-<summary>🏓 Pong</summary>
+<summary>Pong</summary>
 <div class="game-body">
 <canvas id="pongCanvas" width="600" height="400"></canvas>
 <div class="game-controls">
@@ -68,7 +68,7 @@ showToc: false
 </details>
 
 <details id="g-breakout">
-<summary>🧱 Breakout</summary>
+<summary>Breakout</summary>
 <div class="game-body">
 <canvas id="breakoutCanvas" width="480" height="360"></canvas>
 <div class="game-controls">
@@ -80,7 +80,7 @@ showToc: false
 </details>
 
 <details id="g-minesweeper">
-<summary>💣 Minesweeper</summary>
+<summary>Minesweeper</summary>
 <div class="game-body">
 <canvas id="mineCanvas" width="360" height="360"></canvas>
 <div class="game-controls">
@@ -440,7 +440,7 @@ class MineGame {
   reveal(r,c) {
     if(r<0||r>=this.rows||c<0||c>=this.cols||this.revealed[r][c]||this.flagged[r][c]) return;
     this.revealed[r][c]=true;
-    if(this.board[r][c]===-1) { this.gameOver=true; this.draw(); document.getElementById('mineStatus').textContent='💥 Game Over! Click New Game'; return; }
+    if(this.board[r][c]===-1) { this.gameOver=true; this.draw(); document.getElementById('mineStatus').textContent='Game Over! Click New Game'; return; }
     if(this.board[r][c]===0) for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++) this.reveal(r+dr,c+dc);
     this.checkWin();
   }
@@ -448,7 +448,7 @@ class MineGame {
     let total=0,rev=0;
     for(let r=0;r<this.rows;r++) for(let c=0;c<this.cols;c++) { total++; if(this.revealed[r][c]||this.flagged[r][c]) rev++; }
     this.won=(total-rev)===this.mines;
-    if(this.won) document.getElementById('mineStatus').textContent='🎉 You Win!';
+    if(this.won) document.getElementById('mineStatus').textContent='You Win!';
     else document.getElementById('mineStatus').textContent='Keep going...';
   }
   bindMouse() {
@@ -468,13 +468,13 @@ class MineGame {
     const ctx=this.ctx, bs=this.bs;
     for(let r=0;r<this.rows;r++) for(let c=0;c<this.cols;c++) {
       ctx.fillStyle=this.revealed[r][c]?'#2a2a2a':'#333'; ctx.fillRect(c*bs,r*bs,bs-1,bs-1);
-      if(this.flagged[r][c]) { ctx.fillStyle='#ff4444'; ctx.font='16px monospace'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('🚩',c*bs+bs/2,r*bs+bs/2); }
+      if(this.flagged[r][c]) { ctx.fillStyle='#ff4444'; ctx.font='16px monospace'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('',c*bs+bs/2,r*bs+bs/2); }
       else if(this.revealed[r][c]) {
-        if(this.board[r][c]===-1) { ctx.fillStyle='#ff0000'; ctx.font='16px monospace'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('💣',c*bs+bs/2,r*bs+bs/2); }
+        if(this.board[r][c]===-1) { ctx.fillStyle='#ff0000'; ctx.font='16px monospace'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('',c*bs+bs/2,r*bs+bs/2); }
         else if(this.board[r][c]>0) { ctx.fillStyle=['#fff','#4d96ff','#6bcb77','#ff6b6b','#9b59b6','#ffd93d','#ff9ff3','#54a0ff','#5f27cd'][this.board[r][c]]; ctx.font='bold 14px monospace'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(this.board[r][c],c*bs+bs/2,r*bs+bs/2); }
       }
     }
-    if(this.gameOver) for(let r=0;r<this.rows;r++) for(let c=0;c<this.cols;c++) if(this.board[r][c]===-1&&!this.revealed[r][c]) { ctx.fillStyle='#cc4444'; ctx.font='14px monospace'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('💣',c*bs+bs/2,r*bs+bs/2); }
+    if(this.gameOver) for(let r=0;r<this.rows;r++) for(let c=0;c<this.cols;c++) if(this.board[r][c]===-1&&!this.revealed[r][c]) { ctx.fillStyle='#cc4444'; ctx.font='14px monospace'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('',c*bs+bs/2,r*bs+bs/2); }
   }
   stop() { this.canvas.removeEventListener('mousedown',this._click); this.canvas.removeEventListener('contextmenu',this._cm); }
 }

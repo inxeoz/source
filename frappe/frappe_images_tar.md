@@ -20,7 +20,7 @@ This article explains **how to deploy Docker applications in an offline / air-ga
 
 We specifically base this workflow on the official repository:
 
-👉 **[https://github.com/frappe/frappe_docker](https://github.com/frappe/frappe_docker)**
+**[https://github.com/frappe/frappe_docker](https://github.com/frappe/frappe_docker)**
 
 The same approach applies to **any Docker Compose–based system**, not just Frappe.
 
@@ -336,19 +336,19 @@ http://<server-ip>:8080
 
 ## 13. Common Offline Mistakes
 
-### ❌ Missing Image
+### Missing Image
 
 **Fix:** Rebuild TAR including that image.
 
 ---
 
-### ❌ Docker tries to pull
+### Docker tries to pull
 
 **Fix:** Always use `--pull=never`.
 
 ---
 
-### ❌ Frontend restarting
+### Frontend restarting
 
 **Fix:**
 
@@ -358,7 +358,7 @@ http://<server-ip>:8080
 
 ---
 
-### ❌ “Works online, fails offline”
+### “Works online, fails offline”
 
 **Cause:** Hidden dependency not exported.
 

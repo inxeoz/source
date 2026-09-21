@@ -40,19 +40,19 @@ This article explains **exactly how to export EVERYTHING created via the UI**, t
 
 Frappe stores data in **three layers**:
 
-### 1️⃣ Code (filesystem)
+### 1⃣ Code (filesystem)
 
 * DocTypes
 * Reports
 * Pages
 * Web Forms
 
-📌 These are exported as **files**
-📌 Only if they belong to your app module
+These are exported as **files**
+Only if they belong to your app module
 
 ---
 
-### 2️⃣ Configuration records (database)
+### 2⃣ Configuration records (database)
 
 * Custom Field
 * Property Setter
@@ -63,18 +63,18 @@ Frappe stores data in **three layers**:
 * Dashboard
 * Notification
 
-📌 Stored in DB
-📌 Exported using **fixtures**
+Stored in DB
+Exported using **fixtures**
 
 ---
 
-### 3️⃣ Business / master data (database rows)
+### 3⃣ Business / master data (database rows)
 
 * Master data (District, Type, Category, etc.)
 * Business documents (Applications, Citizens, etc.)
 
-📌 Stored in DB
-📌 Exported using **fixtures (with filters)**
+Stored in DB
+Exported using **fixtures (with filters)**
 
 ---
 
@@ -94,7 +94,7 @@ If module is wrong:
 
 ## 3. CRITICAL STEP: Converting UI DocTypes into app DocTypes (`custom = 0`)
 
-### ❓ Why this is needed
+### Why this is needed
 
 When a DocType is created from the UI, Frappe marks it as:
 
@@ -118,27 +118,27 @@ custom = 0
 
 ---
 
-### ✅ When you SHOULD set `custom = 0`
+### When you SHOULD set `custom = 0`
 
-✔ You created the DocType via UI
-✔ The DocType belongs permanently to your app
-✔ You want it versioned, exported, and installed elsewhere
+You created the DocType via UI
+The DocType belongs permanently to your app
+You want it versioned, exported, and installed elsewhere
 
 This is the **correct approach for production apps**.
 
 ---
 
-### ❌ When you should NOT do this
+### When you should NOT do this
 
-❌ DocTypes created only for a single site
-❌ Temporary or experimental DocTypes
-❌ Customer-specific customizations
+DocTypes created only for a single site
+Temporary or experimental DocTypes
+Customer-specific customizations
 
 Those should remain `custom = 1`.
 
 ---
 
-### 🔧 How to convert UI-created DocTypes to app DocTypes
+### How to convert UI-created DocTypes to app DocTypes
 
 Run this **once** in bench console:
 
@@ -161,9 +161,9 @@ Then run:
 bench --site yoursite migrate
 ```
 
-✅ Your DocTypes are now **first-class app DocTypes**
-✅ They will export cleanly
-✅ They will install correctly on other sites
+Your DocTypes are now **first-class app DocTypes**
+They will export cleanly
+They will install correctly on other sites
 
 ---
 

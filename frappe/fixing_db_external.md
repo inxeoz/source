@@ -22,7 +22,7 @@ showToc: true
 
 ---
 
-## 🔴 The Problem
+## The Problem
 
 While installing ERPNext on a new site:
 
@@ -41,19 +41,19 @@ ERPNext could not connect to the database.
 
 ---
 
-## 🟡 Impact Analysis
+## Impact Analysis
 
-* ❌ ERPNext installation blocked
-* ❌ Only **one site (`s3`) affected**
-* ✅ Other sites (`s1`, `s2`) working
-* ✅ No data loss
-* ✅ No service outage
+* ERPNext installation blocked
+* Only **one site (`s3`) affected**
+* Other sites (`s1`, `s2`) working
+* No data loss
+* No service outage
 
 This is a **database authentication issue**, not an ERPNext bug.
 
 ---
 
-## 🧠 Root Cause (Important)
+## Root Cause (Important)
 
 MariaDB user `s3_db` existed, but it was **bound to a single Docker IP**:
 
@@ -70,13 +70,13 @@ Meanwhile, the Frappe backend container connected from:
 Docker assigns IPs dynamically.
 MariaDB treats each IP as a **different host**.
 
-➡️ Result: **Access denied**, even with the correct password.
+Result: **Access denied**, even with the correct password.
 
 ---
 
-## 🔍 Verification Steps (Read-Only, Safe)
+## Verification Steps (Read-Only, Safe)
 
-### 1️⃣ Check site database configuration
+### 1⃣ Check site database configuration
 
 Inside backend container:
 
@@ -97,7 +97,7 @@ Example output:
 
 ---
 
-### 2️⃣ Identify the correct MariaDB container
+### 2⃣ Identify the correct MariaDB container
 
 On the host:
 
@@ -111,14 +111,14 @@ Relevant output:
 mariadb-s3   mariadb:11.8   Up
 ```
 
-⚠️ **Container name matters**
+**Container name matters**
 `mariadb-s3` ≠ `mariadb_s3`
 
 ---
 
-## 🛠️ Safe Fix (No Restarts, No Data Loss)
+## Safe Fix (No Restarts, No Data Loss)
 
-### ⚠️ Preconditions
+### Preconditions
 
 * You are on the Docker host
 * You know the **MariaDB root password**
@@ -126,7 +126,7 @@ mariadb-s3   mariadb:11.8   Up
 
 ---
 
-### 3️⃣ Enter the MariaDB container
+### 3⃣ Enter the MariaDB container
 
 ```bash
 docker exec -it mariadb-s3 mariadb -u root -p
@@ -134,7 +134,7 @@ docker exec -it mariadb-s3 mariadb -u root -p
 
 ---
 
-### 4️⃣ Inspect the existing user (read-only)
+### 4⃣ Inspect the existing user (read-only)
 
 ```sql
 SELECT Host, User FROM mysql.user WHERE User='s3_db';
@@ -150,11 +150,11 @@ Output:
 +------------+-------+
 ```
 
-✅ Confirms the problem: user restricted to one IP.
+Confirms the problem: user restricted to one IP.
 
 ---
 
-### 5️⃣ Create a wildcard user (correct approach)
+### 5⃣ Create a wildcard user (correct approach)
 
 ```sql
 CREATE USER 's3_db'@'%' IDENTIFIED BY 'hsWcj7II1yEoSqZC';
@@ -167,7 +167,7 @@ Why `%`?
 
 ---
 
-### 6️⃣ Grant database privileges
+### 6⃣ Grant database privileges
 
 ```sql
 GRANT ALL PRIVILEGES ON s3_db.* TO 's3_db'@'%';
@@ -176,7 +176,7 @@ FLUSH PRIVILEGES;
 
 ---
 
-### 7️⃣ (Optional) Remove the IP-locked user
+### 7⃣ (Optional) Remove the IP-locked user
 
 This prevents future confusion.
 
@@ -185,11 +185,11 @@ DROP USER 's3_db'@'172.21.0.8';
 FLUSH PRIVILEGES;
 ```
 
-⚠️ Safe **only because `%` user already exists**
+Safe **only because `%` user already exists**
 
 ---
 
-## ✅ Mandatory Verification (Do NOT Skip)
+## Mandatory Verification (Do NOT Skip)
 
 Exit MariaDB:
 
@@ -213,7 +213,7 @@ If this fails → stop and fix DB first.
 
 ---
 
-## 🚀 Final Step: Install ERPNext
+## Final Step: Install ERPNext
 
 Enter backend container:
 
@@ -231,7 +231,7 @@ This should now complete successfully.
 
 ---
 
-## ✅ Post-Install Verification
+## Post-Install Verification
 
 ```bash
 bench --site s3.inxeoz.com list-apps
@@ -246,26 +246,26 @@ erpnext
 
 ---
 
-## ❌ What NOT To Do (Production Rules)
+## What NOT To Do (Production Rules)
 
-* ❌ Do NOT bind DB users to Docker IPs
-* ❌ Do NOT use `'user'@'localhost'`
-* ❌ Do NOT delete databases
-* ❌ Do NOT recreate the site
-* ❌ Do NOT restart MariaDB or Docker
-* ❌ Do NOT guess passwords
+* Do NOT bind DB users to Docker IPs
+* Do NOT use `'user'@'localhost'`
+* Do NOT delete databases
+* Do NOT recreate the site
+* Do NOT restart MariaDB or Docker
+* Do NOT guess passwords
 
 ---
 
-## 🧠 Key Lessons (Critical)
+## Key Lessons (Critical)
 
-### ✅ Correct pattern for Docker + Frappe
+### Correct pattern for Docker + Frappe
 
 ```sql
 'user'@'%'
 ```
 
-### ❌ Incorrect patterns
+### Incorrect patterns
 
 ```sql
 'user'@'172.21.x.x'
@@ -277,7 +277,7 @@ MariaDB authentication **must be flexible**.
 
 ---
 
-## 📌 Quick Checklist for Future Sites
+## Quick Checklist for Future Sites
 
 Before installing apps:
 

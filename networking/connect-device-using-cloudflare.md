@@ -116,13 +116,13 @@ Or from Linux, connect to a service running on Android using its Cloudflare-assi
 
 You don't need to configure:
 
-* ❌ Port forwarding
-* ❌ Public IP
-* ❌ VPN server
-* ❌ Router configuration
-* ❌ `cloudflared` tunnel
-* ❌ Mesh node
-* ❌ Wi-Fi subnet routing
+* Port forwarding
+* Public IP
+* VPN server
+* Router configuration
+* `cloudflared` tunnel
+* Mesh node
+* Wi-Fi subnet routing
 
 The important part is simply:
 

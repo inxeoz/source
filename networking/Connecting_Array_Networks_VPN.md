@@ -94,7 +94,7 @@ Key idea:
    - Username / Password / MFA as required
 4. Connect successfully
 
-✅ At this point, **the phone itself can access internal resources**
+At this point, **the phone itself can access internal resources**
 
 ------
 
@@ -132,7 +132,7 @@ Choose a password (this is local to Termux).
 
 ## Step 4: Start the SSH Daemon (Important Detail)
 
-⚠️ **Termux cannot bind to port 22** (Android restriction).
+**Termux cannot bind to port 22** (Android restriction).
 It uses **port 8022**.
 
 Start SSH daemon explicitly:
@@ -164,7 +164,7 @@ ssh -p 8022 -g -D 1080 -N localhost
 - `-N` → no shell, proxy only
 - `localhost` → connects to Termux SSH server
 
-⚠️ **Leave this process running**
+**Leave this process running**
 Do not close Termux.
 
 ------
@@ -277,7 +277,7 @@ If credentials are correct, you’ll land on:
 [root@internal-host ~]#
 ```
 
-🎉 You are inside the internal network.
+You are inside the internal network.
 
 ------
 
@@ -308,22 +308,22 @@ ssh corp-rhv
 
 ## What Works Through This Setup
 
-✅ SSH
-✅ curl / wget
-✅ Browsers (Firefox SOCKS proxy)
-✅ Git / npm / pip (with proxy config)
-✅ Databases and internal APIs
-✅ ERP / internal dashboards
+SSH
+curl / wget
+Browsers (Firefox SOCKS proxy)
+Git / npm / pip (with proxy config)
+Databases and internal APIs
+ERP / internal dashboards
 
 ------
 
 ## What Does NOT Work (By Design)
 
-❌ `ping`
-❌ Raw routing
-❌ Linux VPN clients (OpenConnect, etc.)
-❌ Sharing Android VPN without proxy
-❌ Reusing MotionPro hardware IDs
+`ping`
+Raw routing
+Linux VPN clients (OpenConnect, etc.)
+Sharing Android VPN without proxy
+Reusing MotionPro hardware IDs
 
 ------
 

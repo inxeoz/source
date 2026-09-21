@@ -399,8 +399,8 @@ A collapsible block for supplemental content — ingredient lists, optional step
 Positional argument is the score; `max` is optional (defaults to 5).
 
 ```
-{{</* rating 8 10 */>}}    →  ★★★★★★★★☆☆  8/10
-{{</* rating 4 5 */>}}           →  ★★★★☆        4/5
+{{</* rating 8 10 */>}}    →   8/10
+{{</* rating 4 5 */>}}           →         4/5
 ```
 
 ### Keyboard Keys

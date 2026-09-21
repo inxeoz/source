@@ -1684,7 +1684,7 @@ def numerical_grad_params(params, E, PE, token_ids, correct_idx, h=1e-4):
         grads.append(layer_grads)
     return grads
 
-# ⚠ WARNING: this loop is SLOW — it calls forward() twice per parameter
+# WARNING: this loop is SLOW — it calls forward() twice per parameter
 # per step. We train only the embedding table E for demonstration.
 # Real training uses automatic differentiation (PyTorch, JAX) which
 # computes all gradients in one backward pass, not one param at a time.

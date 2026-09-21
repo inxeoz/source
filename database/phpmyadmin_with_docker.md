@@ -1,5 +1,5 @@
 ---
-title: "🐳 Running phpMyAdmin with Docker on Linux (Fast + Correct Setup)"
+title: "Running phpMyAdmin with Docker on Linux (Fast + Correct Setup)"
 date: 2026-04-29
 draft: false
 tags: ["phpmyadmin", "docker", "running", "linux", "fast", "correct"]
@@ -10,13 +10,13 @@ showToc: true
 
 
 
-# 🐳 Running phpMyAdmin with Docker on Linux (Fast + Correct Setup)
+# Running phpMyAdmin with Docker on Linux (Fast + Correct Setup)
 
 Running **phpMyAdmin** with Docker on Linux isn’t hard—but most guides miss key details around networking *and performance*. This version gets you a **working + fast setup**.
 
 ---
 
-# ⚡ 1. The goal
+# 1. The goal
 
 You have:
 
@@ -26,7 +26,7 @@ You have:
 
 ---
 
-# 🚀 2. The correct minimal command (modern)
+# 2. The correct minimal command (modern)
 
 ```bash
 docker run -d \
@@ -37,11 +37,11 @@ docker run -d \
   phpmyadmin
 ```
 
-👉 This is the **correct replacement** for using raw bridge IPs like `10.x.x.x`.
+This is the **correct replacement** for using raw bridge IPs like `10.x.x.x`.
 
 ---
 
-# 🧠 3. Key concept (this changed everything)
+# 3. Key concept (this changed everything)
 
 Old approach:
 
@@ -55,11 +55,11 @@ New (correct) approach:
 Container → host.docker.internal → DB
 ```
 
-👉 Cleaner, more stable, less latency.
+Cleaner, more stable, less latency.
 
 ---
 
-# ❌ 4. Common errors (and real causes)
+# 4. Common errors (and real causes)
 
 ### 1. `host.docker.internal` not working
 
@@ -67,7 +67,7 @@ Container → host.docker.internal → DB
 getaddrinfo failed
 ```
 
-👉 Fix: add
+Fix: add
 
 ```bash
 --add-host=host.docker.internal:host-gateway
@@ -77,7 +77,7 @@ getaddrinfo failed
 
 ### 2. Infinite loading / slow UI
 
-👉 Not networking anymore—it’s usually:
+Not networking anymore—it’s usually:
 
 * DNS lookup delay in MariaDB
 * low buffer pool
@@ -91,17 +91,17 @@ getaddrinfo failed
 getaddrinfo failed
 ```
 
-👉 Happens when pointing to unrelated containers (e.g., frappe DB)
+Happens when pointing to unrelated containers (e.g., frappe DB)
 
 ---
 
 ### 4. Connection hang
 
-👉 Usually firewall—but less common if using `host.docker.internal`
+Usually firewall—but less common if using `host.docker.internal`
 
 ---
 
-# 🔓 5. MariaDB must be reachable
+# 5. MariaDB must be reachable
 
 Edit config:
 
@@ -124,7 +124,7 @@ sudo systemctl restart mariadb
 
 ---
 
-## 👤 Allow access
+## Allow access
 
 ```sql
 CREATE USER 'admin'@'%' IDENTIFIED BY 'admin123';
@@ -134,7 +134,7 @@ FLUSH PRIVILEGES;
 
 ---
 
-# ⚡ 6. **Critical performance fix (MOST IMPORTANT)**
+# 6. **Critical performance fix (MOST IMPORTANT)**
 
 Without this, phpMyAdmin feels slow even if everything “works”.
 
@@ -161,18 +161,18 @@ sudo systemctl restart mariadb
 
 ---
 
-## 🧠 Why this matters
+## Why this matters
 
 | Problem      | Effect               |
 | ------------ | -------------------- |
 | DNS lookup   | delay on every query |
 | small buffer | disk reads (slow)    |
 
-👉 These cause the “laggy clicks” feeling.
+These cause the “laggy clicks” feeling.
 
 ---
 
-# 🔥 7. Firewall (only if needed)
+# 7. Firewall (only if needed)
 
 If connection fails:
 
@@ -180,11 +180,11 @@ If connection fails:
 sudo ufw allow from 172.17.0.0/16 to any port 3306
 ```
 
-👉 Docker default subnet
+Docker default subnet
 
 ---
 
-# 🧪 8. Test connection
+# 8. Test connection
 
 ```bash
 docker exec -it phpmyadmin bash
@@ -192,7 +192,7 @@ apt update && apt install -y netcat-openbsd
 nc -zv host.docker.internal 3306
 ```
 
-✅ Expect:
+Expect:
 
 ```
 succeeded
@@ -200,7 +200,7 @@ succeeded
 
 ---
 
-# 🌍 9. Access
+# 9. Access
 
 ```
 http://localhost:8080
@@ -208,7 +208,7 @@ http://localhost:8080
 
 ---
 
-# ⚡ 10. Make phpMyAdmin faster (optional but recommended)
+# 10. Make phpMyAdmin faster (optional but recommended)
 
 ```bash
 docker run -d \
@@ -220,11 +220,11 @@ docker run -d \
   phpmyadmin
 ```
 use ``--restart always`` for automatic start at boot
-👉 Enables PHP caching → faster UI
+Enables PHP caching → faster UI
 
 ---
 
-# 🧠 11. Why it was slow before
+# 11. Why it was slow before
 
 | Issue        | Cause                                     |
 | ------------ | ----------------------------------------- |
@@ -235,7 +235,7 @@ use ``--restart always`` for automatic start at boot
 
 ---
 
-# ⚠️ 12. Security notes
+# 12. Security notes
 
 * Don’t expose port 3306 publicly
 * Use non-root user
@@ -243,7 +243,7 @@ use ``--restart always`` for automatic start at boot
 
 ---
 
-# 🧩 13. Optional docker-compose
+# 13. Optional docker-compose
 
 ```yaml
 version: '3'
@@ -262,12 +262,12 @@ services:
 
 ---
 
-# 🎯 Final takeaway
+# Final takeaway
 
 On Linux, the real solution is:
 
-👉 Use `host.docker.internal` (not raw IPs)
-👉 Disable DNS lookups in MariaDB
-👉 Increase buffer pool
+Use `host.docker.internal` (not raw IPs)
+Disable DNS lookups in MariaDB
+Increase buffer pool
 
 Everything else is secondary.

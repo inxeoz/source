@@ -1,5 +1,5 @@
 ---
-title: "📌 Cloudflare WARP (`warp-cli`) Split-Tunneling — Key Notes"
+title: "Cloudflare WARP (`warp-cli`) Split-Tunneling — Key Notes"
 date: 2026-01-27
 draft: false
 tags: ["warp", "cli", "cloudflare", "split", "tunneling", "key", "notes"]
@@ -8,11 +8,11 @@ viewMode: docs
 showToc: true
 ---
 
-# 📌 Cloudflare WARP (`warp-cli`) Split-Tunneling — Key Notes
+# Cloudflare WARP (`warp-cli`) Split-Tunneling — Key Notes
 
 ---
 
-## 🧠 Core facts (most important)
+## Core facts (most important)
 
 * Your `warp-cli` version:
 
@@ -28,18 +28,18 @@ showToc: true
 
 ---
 
-## 🎯 Routing behavior (final result)
+## Routing behavior (final result)
 
 | Traffic type             | Route                     |
 | ------------------------ | ------------------------- |
-| Public internet          | ✅ via **WARP**            |
-| Private IPs (10/172/192) | ❌ bypass WARP             |
-| `localhost / 127.0.0.1`  | ❌ never goes through WARP |
-| Excluded public IPs      | ❌ bypass WARP             |
+| Public internet          | via **WARP**            |
+| Private IPs (10/172/192) | bypass WARP             |
+| `localhost / 127.0.0.1`  | never goes through WARP |
+| Excluded public IPs      | bypass WARP             |
 
 ---
 
-## ✅ Commands that WORK (copy-paste safe)
+## Commands that WORK (copy-paste safe)
 
 ### Set WARP mode
 
@@ -65,7 +65,7 @@ warp-cli tunnel ip add 103.86.26.3
 warp-cli tunnel ip add 172.18.210.49
 ```
 
-📌 These IPs will **bypass WARP**
+These IPs will **bypass WARP**
 
 ---
 
@@ -90,7 +90,7 @@ warp-cli status
 
 ---
 
-## ❌ Commands that do NOT work (by design)
+## Commands that do NOT work (by design)
 
 ```bash
 warp-cli split-tunnel ...
@@ -107,7 +107,7 @@ Reason:
 
 ---
 
-## 🔍 Verification commands (kernel-level truth)
+## Verification commands (kernel-level truth)
 
 ### See routing decision for a specific IP
 
@@ -118,7 +118,7 @@ ip route get 103.86.26.3
 Expected:
 
 * Normal NIC (`eth0` / `wlan0`)
-* ❌ not `warp0`
+* not `warp0`
 
 ---
 
@@ -144,7 +144,7 @@ ip route show table all
 
 ---
 
-## 🧪 Traffic proof (optional)
+## Traffic proof (optional)
 
 ```bash
 sudo tcpdump -i warp0 host 103.86.26.3
@@ -154,7 +154,7 @@ Should show **no traffic**.
 
 ---
 
-## 🌐 URL vs routing (important concept)
+## URL vs routing (important concept)
 
 Routing only cares about:
 
@@ -168,11 +168,11 @@ Everything after the IP:
 /prx/000/http/localhost/login/index.html
 ```
 
-➡ **Application layer**, irrelevant to routing.
+**Application layer**, irrelevant to routing.
 
 ---
 
-## 🧠 Why `warp-cli tunnel dump` looks long / duplicated
+## Why `warp-cli tunnel dump` looks long / duplicated
 
 It includes:
 
@@ -186,7 +186,7 @@ Duplicates are **normal and harmless**.
 
 ---
 
-## 🚦 Policy reality (no workaround)
+## Policy reality (no workaround)
 
 If you see:
 

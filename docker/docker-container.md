@@ -12,7 +12,7 @@ showToc: true
 
 ---
 
-## ⚙️ 1. What is a Docker Container?
+## 1. What is a Docker Container?
 
 A **container** is a running instance of a **Docker image** — a lightweight, isolated environment that can hold your software, tools, and files.
 
@@ -23,7 +23,7 @@ When you stop or delete a container, your data and changes can vanish — unless
 
 ---
 
-## 📦 2. Creating and Running a Container
+## 2. Creating and Running a Container
 
 To start a container interactively:
 
@@ -42,7 +42,7 @@ You’ll now be inside the container’s terminal (`root@containerID:/#`).
 
 ---
 
-## 🔄 3. Creating a Named Container (for Persistence)
+## 3. Creating a Named Container (for Persistence)
 
 If you don’t name your container, Docker gives it a random name.
 You can assign your own with `--name` so you can reopen it later.
@@ -63,11 +63,11 @@ Later, restart it and reattach with:
 docker start -ai myubuntu
 ```
 
-✅ All files and installed packages will still be there.
+All files and installed packages will still be there.
 
 ---
 
-## 💾 4. Making Data Persistent (Volumes)
+## 4. Making Data Persistent (Volumes)
 
 By default, container files live *inside* the container — so if it’s removed, data is gone.
 You can **mount a directory from your host** to the container using `-v`.
@@ -85,7 +85,7 @@ Now, anything you save in `/root/data` is stored *on your host system* — even 
 
 ---
 
-## 🌐 5. Mapping Ports (Accessing Apps from Host)
+## 5. Mapping Ports (Accessing Apps from Host)
 
 If your container runs a web server or service (like mdserve, Flask, etc.), you’ll need to map its ports to the host system.
 
@@ -100,7 +100,7 @@ docker run -it -p 8000:8000 ubuntu:22.04 bash
 
 ---
 
-## 🧱 6. Saving Changes (Committing a Container)
+## 6. Saving Changes (Committing a Container)
 
 When you customize a container (install software, edit configs, etc.), you can **commit** it to save the state as a new image.
 
@@ -118,7 +118,7 @@ This creates a new container with all your changes already baked in — like a s
 
 ---
 
-## 🕹️ 7. Running a Specific Commit
+## 7. Running a Specific Commit
 
 Each commit you make creates a **new image layer**, identified by an **image ID** or tag.
 
@@ -145,7 +145,7 @@ docker run -it myubuntu:custom bash
 
 ---
 
-## 🧹 8. Removing Containers and Images
+## 8. Removing Containers and Images
 
 Over time, you may accumulate old containers or images.
 Here’s how to clean up safely.
@@ -176,7 +176,7 @@ docker system prune -a
 
 ---
 
-## 🧩 9. Running a Container Again by Name
+## 9. Running a Container Again by Name
 
 If you used `--name`, you can easily restart your container later.
 
@@ -192,11 +192,11 @@ That’s shorthand for:
 * `-a` → attach to it (see output)
 * `-i` → interactive (so you can type commands)
 
-✅ You’ll be dropped back into your previous environment instantly.
+You’ll be dropped back into your previous environment instantly.
 
 ---
 
-## ⚡ 10. Quick Reference Summary
+## 10. Quick Reference Summary
 
 | Task                         | Command                                  | Description                          |
 | ---------------------------- | ---------------------------------------- | ------------------------------------ |
@@ -213,7 +213,7 @@ That’s shorthand for:
 
 ---
 
-## 🧠 Bonus Tips
+## Bonus Tips
 
 * Use `--rm` **only for temporary** testing containers (it auto-deletes after exit).
 * Always **commit** after large configuration changes.

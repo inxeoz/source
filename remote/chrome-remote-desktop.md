@@ -14,7 +14,7 @@ Complete Guide to Chrome Remote Desktop
 
 ---
 
-## 🌐 What is Chrome Remote Desktop?
+## What is Chrome Remote Desktop?
 
 Chrome Remote Desktop lets you control a computer from anywhere through a browser. It works across platforms—Linux, Windows, macOS, even mobile.
 
@@ -24,23 +24,23 @@ Think of it as:
 
 ---
 
-# ⚙️ PART 1 — Setting up Chrome Remote Desktop (Host machine)
+# PART 1 — Setting up Chrome Remote Desktop (Host machine)
 
 This is the machine you want to access remotely (your Arch Linux system).
 
 ---
 
-## 🧱 Step 1: Install required packages (Linux / Arch)
+## Step 1: Install required packages (Linux / Arch)
 
 ```bash
 sudo pacman -S xfce4 xfce4-goodies xorg-server-xvfb xorg-xauth xorg-xsetroot
 ```
 
-👉 XFCE is used because it’s lightweight and stable for remote sessions.
+XFCE is used because it’s lightweight and stable for remote sessions.
 
 ---
 
-## 🧾 Step 2: Configure session file
+## Step 2: Configure session file
 
 ```bash
 nano ~/.chrome-remote-desktop-session
@@ -53,18 +53,18 @@ export $(dbus-launch)
 exec startxfce4
 ```
 
-👉 This ensures:
+This ensures:
 
 * proper desktop session
 * working DBus (fixes crashes, audio issues)
 
 ---
 
-## 🔐 Step 3: Register your machine
+## Step 3: Register your machine
 
 Go to:
 
-👉 [https://remotedesktop.google.com/headless/](https://remotedesktop.google.com/headless/)
+[https://remotedesktop.google.com/headless/](https://remotedesktop.google.com/headless/)
 
 Copy the command and run it:
 
@@ -79,7 +79,7 @@ You will:
 
 ---
 
-## ⚙️ Step 4: Start the service
+## Step 4: Start the service
 
 ```bash
 systemctl enable chrome-remote-desktop@$USER
@@ -100,14 +100,14 @@ Active: active (running)
 
 ---
 
-# 🔗 PART 2 — Access your computer (from Windows)
+# PART 2 — Access your computer (from Windows)
 
 On the Windows machine:
 
 ### Option A: Browser (easiest)
 
 Open:
-👉 [https://remotedesktop.google.com/access](https://remotedesktop.google.com/access)
+[https://remotedesktop.google.com/access](https://remotedesktop.google.com/access)
 
 Steps:
 
@@ -122,11 +122,11 @@ Steps:
 * Google Chrome
 * Microsoft Edge
 
-👉 Best compatibility and performance.
+Best compatibility and performance.
 
 ---
 
-## 🧠 What happens behind the scenes
+## What happens behind the scenes
 
 * Linux runs a virtual display (`:20`)
 * XFCE desktop starts
@@ -134,16 +134,16 @@ Steps:
 
 ---
 
-# 🧑‍🤝‍🧑 PART 3 — Share your screen with another user
+# ‍‍PART 3 — Share your screen with another user
 
 You have **two methods**, depending on your goal.
 
 ---
 
-## 🔐 Method 1: Temporary sharing (recommended)
+## Method 1: Temporary sharing (recommended)
 
 Go to:
-👉 [https://remotedesktop.google.com/support](https://remotedesktop.google.com/support)
+[https://remotedesktop.google.com/support](https://remotedesktop.google.com/support)
 
 ### On your machine:
 
@@ -155,11 +155,11 @@ Go to:
 1. Enter that code
 2. Instantly connect
 
-👉 No account sharing required.
+No account sharing required.
 
 ---
 
-## 👥 Method 2: Permanent access
+## Method 2: Permanent access
 
 If you trust the user:
 
@@ -175,7 +175,7 @@ Then they:
 
 ---
 
-## ⚠️ Important behavior
+## Important behavior
 
 * Only **one session per host**
 * All users see the **same desktop**
@@ -183,7 +183,7 @@ Then they:
 
 ---
 
-# 🔄 PART 4 — Access another user’s screen
+# PART 4 — Access another user’s screen
 
 If *you* want to access someone else:
 
@@ -192,11 +192,11 @@ If *you* want to access someone else:
 ## Option A: They share code
 
 1. Ask them to open:
-   👉 [https://remotedesktop.google.com/support](https://remotedesktop.google.com/support)
+   [https://remotedesktop.google.com/support](https://remotedesktop.google.com/support)
 2. They generate code
 3. You enter it
 
-👉 Instant access
+Instant access
 
 ---
 
@@ -214,11 +214,11 @@ You:
 
 ---
 
-# 🧪 Troubleshooting
+# Troubleshooting
 
 ---
 
-## ❌ Infinite PIN loop
+## Infinite PIN loop
 
 Cause:
 
@@ -230,7 +230,7 @@ Fix:
 
 ---
 
-## 🖤 Black screen
+## Black screen
 
 Cause:
 
@@ -244,7 +244,7 @@ exec startxfce4
 
 ---
 
-## 🔇 No audio / DBus errors
+## No audio / DBus errors
 
 Fix:
 
@@ -254,7 +254,7 @@ export $(dbus-launch)
 
 ---
 
-## ❌ Service not running
+## Service not running
 
 Check:
 
@@ -264,11 +264,11 @@ journalctl -u chrome-remote-desktop@$USER -e
 
 ---
 
-# 🚀 Advanced Tips
+# Advanced Tips
 
 ---
 
-## ⚡ Reduce RAM usage
+## Reduce RAM usage
 
 Switch XFCE → lightweight WM:
 
@@ -277,7 +277,7 @@ Switch XFCE → lightweight WM:
 
 ---
 
-## 🔐 Security tips
+## Security tips
 
 * Use strong PIN
 * Don’t share Google account casually
@@ -285,7 +285,7 @@ Switch XFCE → lightweight WM:
 
 ---
 
-## 🌍 Access from mobile
+## Access from mobile
 
 Install:
 
@@ -293,7 +293,7 @@ Install:
 
 ---
 
-# 🧠 Final Understanding
+# Final Understanding
 
 * Not a VM → it’s your real system
 * Not multi-user → shared session
@@ -301,7 +301,7 @@ Install:
 
 ---
 
-# 🏁 Summary
+# Summary
 
 | Task          | How                                       |
 | ------------- | ----------------------------------------- |

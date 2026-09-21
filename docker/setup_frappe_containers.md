@@ -1,7 +1,7 @@
 ---
 title: "Setup Frappe Containers with Docker"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["frappe", "containers", "docker", "run", "d"]
 categories: ["Tech"]
 viewMode: docs

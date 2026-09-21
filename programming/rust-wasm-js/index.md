@@ -148,4 +148,4 @@ Or with Node.js:
 npx serve .
 ```
 
-Then, open `http://localhost:8080/index.html` in a browser and test the phonetic converter! 🎉
+Then, open `http://localhost:8080/index.html` in a browser and test the phonetic converter! 

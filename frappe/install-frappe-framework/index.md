@@ -111,7 +111,7 @@ https://learn.microsoft.com/en-us/windows/wsl/install
 
    > ```bash
    > 
-   > …/2025-12-05-test/prob ✗ bench start
+   > …/2025-12-05-test/prob bench start
    > 15:03:03 system        | redis_queue.1 started (pid=52053)
    > 15:03:03 system        | redis_cache.1 started (pid=52050)
    > ---------------------------------------------------
@@ -238,7 +238,7 @@ you can use ``-g`` to set globally
 
 ```bash
 ╭─frappe@custom.inxeoz.com ~/frappe-bench
-╰─➤  tree -L 1
+╰─ tree -L 1
 .
 ├── apps
 ├── config
@@ -255,7 +255,7 @@ you can use ``-g`` to set globally
 >
 > ```
 > ╭─frappe@custom.inxeoz.com ~/frappe-bench/apps
-> ╰─➤  tree -L 1
+> ╰─ tree -L 1
 > apps
 > ├── custom_booking
 > └── frappe
@@ -290,7 +290,7 @@ you can use ``-g`` to set globally
 > ```bash
 > 2 directories, 3 files
 > ╭─frappe@custom.inxeoz.com ~/frappe-bench/sites
-> ╰─➤  tree -L 2
+> ╰─ tree -L 2
 > sites
 > ├── apps.json
 > ├── apps.txt
@@ -353,7 +353,7 @@ you can use ``-g`` to set globally
 >
 > ```bash
 > ╭─frappe@custom.inxeoz.com ~/frappe-bench/sites
-> ╰─➤  cat apps.txt
+> ╰─ cat apps.txt
 > frappe
 > custom_app                                                                                                                         
 > ```
@@ -366,7 +366,7 @@ you can use ``-g`` to set globally
 >
 >```bash
 >╭─frappe@custom.inxeoz.com ~/frappe-bench/sites/assets
->╰─➤  tree -L 1
+>╰─ tree -L 1
 >assets
 >├── assets.json
 >├── assets-rtl.json
@@ -418,7 +418,7 @@ you can use ``-g`` to set globally
 >
 >```
 >╭─frappe@custom.inxeoz.com ~/frappe-bench/sites/custom.inxeoz.com
->╰─➤  tree -L 1
+>╰─ tree -L 1
 >custom.inxeoz.com
 >├── locks
 >├── logs
@@ -438,7 +438,7 @@ you can use ``-g`` to set globally
 >
 > ```
 > ╭─frappe@custom.inxeoz.com ~/frappe-bench/sites/custom.inxeoz.com/private
-> ╰─➤  tree -L 1
+> ╰─ tree -L 1
 > private
 > ├── backups
 > └── files
@@ -488,7 +488,7 @@ you can use ``-g`` to set globally
 
 ```
 ╭─frappe@custom.inxeoz.com ~/frappe-bench/apps/custom_booking  ‹develop*›
-╰─➤  tree -L 5
+╰─ tree -L 5
 
 custom_booking/
 ├── custom_booking/

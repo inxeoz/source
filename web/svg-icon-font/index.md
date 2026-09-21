@@ -10,7 +10,7 @@ lightbox: true
 
 ![SVG to icon font workflow](svg-font.webp)
 
-### ✨ Why Use an Icon Font?
+### Why Use an Icon Font?
 
 - **Single HTTP request** for all icons
 - **Unicode character-based** referencing (like `a`, `b`, `c`)
@@ -80,7 +80,7 @@ build/
 ├── myiconfont.css
 ```
 
-### 🔧 Integrate Icon Font in Svelte
+### Integrate Icon Font in Svelte
 
 ### 5. Move Font Files
 

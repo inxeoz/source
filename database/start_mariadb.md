@@ -1,7 +1,7 @@
 ---
 title: "Start MariaDB with Docker"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["start", "mariadb", "docker", "run", "d"]
 categories: ["Tech"]
 viewMode: docs

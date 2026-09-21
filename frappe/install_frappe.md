@@ -10,7 +10,7 @@ showToc: true
 
 # How to Install Frappe Bench on Arch Linux
 
-# 📦 1. Install System Dependencies
+# 1. Install System Dependencies
 
 Begin with a full system update:
 
@@ -39,7 +39,7 @@ sudo systemctl enable --now cronie
 
 ------
 
-# 🗄️ 2. Configure MariaDB
+# 2. Configure MariaDB
 
 Install MariaDB (if not already installed):
 
@@ -67,7 +67,7 @@ sudo mysql_secure_installation
 
 ------
 
-# 🔥 4. Start Valkey (Redis Replacement)
+# 4. Start Valkey (Redis Replacement)
 
 Arch Linux uses **Valkey** instead of Redis.
 
@@ -90,7 +90,7 @@ sudo ss -ltnp | grep valkey # checking on what ports the valkey(redis serves) se
 
 ------
 
-# 🛠️ 5. Install Bench CLI
+# 5. Install Bench CLI
 
 ```
 python -m venv env
@@ -119,7 +119,7 @@ bench --version
 
 
 
-# 🏗️ 6. Initialize a New Bench
+# 6. Initialize a New Bench
 
 Create your bench environment:
 
@@ -139,7 +139,7 @@ cd mybench
 
 
 ```bash
-…/prob/sites ❯ cat common_site_config.json
+…/prob/sites cat common_site_config.json
 {
  "background_workers": 1,
  "default_site": "frontend",
@@ -160,12 +160,12 @@ cd mybench
  "webserver_port": 8000
 }
 
-…/prob/sites ❯
+…/prob/sites 
 ```
 
 
 
-# 🏠 7. Create a New Frappe Site
+# 7. Create a New Frappe Site
 
 Run:
 
@@ -177,7 +177,7 @@ Enter MariaDB root password when asked.
 
 ------
 
-# 🚀 8. Start the Development Server
+# 8. Start the Development Server
 
 ```bash
 bench use mysite.local #setting default

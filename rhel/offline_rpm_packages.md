@@ -1,5 +1,5 @@
 ---
-title: "🐳 Run RHEL 9 in Docker (Offline-Friendly)"
+title: "Run RHEL 9 in Docker (Offline-Friendly)"
 date: 2026-01-27
 draft: false
 tags: ["offline", "rpm", "packages", "run", "rhel", "9", "docker", "friendly"]
@@ -8,13 +8,13 @@ viewMode: docs
 showToc: true
 ---
 
-# 🐳 Run RHEL 9 in Docker (Offline-Friendly)  
+# Run RHEL 9 in Docker (Offline-Friendly)  
   
 **Goal:** Use RHEL 9 in Docker, save packages to your computer, and install them offline.  
   
 ---  
   
-## 📦 Step 1: Create a Shared Folder  
+## Step 1: Create a Shared Folder  
 This folder will store your RPM packages (works on both Docker and your computer):  
   
 ```bash  
@@ -24,7 +24,7 @@ sudo chmod 777 /srv/rhel-data  # Gives full access to Docker
   
 ---  
   
-## 🐳 Step 2: Start RHEL 9 Container  
+## Step 2: Start RHEL 9 Container  
 ```bash  
 docker run -d \  
   --name rhel9 \  
@@ -37,7 +37,7 @@ docker run -d \
   
 ---  
   
-## 🔑 Step 3: Get Inside the Container  
+## Step 3: Get Inside the Container  
 ```bash  
 docker exec -it rhel9 /bin/bash  
 ```  
@@ -46,7 +46,7 @@ You're now in the RHEL 9 environment!
   
 ---  
   
-## 📦 Step 4: Install Package Tools  
+## Step 4: Install Package Tools  
 ```bash  
 # Install package manager tools  
 dnf install -y dnf-plugins-core  
@@ -57,7 +57,7 @@ dnf install -y ncurses
   
 ---  
   
-## 📥 Step 5: Download RPMs (Online)  
+## Step 5: Download RPMs (Online)  
 **Option 1: Single Package**  
 ```bash  
 dnf download --destdir=/data httpd  # Saves to /data folder  
@@ -74,7 +74,7 @@ dnf download --resolve --destdir=/data httpd  # Gets all required packages
   
 ---  
   
-## ⚠️ Normal Warning (Ignore Safely)  
+## Normal Warning (Ignore Safely)  
 You'll see:  
 ```  
 This system is not registered with an entitlement server  
@@ -83,7 +83,7 @@ This is normal for UBI images. No action needed!
   
 ---  
   
-## 🔧 Step 6: Install RPMs Offline  
+## Step 6: Install RPMs Offline  
 **Method 1: Install All RPMs in Folder**  
 ```bash  
 dnf install /data/*.rpm  
@@ -111,14 +111,14 @@ dnf install /data/*.rpm
   
 ---  
   
-## ✅ Verify It Worked  
+## Verify It Worked  
 ```bash  
 httpd -v  # Should show version info  
 ```  
   
 ---  
   
-## 🛑 Stop/Start Container  
+## Stop/Start Container  
 ```bash  
 docker stop rhel9   # Stop when done  
 docker start rhel9  # Restart later  

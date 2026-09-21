@@ -1,5 +1,5 @@
 ---
-title: "📘 Complete Guide: Full Backup & Restore in Frappe / ERPNext (Production-Ready)"
+title: "Complete Guide: Full Backup & Restore in Frappe / ERPNext (Production-Ready)"
 date: 2026-01-27
 draft: false
 tags: ["frappe", "backup", "restore", "full", "erpnext", "production", "ready"]
@@ -8,23 +8,23 @@ viewMode: docs
 showToc: true
 ---
 
-# 📘 Complete Guide: Full Backup & Restore in Frappe / ERPNext (Production-Ready)
+# Complete Guide: Full Backup & Restore in Frappe / ERPNext (Production-Ready)
 
 This article explains:
 
-* ✅ What a **full backup** really means in Frappe
-* ✅ Which backups are **mandatory vs optional**
-* ✅ How to **restore safely** (same site or new site)
-* ⚠️ Common mistakes & production caveats
-* 🧠 Best practices used in real production systems
+* What a **full backup** really means in Frappe
+* Which backups are **mandatory vs optional**
+* How to **restore safely** (same site or new site)
+* Common mistakes & production caveats
+* Best practices used in real production systems
 
 ---
 
-## 1️⃣ What “Full Backup” Means in Frappe
+## 1⃣ What “Full Backup” Means in Frappe
 
 A **true full backup** in Frappe consists of **site-level data**, not the entire bench by default.
 
-### 🔹 Mandatory (Frappe-supported restore)
+### Mandatory (Frappe-supported restore)
 
 These are **required** for a complete site restore:
 
@@ -33,7 +33,7 @@ These are **required** for a complete site restore:
 3. **Private files**
 4. **Site configuration**
 
-### 🔹 Optional (Infrastructure / disaster recovery)
+### Optional (Infrastructure / disaster recovery)
 
 These are **not required** for restoring a site, but useful in some cases:
 
@@ -42,19 +42,19 @@ These are **not required** for restoring a site, but useful in some cases:
 * Logs
 * Virtualenv
 
-> ⚠️ Frappe’s official restore mechanism only understands **site-level backups**.
+> Frappe’s official restore mechanism only understands **site-level backups**.
 
 ---
 
-## 2️⃣ Mandatory Backup (Production – Recommended)
+## 2⃣ Mandatory Backup (Production – Recommended)
 
-### ✅ Command: Full Site Backup (MUST DO)
+### Command: Full Site Backup (MUST DO)
 
 ```bash
 bench --site yoursite.localhost backup --with-files
 ```
 
-### 📂 What this creates
+### What this creates
 
 Location:
 
@@ -71,13 +71,13 @@ Files created:
 | `*-private-files.tar`       | Private files, reports, exports            |
 | `*-site_config_backup.json` | DB creds, encryption keys                  |
 
-👉 **This alone is sufficient to restore a site fully.**
+**This alone is sufficient to restore a site fully.**
 
 ---
 
-## 3️⃣ Optional Backup (Bench / Disaster Snapshot)
+## 3⃣ Optional Backup (Bench / Disaster Snapshot)
 
-### ⚠️ Optional – NOT required for normal restore
+### Optional – NOT required for normal restore
 
 This is useful if:
 
@@ -91,31 +91,31 @@ This is useful if:
 tar -czf frappe-bench-full-$(date +%F).tar.gz frappe-bench
 ```
 
-✔ Includes apps
-✔ Includes configs
-✔ Includes everything
+Includes apps
+Includes configs
+Includes everything
 
-❌ Not used by `bench restore`
+Not used by `bench restore`
 
 ---
 
-## 4️⃣ What You Should Back Up in Production (Summary)
+## 4⃣ What You Should Back Up in Production (Summary)
 
 | Item          | Mandatory | Why                    |
 | ------------- | --------- | ---------------------- |
-| Database      | ✅         | Core data              |
-| Public files  | ✅         | Images, attachments    |
-| Private files | ✅         | Confidential data      |
-| Site config   | ✅         | Encryption & DB access |
-| Apps code     | ❌         | Can be reinstalled     |
-| Bench config  | ❌         | Re-creatable           |
-| Logs          | ❌         | Not data               |
+| Database      |         | Core data              |
+| Public files  |         | Images, attachments    |
+| Private files |         | Confidential data      |
+| Site config   |         | Encryption & DB access |
+| Apps code     |         | Can be reinstalled     |
+| Bench config  |         | Re-creatable           |
+| Logs          |         | Not data               |
 
 ---
 
-## 5️⃣ How to Restore a Site (Same Server / Same Name)
+## 5⃣ How to Restore a Site (Same Server / Same Name)
 
-### ⚠️ Before restore
+### Before restore
 
 * Always restore from **bench root**
 * App versions **must match or be newer**
@@ -171,7 +171,7 @@ bench restart
 
 ---
 
-## 6️⃣ Restore Into a NEW Site (Cloning / Staging)
+## 6⃣ Restore Into a NEW Site (Cloning / Staging)
 
 This is **fully supported**.
 
@@ -196,27 +196,27 @@ bench restart
 
 ---
 
-## 7️⃣ What Is OPTIONAL During Restore?
+## 7⃣ What Is OPTIONAL During Restore?
 
 | Item           | Optional | When                    |
 | -------------- | -------- | ----------------------- |
-| Public files   | ⚠️       | If you don’t have them  |
-| Private files  | ⚠️       | If data is DB-only      |
-| Bench snapshot | ❌        | Not used by restore     |
-| Same site name | ❌        | Can restore to new site |
+| Public files   |       | If you don’t have them  |
+| Private files  |       | If data is DB-only      |
+| Bench snapshot |        | Not used by restore     |
+| Same site name |        | Can restore to new site |
 
-> ⚠️ If you don’t have a `public-files.tar`, **do not pass the flag**.
+> If you don’t have a `public-files.tar`, **do not pass the flag**.
 
 ---
 
-## 8️⃣ Common Production Caveats (VERY IMPORTANT)
+## 8⃣ Common Production Caveats (VERY IMPORTANT)
 
-### ❌ 1. Version mismatch
+### 1. Version mismatch
 
 > Backup version **must be ≤ code version**
 
-✔ Newer code restoring older backup → OK
-❌ Older code restoring newer backup → risky
+Newer code restoring older backup → OK
+Older code restoring newer backup → risky
 
 Always run:
 
@@ -226,7 +226,7 @@ bench migrate
 
 ---
 
-### ❌ 2. Missing custom apps
+### 2. Missing custom apps
 
 Error:
 
@@ -241,7 +241,7 @@ Fix:
 
 ---
 
-### ❌ 3. Interrupting restore (Ctrl+C)
+### 3. Interrupting restore (Ctrl+C)
 
 This causes:
 
@@ -250,11 +250,11 @@ This causes:
 * Scheduler errors
 
 **Rule:**
-👉 If restore fails → `bench drop-site` and retry cleanly
+If restore fails → `bench drop-site` and retry cleanly
 
 ---
 
-### ❌ 4. Running bench from wrong directory
+### 4. Running bench from wrong directory
 
 Always run from:
 
@@ -270,9 +270,9 @@ sites/
 
 ---
 
-## 9️⃣ Production Best Practices (Battle-Tested)
+## 9⃣ Production Best Practices (Battle-Tested)
 
-### ✅ Always do this
+### Always do this
 
 * Backup **before migrate / update**
 * Store backups **off-server**
@@ -281,7 +281,7 @@ sites/
 
 ---
 
-### ✅ Recommended automation
+### Recommended automation
 
 ```bash
 bench enable-scheduler
@@ -301,7 +301,7 @@ to:
 
 ---
 
-## 🔐 Final Recommendation
+## Final Recommendation
 
 After any successful restore or upgrade:
 
@@ -313,7 +313,7 @@ This ensures your **next restore is painless**.
 
 ---
 
-## 🧠 TL;DR
+## TL;DR
 
 * **Mandatory backup** = site backup with files
 * **Bench snapshot** = optional

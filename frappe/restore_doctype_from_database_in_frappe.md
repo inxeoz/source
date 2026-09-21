@@ -241,11 +241,11 @@ bench --site [your-site] restore /path/to/backup.sql
 ```
 
 **What bench restore does:**
-1. ✅ Drops existing database tables
-2. ✅ Creates new tables from backup
-3. ✅ Imports all data
-4. ✅ Updates site_config.json
-5. ✅ Runs initial migration
+1. Drops existing database tables
+2. Creates new tables from backup
+3. Imports all data
+4. Updates site_config.json
+5. Runs initial migration
 
 #### 4.4 Alternative: Manual SQL Import
 
@@ -416,10 +416,10 @@ tar -xf /path/to/backup.tar -C .
 **Solution:** Remove the `-z` flag:
 ```bash
 # Wrong:
-tar -xzf backup-files.tar  # ❌
+tar -xzf backup-files.tar  # 
 
 # Correct:
-tar -xf backup-files.tar   # ✅
+tar -xf backup-files.tar   # 
 ```
 
 #### Issue: Files extracted to wrong location
@@ -503,11 +503,11 @@ bench --site [your-site] migrate
 ```
 
 **What migration does:**
-- ✅ Synchronizes database schema with app definitions
-- ✅ Applies pending patches
-- ✅ Rebuilds search index
-- ✅ Updates dashboards
-- ✅ Generates controller files (if apps have them)
+- Synchronizes database schema with app definitions
+- Applies pending patches
+- Rebuilds search index
+- Updates dashboards
+- Generates controller files (if apps have them)
 
 #### 6.2 Clear All Caches
 
@@ -604,10 +604,10 @@ Frappé DocTypes can exist in two states:
 
 ### What Happens During Restore
 
-1. ✅ **Database tables** are restored with all schema definitions (`tabDocType`, `tabDocField`)
-2. ❌ **App folder** may be missing or is a placeholder without controller files
-3. ❌ Frappé sees `custom = 0` and looks for files at `apps/[app]/[app]/doctype/[name]/`
-4. ❌ **Error:** Files don't exist → "Module not found"
+1. **Database tables** are restored with all schema definitions (`tabDocType`, `tabDocField`)
+2. **App folder** may be missing or is a placeholder without controller files
+3. Frappé sees `custom = 0` and looks for files at `apps/[app]/[app]/doctype/[name]/`
+4. **Error:** Files don't exist → "Module not found"
 
 ---
 
@@ -722,14 +722,14 @@ bench restart
 ```
 
 **Pros:**
-- ✅ Works immediately
-- ✅ No controller files needed
-- ✅ Perfect for data-only restores
+- Works immediately
+- No controller files needed
+- Perfect for data-only restores
 
 **Cons:**
-- ❌ Can't add Python controller logic (server-side scripts)
-- ❌ No custom JavaScript for the DocType
-- ❌ Limited to standard Frappé functionality
+- Can't add Python controller logic (server-side scripts)
+- No custom JavaScript for the DocType
+- Limited to standard Frappé functionality
 
 ---
 
@@ -760,14 +760,14 @@ frappe.db.commit()
 ```
 
 **Pros:**
-- ✅ Full controller functionality
-- ✅ Can add Python business logic
-- ✅ Can add custom JavaScript
+- Full controller functionality
+- Can add Python business logic
+- Can add custom JavaScript
 
 **Cons:**
-- ❌ Requires proper app structure
-- ❌ May fail with placeholder apps
-- ❌ More complex setup
+- Requires proper app structure
+- May fail with placeholder apps
+- More complex setup
 
 ---
 
@@ -908,10 +908,10 @@ mysqldump -h [host] -u [user] -p [database] > backup_before_fix.sql
 ### Custom DocType Limitations
 
 When `custom = 1`:
-- ❌ Cannot add Python controller methods
-- ❌ Cannot add custom JavaScript
-- ❌ No custom validation logic
-- ❌ Limited to Frappé's built-in functionality
+- Cannot add Python controller methods
+- Cannot add custom JavaScript
+- No custom validation logic
+- Limited to Frappé's built-in functionality
 
 ### When to Use Each Solution
 
@@ -970,8 +970,8 @@ bench restart
 ### Issue: URLs Still Don't Work
 
 **Check:** Frappé v15 uses new URL format:
-- ❌ Old: `/app/doctype/District`
-- ✅ New: `/app/district`
+- Old: `/app/doctype/District`
+- New: `/app/district`
 
 ### Issue: DocTypes Missing After Restore
 

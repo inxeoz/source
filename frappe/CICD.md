@@ -94,7 +94,7 @@ Your Git repository should look like this:
 └── Jenkinsfile
 ```
 
-❌ Do NOT commit:
+Do NOT commit:
 
 * `sites/`
 * logs
@@ -133,8 +133,8 @@ bench clear-cache
 exec "$@"
 ```
 
-✔ Prevents half-applied migrations
-✔ Fails fast if migration breaks
+Prevents half-applied migrations
+Fails fast if migration breaks
 
 ---
 
@@ -268,8 +268,8 @@ pipeline {
 │   ├── 42/
 ```
 
-✔ Image version == DB backup version
-✔ Deterministic rollback
+Image version == DB backup version
+Deterministic rollback
 
 ---
 
@@ -331,24 +331,24 @@ ls -t backups | tail -n +6 | xargs rm -rf
 
 ---
 
-## 14. Common Mistakes to Avoid ❌
+## 14. Common Mistakes to Avoid 
 
-* ❌ Using `latest` image tag
-* ❌ Running migrations manually
-* ❌ Skipping DB backup
-* ❌ Pulling images on offline server
-* ❌ Assuming Frappe supports downgrade migrations
+* Using `latest` image tag
+* Running migrations manually
+* Skipping DB backup
+* Pulling images on offline server
+* Assuming Frappe supports downgrade migrations
 
 ---
 
-## 15. Final Checklist ✅
+## 15. Final Checklist 
 
-✔ Jenkins Pipeline
-✔ Docker image versioning
-✔ Offline deployment
-✔ Pre-migration DB backup
-✔ One-click rollback
-✔ Auditable history
+Jenkins Pipeline
+Docker image versioning
+Offline deployment
+Pre-migration DB backup
+One-click rollback
+Auditable history
 
 ---
 
@@ -356,10 +356,10 @@ ls -t backups | tail -n +6 | xargs rm -rf
 
 This CI/CD design is:
 
-* ✔ Enterprise-grade
-* ✔ Offline-safe
-* ✔ Rollback-ready
-* ✔ Frappe-compatible
+* Enterprise-grade
+* Offline-safe
+* Rollback-ready
+* Frappe-compatible
 
 It is **the recommended way** to deploy Frappe Bench in restricted environments.
 

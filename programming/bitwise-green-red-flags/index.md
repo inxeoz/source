@@ -278,7 +278,7 @@ If your problem exhibits *any* of these traits, close the bitwise tab and reach 
 int digit = 1234 & 9; // Evaluates to 0. Should be 4.
 ```
 
-✅ **Solution:** `int digit = 1234 % 10;` (The compiler will optimize decimal mod, but it's not a bitwise operation).
+**Solution:** `int digit = 1234 % 10;` (The compiler will optimize decimal mod, but it's not a bitwise operation).
 
 ### 2. XOR Swap on the Same Memory Address
 
@@ -291,7 +291,7 @@ void bad_swap(int *a, int *b) { *a ^= *b; *b ^= *a; *a ^= *b; }
 // If a == b, *a becomes 0 permanently.
 ```
 
-✅ **Solution:** Use `int temp = *a; *a = *b; *b = temp;` Modern compilers optimize this perfectly to `MOV` instructions.
+**Solution:** Use `int temp = *a; *a = *b; *b = temp;` Modern compilers optimize this perfectly to `MOV` instructions.
 
 ### 3. Right Shifting Negative Signed Integers (Undefined Behavior)
 
@@ -304,7 +304,7 @@ int x = -5;
 int y = x >> 1; // Could be -3, -2, or 2147483645 depending on compiler/platform.
 ```
 
-✅ **Solution:** `int y = x / 2;` (Compilers will optimize to a shift if it's safe anyway).
+**Solution:** `int y = x / 2;` (Compilers will optimize to a shift if it's safe anyway).
 
 ### 4. Using `|` Instead of `||` (or `&` instead of `&&`) in Conditionals
 
@@ -316,7 +316,7 @@ int y = x >> 1; // Could be -3, -2, or 2147483645 depending on compiler/platform
 if (x & y) // You almost certainly meant logical AND.
 ```
 
-✅ **Solution:** Use logical operators (`&&`, `||`) for conditionals. Use `&` only for bitmasks.
+**Solution:** Use logical operators (`&&`, `||`) for conditionals. Use `&` only for bitmasks.
 
 ### 5. Bitwise Operations on Floating-Point Numbers
 
@@ -329,7 +329,7 @@ float f = 3.14;
 int bits = *(int*)&f; // Undefined Behavior.
 ```
 
-✅ **Solution:** Use `memcpy(&bits, &f, sizeof(f));` if you truly need the raw bits, or just use standard math.
+**Solution:** Use `memcpy(&bits, &f, sizeof(f));` if you truly need the raw bits, or just use standard math.
 
 ### 6. JavaScript's 32-Bit Truncation (The Big Number Trap)
 
@@ -342,7 +342,7 @@ let uid = 9876543210; // Larger than 2^31
 let hash = uid ^ 0xAAAA; // uid is silently truncated to 32-bit, losing data.
 ```
 
-✅ **Solution:** Use `BigInt(uid) ^ BigInt(0xAAAA)` if you must shift, or avoid bitwise entirely for IDs and use `+` or `*`.
+**Solution:** Use `BigInt(uid) ^ BigInt(0xAAAA)` if you must shift, or avoid bitwise entirely for IDs and use `+` or `*`.
 
 ### 7. Obfuscating Business Logic (The Readability Nightmare)
 
@@ -355,7 +355,7 @@ let hash = uid ^ 0xAAAA; // uid is silently truncated to 32-bit, losing data.
 if ((a.x ^ b.x) & (a.w ^ b.w)) { ... } // Please don't.
 ```
 
-✅ **Solution:** Write crystal-clear arithmetic:
+**Solution:** Write crystal-clear arithmetic:
 
 ```c
 if (a.x < b.x + b.w && b.x < a.x + a.w) { ... }
@@ -372,7 +372,7 @@ count = 0
 while n: n &= n-1; count += 1 # Slow!
 ```
 
-✅ **Solution:** `count = n.bit_count()` (Python 3.8+) or `Integer.bitCount(n)` (Java).
+**Solution:** `count = n.bit_count()` (Python 3.8+) or `Integer.bitCount(n)` (Java).
 
 ### 9. Packing IDs/Timestamps Without Overflow Checks
 
@@ -384,7 +384,7 @@ while n: n &= n-1; count += 1 # Slow!
 int id = (timestamp << 16) | counter; // timestamp must be < 65536.
 ```
 
-✅ **Solution:** Use a 64-bit `long` with simple addition, or a proper UUID string.
+**Solution:** Use a 64-bit `long` with simple addition, or a proper UUID string.
 
 ### 10. Multiplying by Non-Powers of 2 using Shifts
 
@@ -396,7 +396,7 @@ int id = (timestamp << 16) | counter; // timestamp must be < 65536.
 int y = x << 3 + x << 1; // Totally wrong due to precedence.
 ```
 
-✅ **Solution:** Just write `x * 10`. The compiler will optimize it into `LEA` instructions on x86.
+**Solution:** Just write `x * 10`. The compiler will optimize it into `LEA` instructions on x86.
 
 ### 11. Assuming `>>` is Floor Division for Negatives
 
@@ -408,7 +408,7 @@ int y = x << 3 + x << 1; // Totally wrong due to precedence.
 print(-3 >> 1) # Python prints -2 (floor division)
 ```
 
-✅ **Solution:** `mid = left + (right - left) // 2` is safe in all languages.
+**Solution:** `mid = left + (right - left) // 2` is safe in all languages.
 
 ### 12. Using `&` for Modulo on Non-Power-of-Two Numbers
 
@@ -420,7 +420,7 @@ print(-3 >> 1) # Python prints -2 (floor division)
 int rem = 13 & 4; // 13 % 5 = 3. 13 & 4 = 4. Wrong.
 ```
 
-✅ **Solution:** `int rem = x % 5;`
+**Solution:** `int rem = x % 5;`
 
 ### 13. Sign Extension on `char` in C/C++
 
@@ -433,7 +433,7 @@ signed char c = 0xFF; // -1
 int val = c << 8; // Undefined Behavior (left shift of negative).
 ```
 
-✅ **Solution:** Use `unsigned char` for all byte manipulation.
+**Solution:** Use `unsigned char` for all byte manipulation.
 
 ### 14. Type Punning with Pointers (Strict Aliasing)
 
@@ -446,7 +446,7 @@ float f = 1.0;
 int *i = (int*)&f; // Bad.
 ```
 
-✅ **Solution:** Use `memcpy` or `union` (C only) to safely alias memory.
+**Solution:** Use `memcpy` or `union` (C only) to safely alias memory.
 
 ### 15. Using XOR to Check Equality (Obfuscation)
 
@@ -458,7 +458,7 @@ int *i = (int*)&f; // Bad.
 if (!(a ^ b)) { /* equal */ }
 ```
 
-✅ **Solution:** `if (a == b)` – it's the same CPU instruction (`CMP`) and infinitely clearer.
+**Solution:** `if (a == b)` – it's the same CPU instruction (`CMP`) and infinitely clearer.
 
 ### 16. Bitwise NOT (`~`) in Python (Infinite Bits)
 
@@ -470,7 +470,7 @@ if (!(a ^ b)) { /* equal */ }
 print(~5)  # Prints -6, not some 32-bit large number.
 ```
 
-✅ **Solution:** Always mask with `& 0xFFFFFFFF` in Python if you want fixed-width behavior.
+**Solution:** Always mask with `& 0xFFFFFFFF` in Python if you want fixed-width behavior.
 
 ### 17. Database Keys or Auto-Increment IDs
 
@@ -478,20 +478,20 @@ print(~5)  # Prints -6, not some 32-bit large number.
 
 **The Trap:** You run out of bits in one field, the integer overflows, and duplicate keys appear silently.
 
-✅ **Solution:** Use the database's native `BIGINT AUTO_INCREMENT` or a UUID v4.
+**Solution:** Use the database's native `BIGINT AUTO_INCREMENT` or a UUID v4.
 
 ### 18. UTF-8 String Manipulation
 
 **Problem:** You use ASCII tricks (`c |= 0x20`) to lowercase a string.
 
-**The Trap:** UTF-8 multi-byte characters (like `é`, `ñ`, or 😊) will be corrupted because the byte `0xC3` becomes `0xE3`, breaking the sequence.
+**The Trap:** UTF-8 multi-byte characters (like `é`, `ñ`, or ) will be corrupted because the byte `0xC3` becomes `0xE3`, breaking the sequence.
 
 ```c
 char *name = "José";
 name[2] |= 0x20; // Corrupts the UTF-8 byte sequence.
 ```
 
-✅ **Solution:** Use the language's standard Unicode libraries (`toLower`, `toUpperCase`).
+**Solution:** Use the language's standard Unicode libraries (`toLower`, `toUpperCase`).
 
 ### 19. Replacing Division by a Non-Constant Value
 
@@ -499,7 +499,7 @@ name[2] |= 0x20; // Corrupts the UTF-8 byte sequence.
 
 **The Trap:** Division by a non-constant (or even a constant that isn't a power of 2) cannot be done with a simple shift. Doing so yields garbage.
 
-✅ **Solution:** `x / y` – the compiler will use `MUL`/`IMUL` tricks for constant divisors, but you shouldn't attempt this manually.
+**Solution:** `x / y` – the compiler will use `MUL`/`IMUL` tricks for constant divisors, but you shouldn't attempt this manually.
 
 ### 20. Premature Optimization (The "Micro" Trap)
 
@@ -511,7 +511,7 @@ name[2] |= 0x20; // Corrupts the UTF-8 byte sequence.
 int y = x << 1; // Why? Just write x * 2.
 ```
 
-✅ **Solution:** Write for clarity. Let the compiler/VM handle the micro-optimizations.
+**Solution:** Write for clarity. Let the compiler/VM handle the micro-optimizations.
 
 ---
 
@@ -519,18 +519,18 @@ int y = x << 1; // Why? Just write x * 2.
 
 | Your Problem Involves... | Decision |
 | :--- | :--- |
-| Subsets, Permutations, DP Masks (N ≤ 20) | **🟢 GREEN** |
-| Unique element, missing number (XOR) | **🟢 GREEN** |
-| Packing/Unpacking Colors, Network Headers, Bytes | **🟢 GREEN** |
-| Flags, Permissions, States | **🟢 GREEN** |
-| Memory compression (Bitsets, Sieve) | **🟢 GREEN** |
-| Hash table size (Power of 2 buckets) | **🟢 GREEN** |
-| **Business logic, Money, Decimal places** | **🔴 RED** |
-| **User IDs, Primary Keys, Counters** | **🔴 RED** |
-| **Floating point numbers (Math, Physics)** | **🔴 RED** |
-| **UTF-8 Strings, Text parsing (Unicode)** | **🔴 RED** |
-| **Readability-critical code (Team projects)** | **🔴 RED** |
-| **Sign-sensitive arithmetic (Negative numbers)** | **🔴 RED** |
+| Subsets, Permutations, DP Masks (N ≤ 20) | **GREEN** |
+| Unique element, missing number (XOR) | **GREEN** |
+| Packing/Unpacking Colors, Network Headers, Bytes | **GREEN** |
+| Flags, Permissions, States | **GREEN** |
+| Memory compression (Bitsets, Sieve) | **GREEN** |
+| Hash table size (Power of 2 buckets) | **GREEN** |
+| **Business logic, Money, Decimal places** | **RED** |
+| **User IDs, Primary Keys, Counters** | **RED** |
+| **Floating point numbers (Math, Physics)** | **RED** |
+| **UTF-8 Strings, Text parsing (Unicode)** | **RED** |
+| **Readability-critical code (Team projects)** | **RED** |
+| **Sign-sensitive arithmetic (Negative numbers)** | **RED** |
 
 ---
 

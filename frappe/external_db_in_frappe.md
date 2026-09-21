@@ -1,5 +1,5 @@
 ---
-title: "📘 Creating a New MariaDB Container for a Frappe Site"
+title: "Creating a New MariaDB Container for a Frappe Site"
 date: 2026-01-27
 draft: false
 tags: ["external", "db", "frappe", "creating", "mariadb", "container", "site"]
@@ -8,7 +8,7 @@ viewMode: docs
 showToc: true
 ---
 
-# 📘 Creating a New MariaDB Container for a Frappe Site
+# Creating a New MariaDB Container for a Frappe Site
 
 ### (and avoiding the 200 / 500 alternating error)
 
@@ -16,7 +16,7 @@ This article explains **why**, **how**, and **what to restart** when you want to
 
 ---
 
-## 🧭 Use Case
+## Use Case
 
 * One server (offline, SSH only)
 * Docker + Docker Compose
@@ -26,20 +26,20 @@ This article explains **why**, **how**, and **what to restart** when you want to
 
 ---
 
-## ✅ Preconditions (DO NOT SKIP)
+## Preconditions (DO NOT SKIP)
 
 Before starting, confirm:
 
-* ✔ Docker is installed and working
-* ✔ Frappe stack is already running via Docker Compose
-* ✔ You are **not modifying existing sites**
-* ✔ You have **SSH access** to the server
-* ✔ You understand this adds **operational complexity**
-* ✔ This is intentional isolation (not accidental)
+* Docker is installed and working
+* Frappe stack is already running via Docker Compose
+* You are **not modifying existing sites**
+* You have **SSH access** to the server
+* You understand this adds **operational complexity**
+* This is intentional isolation (not accidental)
 
 ---
 
-## ⚠️ Risk Level
+## Risk Level
 
 **Medium**
 
@@ -57,7 +57,7 @@ Safe because:
 
 ---
 
-## 🧠 Important Facts (Read This First)
+## Important Facts (Read This First)
 
 * **One MariaDB container can host many sites** (default, recommended)
 * Using **multiple MariaDB containers** is:
@@ -71,7 +71,7 @@ Safe because:
 
 ---
 
-## 🗂️ Architecture After This Setup
+## Architecture After This Setup
 
 ```
 frappe-db-1   → s1.inxeoz.com
@@ -83,11 +83,11 @@ Traefik / Nginx remain unchanged.
 
 ---
 
-## 1️⃣ Create a New MariaDB Container (Standalone)
+## 1⃣ Create a New MariaDB Container (Standalone)
 
 Create a **new compose file** (no overrides):
 
-📄 `third_db.compose.yaml`
+`third_db.compose.yaml`
 
 ```yaml
 version: "3.8"
@@ -121,7 +121,7 @@ networks:
 
 ---
 
-## 2️⃣ Start the New DB Container
+## 2⃣ Start the New DB Container
 
 ```bash
 docker compose -f third_db.compose.yaml up -d
@@ -142,9 +142,9 @@ mariadb-s3
 
 ---
 
-## 3️⃣ Create the New Frappe Site (Attach DB at Creation)
+## 3⃣ Create the New Frappe Site (Attach DB at Creation)
 
-⚠️ **Do NOT create DB manually**
+**Do NOT create DB manually**
 Let Frappe do it (cleaner, safer).
 
 ```bash
@@ -166,7 +166,7 @@ docker compose -p frappe exec backend \
 
 ---
 
-## 4️⃣ Verify DB Binding (Read-Only)
+## 4⃣ Verify DB Binding (Read-Only)
 
 ### From Frappe side
 
@@ -197,7 +197,7 @@ s3_db
 
 ---
 
-## 5️⃣ Why You May See Alternating 200 / 500 Errors
+## 5⃣ Why You May See Alternating 200 / 500 Errors
 
 ### Symptom
 
@@ -220,10 +220,10 @@ This is **expected** in scaled Frappe setups.
 
 ---
 
-## 6️⃣ The CORRECT Fix (Safe & Minimal)
+## 6⃣ The CORRECT Fix (Safe & Minimal)
 
 Restart **all Frappe application workers**
-⚠️ **NOT databases, NOT nginx, NOT Traefik**
+**NOT databases, NOT nginx, NOT Traefik**
 
 ```bash
 docker compose -p frappe restart \
@@ -240,7 +240,7 @@ Downtime: **a few seconds**
 
 ---
 
-## 7️⃣ Final Verification
+## 7⃣ Final Verification
 
 Run multiple times:
 
@@ -255,18 +255,18 @@ Expected:
 
 ---
 
-## 🚫 What NOT To Do
+## What NOT To Do
 
-* ❌ Do NOT restart MariaDB containers
-* ❌ Do NOT restart nginx blindly
-* ❌ Do NOT reboot the server
-* ❌ Do NOT recreate the site
-* ❌ Do NOT edit `site_config.json` manually
-* ❌ Do NOT expose DB ports
+* Do NOT restart MariaDB containers
+* Do NOT restart nginx blindly
+* Do NOT reboot the server
+* Do NOT recreate the site
+* Do NOT edit `site_config.json` manually
+* Do NOT expose DB ports
 
 ---
 
-## 🧠 Key Rules to Remember
+## Key Rules to Remember
 
 1. **Bind DB at site creation**
 2. **Let Frappe create DB if root access exists**

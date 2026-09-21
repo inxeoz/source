@@ -67,13 +67,13 @@ Frappe (site routing by Host header)
 
 ---
 
-## 🔑 PRE-CONDITIONS (MANDATORY)
+## PRE-CONDITIONS (MANDATORY)
 
 Do **NOT** proceed unless **all** of the following are true.
 
 ---
 
-### 1️⃣ VPN Connectivity Works
+### 1⃣ VPN Connectivity Works
 
 From the **client machine**:
 
@@ -88,7 +88,7 @@ Expected:
 
 ---
 
-### 2️⃣ Hostname Resolution Exists (Client-Side or Internal DNS)
+### 2⃣ Hostname Resolution Exists (Client-Side or Internal DNS)
 
 From **VPN client**:
 
@@ -110,11 +110,11 @@ If DNS is not available, `/etc/hosts` (or Windows hosts file) **must already con
 <SERVER_IP>   s2.inxeoz.com
 ```
 
-⚠️ DNS/hosts **must be correct before touching NGINX**
+DNS/hosts **must be correct before touching NGINX**
 
 ---
 
-### 3️⃣ Traefik ALREADY Works by Host Header
+### 3⃣ Traefik ALREADY Works by Host Header
 
 From the **server**:
 
@@ -127,12 +127,12 @@ Expected:
 * `HTTP/1.1 200 OK`
 * Frappe HTML output
 
-❌ If this fails → **STOP**
+If this fails → **STOP**
 Traefik/Frappe must be fixed first.
 
 ---
 
-### 4️⃣ Frappe Sites Already Exist
+### 4⃣ Frappe Sites Already Exist
 
 Frappe must already have sites created:
 
@@ -145,7 +145,7 @@ If the site does not exist, hostname routing will **never work**.
 
 ---
 
-### 5️⃣ NGINX Is Running on Port 80
+### 5⃣ NGINX Is Running on Port 80
 
 On the server:
 
@@ -159,7 +159,7 @@ Expected:
 users:(("nginx",pid=...))
 ```
 
-❌ If Apache/httpd owns port 80 → stop and reassess.
+If Apache/httpd owns port 80 → stop and reassess.
 
 ---
 
@@ -187,7 +187,7 @@ users:(("nginx",pid=...))
 
 ---
 
-### 🔒 Step 1: Backup NGINX Configuration
+### Step 1: Backup NGINX Configuration
 
 ```bash
 cp -a /etc/nginx /root/nginx-backup-$(date +%F-%H%M)
@@ -197,7 +197,7 @@ Rollback is guaranteed.
 
 ---
 
-### ✏️ Step 2: Add NGINX Server Block
+### Step 2: Add NGINX Server Block
 
 Create a **new file only**:
 
@@ -226,7 +226,7 @@ server {
 
 ---
 
-### 🔍 Step 3: Validate Configuration
+### Step 3: Validate Configuration
 
 ```bash
 nginx -t
@@ -239,11 +239,11 @@ syntax is ok
 test is successful
 ```
 
-❌ Any error → STOP
+Any error → STOP
 
 ---
 
-### 🔄 Step 4: Reload NGINX (NO RESTART)
+### Step 4: Reload NGINX (NO RESTART)
 
 ```bash
 systemctl reload nginx
@@ -295,7 +295,7 @@ firewall-cmd --reload
 
 ---
 
-### ✅ Server-Side Tests
+### Server-Side Tests
 
 ```bash
 curl -H "Host: s1.inxeoz.com" http://127.0.0.1
@@ -308,7 +308,7 @@ Expected:
 
 ---
 
-### ✅ Client-Side Tests (VPN)
+### Client-Side Tests (VPN)
 
 Browser or CLI:
 
@@ -328,7 +328,7 @@ Expected:
 
 ---
 
-### ❌ 502 Bad Gateway
+### 502 Bad Gateway
 
 Check SELinux:
 
@@ -345,7 +345,7 @@ journalctl -u nginx --no-pager | tail
 
 ---
 
-### ❌ Works on server but not client
+### Works on server but not client
 
 Check firewall:
 
@@ -361,7 +361,7 @@ ping <SERVER_IP>
 
 ---
 
-### ❌ Traefik works on `:8100` but not via NGINX
+### Traefik works on `:8100` but not via NGINX
 
 Confirm backend reachability:
 
@@ -381,11 +381,11 @@ curl -H "Host: s1.inxeoz.com" http://127.0.0.1:8100
 
 | Layer     | Status      |
 | --------- | ----------- |
-| SELinux   | Enforcing ✅ |
-| firewalld | Enabled ✅   |
-| VPN       | Required ✅  |
-| Docker    | Isolated ✅  |
-| App ports | Hidden ✅    |
+| SELinux   | Enforcing |
+| firewalld | Enabled   |
+| VPN       | Required  |
+| Docker    | Isolated  |
+| App ports | Hidden    |
 
 ---
 

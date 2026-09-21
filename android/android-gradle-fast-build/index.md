@@ -129,7 +129,7 @@ Nothing → set `false`. Reclaim that CPU time for actual compilation.
 Gradle can only parallelise what's **independent**. A flat module graph is faster than a deep dependency tree.
 
 ```
-❌ Bad                          ✅ Good
+Bad                          Good
 :app ──> :core                  :app ──> :core
   └──> :feature-a                 └──> :feature-a ──> :core
   └──> :feature-b                 └──> :feature-b ──> :core  

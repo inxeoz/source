@@ -16,17 +16,17 @@ Modern Linux systems often need to run **multiple VPNs at the same time**.
 
 A very common real-world setup looks like this:
 
-* 🌍 **Cloudflare WARP** for secure internet access
-* 🏢 **Enterprise VPN (Array Networks / Ivanti MotionPro)** for internal company servers
-* 🎯 Only **specific internal IPs** should go through the enterprise VPN
-* ❌ WARP must remain enabled
-* ❌ No full-tunnel conflicts
+* **Cloudflare WARP** for secure internet access
+* **Enterprise VPN (Array Networks / Ivanti MotionPro)** for internal company servers
+* Only **specific internal IPs** should go through the enterprise VPN
+* WARP must remain enabled
+* No full-tunnel conflicts
 
 This article explains **exactly how to do that**, step by step, using **Linux routing and policy rules**.
 
 ---
 
-## 🧠 What We’re Solving
+## What We’re Solving
 
 We want:
 
@@ -38,7 +38,7 @@ We want:
 
 ---
 
-## 🧩 Environment Overview
+## Environment Overview
 
 ### VPNs
 
@@ -63,7 +63,7 @@ We want:
 
 # Part 1: Connecting to ArrayVPN / MotionPro on Linux
 
-## 🔌 Connecting to MotionPro Using `vpn_cmdline`
+## Connecting to MotionPro Using `vpn_cmdline`
 
 Many enterprise VPNs branded as **MotionPro**, **ArrayVPN**, or **Ivanti Secure Access** are powered by Array Networks.
 
@@ -71,7 +71,7 @@ On Linux, these are typically accessed using the `vpn_cmdline` client.
 
 ---
 
-## 📦 Installation (Arch Linux example)
+## Installation (Arch Linux example)
 
 ```bash
 yay -S motionpro
@@ -91,7 +91,7 @@ Expected output:
 
 ---
 
-## ⚠️ Critical: Host Format Matters
+## Critical: Host Format Matters
 
 `vpn_cmdline` expects:
 
@@ -99,14 +99,14 @@ Expected output:
 <gateway_host>[/alias]
 ```
 
-### ❌ Do NOT use
+### Do NOT use
 
 * `https://`
 * Browser URLs
 * `/login/index.html`
 * `/prx/000/http/...`
 
-### ✅ Correct examples
+### Correct examples
 
 ```text
 vpn.example.com
@@ -117,7 +117,7 @@ vpn.example.com/employee
 
 ---
 
-## 🔐 Basic Connection Command
+## Basic Connection Command
 
 ```bash
 sudo vpn_cmdline \
@@ -137,7 +137,7 @@ vpn is running...
 
 ---
 
-## 🔑 Authentication Method (if required)
+## Authentication Method (if required)
 
 Some gateways require explicitly specifying the auth backend:
 
@@ -153,7 +153,7 @@ sudo vpn_cmdline \
 
 ---
 
-## 🔒 Safer Password Handling
+## Safer Password Handling
 
 Avoid putting passwords in shell history:
 
@@ -165,7 +165,7 @@ unset VPN_PASS
 
 ---
 
-## 🌐 Verify VPN Tunnel
+## Verify VPN Tunnel
 
 ```bash
 ip addr | grep tun0
@@ -185,7 +185,7 @@ This confirms:
 
 ---
 
-## 🛑 Disconnecting MotionPro
+## Disconnecting MotionPro
 
 ```bash
 sudo vpn_cmdline --stop
@@ -195,7 +195,7 @@ sudo vpn_cmdline --stop
 
 # Part 2: Understanding the Routing Conflict
 
-## 🔍 Why SSH Doesn’t Work Initially
+## Why SSH Doesn’t Work Initially
 
 Check how traffic to the internal server is routed:
 
@@ -217,7 +217,7 @@ This means:
 
 ---
 
-## 🧠 Why This Happens
+## Why This Happens
 
 Cloudflare WARP uses:
 
@@ -234,7 +234,7 @@ Because of this:
 
 # Part 3: Routing a Specific IP Through MotionPro (Split VPN)
 
-## ✅ Step 1: Replace the Route (Not Add)
+## Step 1: Replace the Route (Not Add)
 
 ```bash
 sudo ip route replace 172.16.50.10/32 dev tun0
@@ -255,7 +255,7 @@ Expected:
 
 ---
 
-## 🔥 Step 2: Override WARP Policy Routing
+## Step 2: Override WARP Policy Routing
 
 Check policy rules:
 
@@ -271,7 +271,7 @@ Typical output includes:
 
 ---
 
-## 🧨 Step 3: Add a Higher-Priority Policy Rule
+## Step 3: Add a Higher-Priority Policy Rule
 
 ```bash
 sudo ip rule add to 172.16.50.10/32 lookup main priority 100
@@ -288,7 +288,7 @@ Now traffic flows through `tun0`.
 
 ---
 
-## 🔐 Step 4: Test SSH
+## Step 4: Test SSH
 
 ```bash
 ssh demo_user@172.16.50.10
@@ -303,7 +303,7 @@ If it connects:
 
 # Part 4: Optional Enhancements
 
-## 🌐 Routing an Entire Subnet (If Allowed)
+## Routing an Entire Subnet (If Allowed)
 
 ```bash
 sudo ip route replace 172.16.0.0/12 dev tun0
@@ -313,7 +313,7 @@ sudo ip route flush cache
 
 ---
 
-## 🔁 Make It Persistent
+## Make It Persistent
 
 ```bash
 sudo nano /usr/local/bin/motionpro-split-routing.sh
@@ -332,18 +332,18 @@ sudo chmod +x /usr/local/bin/motionpro-split-routing.sh
 
 ---
 
-# 🧠 Key Takeaways
+# Key Takeaways
 
 * Multiple VPNs **can coexist on Linux**
 * Cloudflare WARP uses **policy routing**
 * `/32` host routes are precise and safe
 * `ip route replace` > `ip route add`
 * `ip rule` enables deterministic control
-* WARP never had to be disabled ✅
+* WARP never had to be disabled 
 
 ---
 
-# ✅ Final Architecture
+# Final Architecture
 
 ```
 Internet traffic        → Cloudflare WARP

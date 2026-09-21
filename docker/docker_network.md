@@ -12,7 +12,7 @@ showToc: true
 
 ---
 
-## 🔹 What Is a Docker Network?
+## What Is a Docker Network?
 
 A **Docker network** is a virtual layer that connects containers. By default, Docker provides some basic network types:
 
@@ -26,7 +26,7 @@ A **Docker network** is a virtual layer that connects containers. By default, Do
 
 ---
 
-## ⚙️ Step 1: Check Existing Docker Networks
+## Step 1: Check Existing Docker Networks
 
 Before creating one, you can see what’s already available:
 
@@ -45,7 +45,7 @@ c3d4e5f6a7b8   none          null      local
 
 ---
 
-## ⚙️ Step 2: Create a Custom Network
+## Step 2: Create a Custom Network
 
 You can create your own bridge network using the `docker network create` command.
 
@@ -73,7 +73,7 @@ This creates a new **user-defined bridge network** named `frappe-net`.
 
 ---
 
-## ⚙️ Step 3: Connect Containers to the Network
+## Step 3: Connect Containers to the Network
 
 When you run a container, you can attach it to your network using `--network`.
 
@@ -93,7 +93,7 @@ Now, the `frappe` container can access the database container simply by its **co
 
 ---
 
-## ⚙️ Step 4: Inspect a Docker Network
+## Step 4: Inspect a Docker Network
 
 You can view detailed information (like connected containers, IP ranges, etc.) using:
 
@@ -124,7 +124,7 @@ Example output (simplified):
 
 ---
 
-## ⚙️ Step 5: Disconnect and Reconnect Containers
+## Step 5: Disconnect and Reconnect Containers
 
 To disconnect a container from a network:
 
@@ -140,7 +140,7 @@ docker network connect frappe-net mariadb
 
 ---
 
-## ⚙️ Step 6: Remove Unused Networks
+## Step 6: Remove Unused Networks
 
 To remove a specific network:
 
@@ -158,16 +158,16 @@ docker network prune
 
 ---
 
-## 🧠 Tips for Managing Docker Networks
+## Tips for Managing Docker Networks
 
-* ✅ Use **named networks** (like `frappe-net`) for multi-container apps.
-* ✅ Avoid exposing ports publicly when containers can talk over an internal network.
-* ✅ Combine networks with **Docker Compose** for easier configuration.
-* ✅ Always **inspect** your networks to debug connection issues.
+* Use **named networks** (like `frappe-net`) for multi-container apps.
+* Avoid exposing ports publicly when containers can talk over an internal network.
+* Combine networks with **Docker Compose** for easier configuration.
+* Always **inspect** your networks to debug connection issues.
 
 ---
 
-## ⚙️ Optional: Use Docker Compose for Networks
+## Optional: Use Docker Compose for Networks
 
 Here’s a quick example of defining a custom network in `docker-compose.yml`:
 
@@ -212,7 +212,7 @@ This automatically creates and manages your custom `frappe-net` network.
 
 ---
 
-## 🧩 Summary
+## Summary
 
 | Task                 | Command                                        |
 | -------------------- | ---------------------------------------------- |

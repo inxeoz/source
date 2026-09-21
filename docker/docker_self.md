@@ -12,7 +12,7 @@ showToc: true
 
 ---
 
-## 🚀 1. Understanding Docker Basics
+## 1. Understanding Docker Basics
 
 Before diving into management, let’s recap what Docker is built around:
 
@@ -25,7 +25,7 @@ Before diving into management, let’s recap what Docker is built around:
 
 ---
 
-## 🧩 2. Creating Your Own System (Container)
+## 2. Creating Your Own System (Container)
 
 To start an Ubuntu-based system:
 
@@ -51,7 +51,7 @@ echo "Hello Docker!" > /root/test.txt
 
 ---
 
-## 💾 3. Keeping Your Container Persistent
+## 3. Keeping Your Container Persistent
 
 By default, when you `exit`, the container stops — but doesn’t vanish.
 
@@ -76,7 +76,7 @@ docker ps -a
 
 ---
 
-## 🧱 4. Saving Your Custom System as a New Image
+## 4. Saving Your Custom System as a New Image
 
 Once you’ve customized your container, you can **snapshot** it into a new image:
 
@@ -94,7 +94,7 @@ It’s your personal system image — preinstalled with everything you need.
 
 ---
 
-## 📁 5. Using Volumes for Data Persistence
+## 5. Using Volumes for Data Persistence
 
 If you want your data to live *outside* the container (so it survives even if the container is deleted):
 
@@ -108,7 +108,7 @@ Now anything you save in `/root` is also available on your host system.
 
 ---
 
-## 🔄 6. Managing Containers Efficiently
+## 6. Managing Containers Efficiently
 
 Here are your key Docker management commands:
 
@@ -125,7 +125,7 @@ Here are your key Docker management commands:
 
 ---
 
-## 🧠 7. Pro Tip: Create a Reusable Alias
+## 7. Pro Tip: Create a Reusable Alias
 
 You can create a shortcut for your personal Docker VM. Add this line to your `.bashrc` or `.zshrc`:
 
@@ -148,7 +148,7 @@ Instant Linux sandbox — every time.
 
 ---
 
-## 🧹 8. Cleaning and Maintenance
+## 8. Cleaning and Maintenance
 
 Over time, unused images and stopped containers can fill up space. Clean them up safely:
 
@@ -173,7 +173,7 @@ docker system prune -a
 
 ---
 
-## ⚙️ 9. Advanced: Docker Compose for Multi-Service Systems
+## 9. Advanced: Docker Compose for Multi-Service Systems
 
 If you want to run multiple services (like a web app + database + cache), use **Docker Compose**.
 
@@ -202,7 +202,7 @@ You now have a complete multi-container system — manageable with a single comm
 
 ---
 
-## 🧰 10. Backups and Version Control
+## 10. Backups and Version Control
 
 You can **export and import** containers or images:
 

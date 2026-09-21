@@ -8,14 +8,14 @@ viewMode: docs
 showToc: true
 ---
 
-# ✅ **LEVEL 0 — ABSOLUTE BEGINNER (Basics)**
+# **LEVEL 0 — ABSOLUTE BEGINNER (Basics)**
 
-### 🎯 Skills Covered
+### Skills Covered
 
 Basic syntax, variables, data types, loops, conditionals, lists/tuples/sets/dicts, exceptions, functions, modules.
 *(From roadmap: “Learn the Basics”, left side of page 1) *
 
-### 📌 Projects
+### Projects
 
 1. **Simple Calculator CLI**
 
@@ -35,14 +35,14 @@ Basic syntax, variables, data types, loops, conditionals, lists/tuples/sets/dict
 
 ---
 
-# ✅ **LEVEL 1 — FOUNDATIONS (Intermediate)**
+# **LEVEL 1 — FOUNDATIONS (Intermediate)**
 
-### 🎯 Skills Covered
+### Skills Covered
 
 Data Structures & Algorithms, recursion, sorting, searching, stacks, queues, linked lists.
 *(From roadmap: “Data Structures & Algorithms” section, page 1) *
 
-### 📌 Projects
+### Projects
 
 5. **Implement Your Own Data Structures Library**
 
@@ -62,14 +62,14 @@ Data Structures & Algorithms, recursion, sorting, searching, stacks, queues, lin
 
 ---
 
-# ✅ **LEVEL 2 — PYTHON POWER FEATURES**
+# **LEVEL 2 — PYTHON POWER FEATURES**
 
-### 🎯 Skills Covered
+### Skills Covered
 
 Lambdas, decorators, iterators, generators, list comprehensions, context managers, regular expressions, modules & packages.
 *(From roadmap: central section — “Modules”, “Lambdas”, “Decorators”, “Iterators”, “Regular Expressions”) *
 
-### 📌 Projects
+### Projects
 
 8. **Your Own Python Utility Package**
 
@@ -96,14 +96,14 @@ Lambdas, decorators, iterators, generators, list comprehensions, context manager
 
 ---
 
-# ✅ **LEVEL 3 — OBJECT-ORIENTED PROGRAMMING**
+# **LEVEL 3 — OBJECT-ORIENTED PROGRAMMING**
 
-### 🎯 Skills Covered
+### Skills Covered
 
 Classes, inheritance, methods, dunders (`__str__`, `__len__`, etc.).
 *(From roadmap: “Object Oriented Programming” box, center page 1) *
 
-### 📌 Projects
+### Projects
 
 13. **Bank Management System (OOP-heavy)**
 
@@ -122,14 +122,14 @@ Classes, inheritance, methods, dunders (`__str__`, `__len__`, etc.).
 
 ---
 
-# ✅ **LEVEL 4 — ENVIRONMENTS & PACKAGE MANAGERS**
+# **LEVEL 4 — ENVIRONMENTS & PACKAGE MANAGERS**
 
-### 🎯 Skills Covered
+### Skills Covered
 
 pip, conda, poetry, pyproject.toml, venv/virtualenv/pyenv.
 *(From roadmap: “Package Managers” and “Environments”) *
 
-### 📌 Projects
+### Projects
 
 16. **Create a Virtual Environment + Install/Freeze Dependencies**
 17. **Publish Your Own Package to PyPI**
@@ -139,14 +139,14 @@ pip, conda, poetry, pyproject.toml, venv/virtualenv/pyenv.
 
 ---
 
-# ✅ **LEVEL 5 — STATIC TYPING + FORMATTING + DOCUMENTATION**
+# **LEVEL 5 — STATIC TYPING + FORMATTING + DOCUMENTATION**
 
-### 🎯 Skills Covered
+### Skills Covered
 
 mypy, pyright, pydantic, typing, black, ruff, yapf, sphinx.
 *(From roadmap: right side — “Static Typing”, “Code Formatting”, “Documentation”) *
 
-### 📌 Projects
+### Projects
 
 18. **Strongly Typed Data Validation API (Pydantic)**
 
@@ -162,14 +162,14 @@ mypy, pyright, pydantic, typing, black, ruff, yapf, sphinx.
 
 ---
 
-# ✅ **LEVEL 6 — TESTING**
+# **LEVEL 6 — TESTING**
 
-### 🎯 Skills Covered
+### Skills Covered
 
 pytest, unittest, doctest, tox.
 *(Roadmap: bottom right - “Testing”) *
 
-### 📌 Projects
+### Projects
 
 21. **Write Full Test Suite for Your OOP Banking System**
 
@@ -181,14 +181,14 @@ pytest, unittest, doctest, tox.
 
 ---
 
-# ✅ **LEVEL 7 — CONCURRENCY**
+# **LEVEL 7 — CONCURRENCY**
 
-### 🎯 Skills Covered
+### Skills Covered
 
 Threading, multiprocessing, async/await, GIL awareness.
 *(Roadmap: “Concurrency” section — GIL, Threading, Multiprocessing, Asynchrony) *
 
-### 📌 Projects
+### Projects
 
 24. **Multithreaded Web Scraper**
 
@@ -208,15 +208,15 @@ Threading, multiprocessing, async/await, GIL awareness.
 
 ---
 
-# ✅ **LEVEL 8 — FRAMEWORKS (Choose Any)**
+# **LEVEL 8 — FRAMEWORKS (Choose Any)**
 
 *(From roadmap: Flask, Django, FastAPI, Pyramid, Tornado, Sanic, aiohttp, Dash, etc.) *
 
 ---
 
-## 🌐 **Web Development Path (Flask / Django / FastAPI)**
+## **Web Development Path (Flask / Django / FastAPI)**
 
-### 📌 Projects
+### Projects
 
 28. **Flask Blog Application**
 29. **Django E-Commerce Website**
@@ -228,14 +228,14 @@ Threading, multiprocessing, async/await, GIL awareness.
 
 ---
 
-## ⚡ Asynchronous Framework Path (aiohttp / Sanic / Tornado)
+## Asynchronous Framework Path (aiohttp / Sanic / Tornado)
 
 31. **Real-time Chat App (WebSockets)**
 32. **Dashboard with Live Cryptocurrency Updates**
 
 ---
 
-## 📊 Data Dashboard Path (Plotly Dash)
+## Data Dashboard Path (Plotly Dash)
 
 33. **Interactive Data Visualization Dashboard**
 
@@ -243,11 +243,11 @@ Threading, multiprocessing, async/await, GIL awareness.
 
 ---
 
-# ✅ **LEVEL 9 — COMMON PACKAGES & DEVOPS (Optional but Recommended)**
+# **LEVEL 9 — COMMON PACKAGES & DEVOPS (Optional but Recommended)**
 
 *(Roadmap bottom: “Common Packages” + DevOps link) *
 
-### 📌 Projects
+### Projects
 
 34. **Requests-based API Client**
 35. **Pandas Data Cleaning Pipeline**
@@ -257,19 +257,19 @@ Threading, multiprocessing, async/await, GIL awareness.
 
 ---
 
-# 🎓 **LEVEL 10 — HERO PROJECTS (Capstones)**
+# **LEVEL 10 — HERO PROJECTS (Capstones)**
 
 Use everything you've learned.
 
-### ⭐ Capstone 1 — **Full-Stack SaaS Application (Django/Flask + JS)**
+### Capstone 1 — **Full-Stack SaaS Application (Django/Flask + JS)**
 
 User accounts, payments, CRUD, APIs, testing, docs, CI, type checking.
 
-### ⭐ Capstone 2 — **Async Microservices System (FastAPI + Redis + Celery)**
+### Capstone 2 — **Async Microservices System (FastAPI + Redis + Celery)**
 
 Distributed tasks, async IO, concurrency, Docker.
 
-### ⭐ Capstone 3 — **AI-Enhanced Automation Suite (Python + APIs + Concurrency)**
+### Capstone 3 — **AI-Enhanced Automation Suite (Python + APIs + Concurrency)**
 
 Scraping, automation, dashboards, ML integration.
 

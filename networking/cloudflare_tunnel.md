@@ -16,14 +16,14 @@ showToc: true
 
 Cloudflare Tunnel is a secure, outbound-only connection from your device to Cloudflare’s global network.
 
-### ✔ You DO NOT need:
+### You DO NOT need:
 
 * Port forwarding
 * Public IP
 * Router changes
 * Firewall modifications
 
-### ✔ You get:
+### You get:
 
 * Encrypted traffic
 * Zero-trust access
@@ -282,10 +282,10 @@ If **7844 is blocked entirely**, Tunnel **always fails**.
 
 Cloudflare WARP sends Cloudflare traffic through an encrypted WireGuard tunnel using **standard HTTPS port 443**.
 
-✔ Works on any network
-✔ No need to modify Wi-Fi or firewall
-✔ Official Cloudflare-supported workaround
-✔ 100% safe for legitimate Tunnel use
+Works on any network
+No need to modify Wi-Fi or firewall
+Official Cloudflare-supported workaround
+100% safe for legitimate Tunnel use
 
 This is the full solution when ports needed by Tunnel are blocked.
 
@@ -398,11 +398,11 @@ cloudflared tunnel list
 
 ## Step 16: Best Practices
 
-✔ Use WARP on restrictive networks
-✔ Use systemd for 24/7 tunnels
-✔ Keep your tunnel UUID and credentials secure
-✔ Use Access Policies if exposing admin systems
-✔ Use HTTP/2 or WebSockets for better reliability
+Use WARP on restrictive networks
+Use systemd for 24/7 tunnels
+Keep your tunnel UUID and credentials secure
+Use Access Policies if exposing admin systems
+Use HTTP/2 or WebSockets for better reliability
 
 ---
 

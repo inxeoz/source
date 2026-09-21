@@ -10,7 +10,7 @@ showToc: true
 
 # Fixing Common Frappe Docker Errors, Backing Up, and Restoring Databases
 
-## 🧠 Introduction
+## Introduction
 
 Running **Frappe** or **ERPNext** in Docker simplifies deployment, but real-world use often brings challenges — like missing CSS, password mismatches, and restoring backups correctly.
 
@@ -25,7 +25,7 @@ Tested on **Arch Linux (Manjaro i3)** using **Frappe/ERPNext v15**.
 
 ---
 
-## 🐳 1. Frappe Docker Overview
+## 1. Frappe Docker Overview
 
 A typical `frappe_docker` setup runs these containers:
 
@@ -42,7 +42,7 @@ Each container is isolated — site data, database, and static files live in dif
 
 ---
 
-## 💾 2. Backing Up Frappe / ERPNext Data
+## 2. Backing Up Frappe / ERPNext Data
 
 A complete backup includes two parts:
 
@@ -51,7 +51,7 @@ A complete backup includes two parts:
 
 ---
 
-### 🔍 Step 1 — Find Your Database Info
+### Step 1 — Find Your Database Info
 
 Run inside the backend container:
 
@@ -71,7 +71,7 @@ You’ll see something like:
 
 ---
 
-### 💾 Step 2 — Backup the Database
+### Step 2 — Backup the Database
 
 Run on your **host**, not inside a container:
 
@@ -79,21 +79,21 @@ Run on your **host**, not inside a container:
 docker exec -i frappe_docker-db-1 mysqldump -u _5e5899d8398b5f7b -p'8F9NalSR2to37McZ' _5e5899d8398b5f7b > frappe_db_backup.sql
 ```
 
-✅ Creates `frappe_db_backup.sql` on your host.
+Creates `frappe_db_backup.sql` on your host.
 
 ---
 
-### 🗂 Step 3 — Backup Site Files
+### Step 3 — Backup Site Files
 
 ```bash
 docker exec -t frappe_docker-backend-1 tar czf - -C /home/frappe/frappe-bench sites > frappe_sites_backup.tar.gz
 ```
 
-✅ This saves your entire `sites/` directory (public, private, and configs).
+This saves your entire `sites/` directory (public, private, and configs).
 
 ---
 
-### 🗓 Step 4 — Organize Backups
+### Step 4 — Organize Backups
 
 Keep things clean and dated:
 
@@ -104,7 +104,7 @@ mv frappe_db_backup.sql frappe_sites_backup.tar.gz backups/$(date +%F)/
 
 ---
 
-## 🔁 3. Restoring a Backup to a Fresh Instance
+## 3. Restoring a Backup to a Fresh Instance
 
 ### Step 1 — Remove Old Setup
 
@@ -207,7 +207,7 @@ docker compose restart
 
 ---
 
-## 🎨 4. Fix: CSS or JS Not Loading After Restore
+## 4. Fix: CSS or JS Not Loading After Restore
 
 **Symptom:**
 ERPNext loads as plain text with no CSS or theme — “unstyled” page.
@@ -220,7 +220,7 @@ ERPNext loads as plain text with no CSS or theme — “unstyled” page.
 
 ---
 
-### ✅ Solution 1 — Rebuild Assets
+### Solution 1 — Rebuild Assets
 
 ```bash
 docker exec -it frappe_docker-backend-1 bash
@@ -234,7 +234,7 @@ docker restart frappe_docker-frontend-1
 
 ---
 
-### ✅ Solution 2 — Delete Old Assets and Rebuild
+### Solution 2 — Delete Old Assets and Rebuild
 
 ```bash
 docker exec -it frappe_docker-backend-1 bash
@@ -248,7 +248,7 @@ docker restart frappe_docker-frontend-1
 
 ---
 
-### ✅ Solution 3 — Clear Browser + Nginx Cache
+### Solution 3 — Clear Browser + Nginx Cache
 
 1. In your browser → **DevTools → Network → Disable cache**
 2. Hard-refresh (`Ctrl+Shift+R` or `Cmd+Shift+R`)
@@ -260,7 +260,7 @@ docker restart frappe_docker-frontend-1
 
 ---
 
-### ✅ Solution 4 — Version Sync Fix (Advanced)
+### Solution 4 — Version Sync Fix (Advanced)
 
 If you restored a site from a different ERPNext/Frappe version, you may need to rebuild the assets with matching code:
 
@@ -275,7 +275,7 @@ docker restart frappe_docker-frontend-1
 
 ---
 
-### ✅ Solution 5 — Check Assets Path in Nginx
+### Solution 5 — Check Assets Path in Nginx
 
 Inside the frontend container:
 
@@ -287,7 +287,7 @@ Ensure it points to `/usr/share/nginx/html/assets` or the correct mounted site a
 
 ---
 
-## ⚙️ 5. Common Frappe Docker Errors & Fixes
+## 5. Common Frappe Docker Errors & Fixes
 
 | Problem                       | Cause                     | Fix                                                     |
 | ----------------------------- | ------------------------- | ------------------------------------------------------- |
@@ -300,7 +300,7 @@ Ensure it points to `/usr/share/nginx/html/assets` or the correct mounted site a
 
 ---
 
-## 🔍 6. Verify the Restore
+## 6. Verify the Restore
 
 1. Open [http://localhost:8080](http://localhost:8080)
 2. Log in with your old credentials
@@ -314,7 +314,7 @@ Ensure it points to `/usr/share/nginx/html/assets` or the correct mounted site a
 
 ---
 
-## 🧹 7. Cleanup
+## 7. Cleanup
 
 Once restored successfully:
 
@@ -325,7 +325,7 @@ docker exec -it frappe_docker-backend-1 rm /home/frappe/frappe_sites_backup.tar.
 
 ---
 
-## 🧠 8. Summary
+## 8. Summary
 
 | Task          | Command                                                             |
 | ------------- | ------------------------------------------------------------------- |

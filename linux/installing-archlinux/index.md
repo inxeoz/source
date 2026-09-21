@@ -265,7 +265,7 @@ Remove installation media and log in.
 
 2. **Identify and mount your existing Arch Linux ``root`` partition** to the `/mnt` directory.
 
-   > **⚠️ Warning:** Do **not** format the partition. Simply mount it to access your files without erasing any data.
+   > **Warning:** Do **not** format the partition. Simply mount it to access your files without erasing any data.
 
 3. **Enter the system** by running `arch-chroot /mnt`.
 

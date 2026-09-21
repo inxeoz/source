@@ -1,5 +1,5 @@
 ---
-title: "🟢 Verifying Offline Frappe/ERPNext Is Working (and Fixing Frontend Issues)"
+title: "Verifying Offline Frappe/ERPNext Is Working (and Fixing Frontend Issues)"
 date: 2026-01-27
 draft: false
 tags: ["verify", "created", "site", "verifying", "offline", "frappe", "erpnext", "is"]
@@ -8,7 +8,7 @@ viewMode: docs
 showToc: true
 ---
 
-# 🟢 Verifying Offline Frappe/ERPNext Is Working (and Fixing Frontend Issues)
+# Verifying Offline Frappe/ERPNext Is Working (and Fixing Frontend Issues)
 
 After loading Docker images from a `.tar` file and starting services with Docker Compose **without internet**, the final and most common hurdle is getting the **frontend (nginx)** container running correctly.
 
@@ -16,7 +16,7 @@ This section explains how to **diagnose, fix, and verify** a successful offline 
 
 ---
 
-## ✅ Expected Healthy State
+## Expected Healthy State
 
 Run:
 
@@ -48,7 +48,7 @@ If **frontend is missing or restarting**, your site will not be accessible.
 
 ---
 
-## ❌ Common Error: Frontend Restart Loop
+## Common Error: Frontend Restart Loop
 
 Frontend logs may show:
 
@@ -72,7 +72,7 @@ This is **not** a Frappe bug — it’s a Docker port conflict.
 
 ---
 
-## ✅ Fix: Change Frontend Port (Recommended)
+## Fix: Change Frontend Port (Recommended)
 
 Edit `pwd.yml`:
 
@@ -90,7 +90,7 @@ Why this works:
 
 ---
 
-## 🔄 Restart Cleanly
+## Restart Cleanly
 
 ```bash
 docker compose -f pwd.yml down
@@ -107,7 +107,7 @@ Frontend **must** be `Up`.
 
 ---
 
-## 🌐 Accessing the Site (Important)
+## Accessing the Site (Important)
 
 Frappe uses **host-based routing**.
 
@@ -133,7 +133,7 @@ Expected output:
 
 ---
 
-## 🌍 Browser Access
+## Browser Access
 
 Add to `/etc/hosts` (host machine):
 
@@ -151,7 +151,7 @@ You should see the **ERPNext login page**.
 
 ---
 
-## 🔎 Extra Verification Commands
+## Extra Verification Commands
 
 ### Confirm site exists
 
@@ -180,7 +180,7 @@ You should see:
 
 ---
 
-## 🧠 Key Takeaways (Offline Deployments)
+## Key Takeaways (Offline Deployments)
 
 * Docker images **must be saved together**:
 

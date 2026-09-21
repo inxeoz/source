@@ -1,5 +1,5 @@
 ---
-title: "🚀 Deploying ERPNext (Frappe) with Docker in an Offline / Air-Gapped Environment"
+title: "Deploying ERPNext (Frappe) with Docker in an Offline / Air-Gapped Environment"
 date: 2026-01-27
 draft: false
 tags: ["full", "article", "deploy", "deploying", "erpnext", "frappe", "docker", "offline"]
@@ -8,7 +8,7 @@ viewMode: docs
 showToc: true
 ---
 
-# 🚀 Deploying ERPNext (Frappe) with Docker in an Offline / Air-Gapped Environment
+# Deploying ERPNext (Frappe) with Docker in an Offline / Air-Gapped Environment
 
 **From Local Setup to Server Deployment (Complete Guide)**
 
@@ -53,7 +53,7 @@ ERPNext using Docker consists of **multiple containers**, not one:
 | configurator | Initial config             |
 | create-site  | Site bootstrap             |
 
-📌 **Only frontend is exposed publicly**
+**Only frontend is exposed publicly**
 Everything else stays on the Docker network.
 
 ---
@@ -110,7 +110,7 @@ Key points:
 * Volumes for persistence
 * No internet dependency
 
-👉 You already validated this file, so we **do not modify it further**.
+You already validated this file, so we **do not modify it further**.
 
 ---
 
@@ -148,9 +148,9 @@ Result:
 frappe_pwd_v15_offline.tar
 ```
 
-✔ Single file
-✔ Can be scanned, approved, transferred
-✔ No internet required later
+Single file
+Can be scanned, approved, transferred
+No internet required later
 
 ---
 
@@ -185,8 +185,8 @@ Verify:
 docker images | egrep 'frappe|mariadb|redis'
 ```
 
-✅ Images are now available locally
-❌ No Docker Hub access required
+Images are now available locally
+No Docker Hub access required
 
 ---
 
@@ -289,7 +289,7 @@ curl -H "Host: test.local" http://localhost:8081
 http://SERVER_IP:8081
 ```
 
-✔ ERPNext login page should load
+ERPNext login page should load
 
 ---
 
@@ -308,7 +308,7 @@ firewall-cmd --add-port=8081/tcp --permanent
 firewall-cmd --reload
 ```
 
-⚠️ Do NOT expose:
+Do NOT expose:
 
 * 3306 (MariaDB)
 * 6379 (Redis)
@@ -369,25 +369,25 @@ docker compose -f pwd.yml logs queue-long
 
 ## 20. Golden Rules for Production
 
-✅ Only frontend is public
-✅ Backend accessed via SSH + docker exec
-✅ DB & Redis stay private
-✅ Images always version-locked
-✅ Offline `.tar` is source of truth
+Only frontend is public
+Backend accessed via SSH + docker exec
+DB & Redis stay private
+Images always version-locked
+Offline `.tar` is source of truth
 
-❌ Never expose DB
-❌ Never run bench on host
-❌ Never `docker pull` in production
+Never expose DB
+Never run bench on host
+Never `docker pull` in production
 
 ---
 
 ## 21. What You Achieved
 
-✔ Fully offline ERPNext deployment
-✔ Reproducible Docker images
-✔ Secure networking
-✔ Production-grade workflow
-✔ Zero dependency on internet
+Fully offline ERPNext deployment
+Reproducible Docker images
+Secure networking
+Production-grade workflow
+Zero dependency on internet
 
 This is **enterprise-level deployment**, not a demo.
 
