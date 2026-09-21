@@ -1,7 +1,7 @@
 ---
 title: "How to Install Frappe Bench on Arch Linux"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["install", "frappe", "bench", "arch", "linux"]
 categories: ["Tech"]
 viewMode: docs

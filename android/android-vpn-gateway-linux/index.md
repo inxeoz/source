@@ -1,7 +1,7 @@
 ---
 title: "My Company Only Has an Android VPN App — Here's How I Made It Work on Linux"
 date: 2026-07-26
-draft: false
+draft: true 
 tags: ["android", "vpn", "linux", "ssh", "termux", "proxyjump", "development"]
 categories: ["Tech"]
 viewMode: docs

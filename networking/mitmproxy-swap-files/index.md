@@ -1,7 +1,7 @@
 ---
 title: "Swapping Large or Stalled Files with mitmproxy"
 date: 2026-06-01
-draft: false
+draft: true
 viewMode: docs
 tags: ["mitmproxy", "proxy", "debugging", "networking", "tools"]
 categories: ["Tech"]

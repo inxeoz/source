@@ -1,7 +1,7 @@
 ---
 title: "How LLMs Actually Work — From Data to Intelligence"
 date: 2026-06-13
-draft: false
+draft: true 
 tags: ["ai", "deep-learning", "llm", "transformer", "explainer"]
 categories: ["Tech"]
 viewMode: docs

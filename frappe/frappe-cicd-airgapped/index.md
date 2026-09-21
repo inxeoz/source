@@ -1,7 +1,7 @@
 ---
 title: "How to Set Up CI/CD for Frappe When Your Server Has No Internet"
 date: 2026-07-26
-draft: false
+draft: true
 tags: ["frappe", "ci-cd", "jenkins", "docker", "offline", "air-gapped", "deployment"]
 categories: ["Tech"]
 viewMode: docs

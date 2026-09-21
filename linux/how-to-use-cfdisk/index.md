@@ -1,7 +1,7 @@
 ---
 title: "How to create partitions using cfdisk"
 date: 2026-03-23
-draft: false
+draft: false 
 tags: ["cfdisk", "partition", "boot"]
 categories: ["Tech"]
 viewMode: docs

@@ -1,7 +1,7 @@
 ---
 title: "Lightning Fast Android & Gradle Builds"
 date: 2026-05-31
-draft: false
+draft: true 
 viewMode: docs
 tags: ["android", "gradle", "kotlin", "performance", "build-tools"]
 categories: ["Tech"]

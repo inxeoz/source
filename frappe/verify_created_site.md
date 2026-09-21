@@ -1,7 +1,7 @@
 ---
 title: "Verifying Offline Frappe/ERPNext Is Working (and Fixing Frontend Issues)"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["verify", "created", "site", "verifying", "offline", "frappe", "erpnext", "is"]
 categories: ["Tech"]
 viewMode: docs

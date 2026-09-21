@@ -1,7 +1,7 @@
 ---
 title: "Working with KVM Virtual Machines and Creating Networks (NAT, Isolated, Bridged) + Hosting a Local Repository Server"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["kvm", "hosting", "registry", "working", "virtual", "machines", "creating", "networks"]
 categories: ["Tech"]
 viewMode: docs
@@ -286,5 +286,3 @@ Host serves `/var/www/html/rhel8/` → VM uses it as offline repo.
 ### VM registers to repo using `.repo` file
 
 ---
-
-

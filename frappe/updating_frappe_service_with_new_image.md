@@ -1,7 +1,7 @@
 ---
 title: "How to Build, Ship, and Deploy a New Frappe Image with Updated Custom Apps (Without Affecting Existing Sites)"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["updating", "frappe", "service", "image", "build", "ship", "deploy", "updated"]
 categories: ["Tech"]
 viewMode: docs
@@ -345,4 +345,3 @@ This workflow:
 * Matches Frappe Docker best practices
 
 This is the **correct way** to manage apps in production Frappe environments.
-

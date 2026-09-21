@@ -1,7 +1,7 @@
 ---
 title: "Connect Linux and Android Using Cloudflare One"
 date: 2026-09-16
-draft: false
+draft: true
 tags: ["connect", "device", "cloudflare", "linux", "android", "one"]
 categories: ["Tech"]
 viewMode: docs

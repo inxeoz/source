@@ -1,7 +1,7 @@
 ---
 title: "How to Fix Redis Connection Errors in Frappe / ERPNext"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["redis", "connection", "errors", "frappe", "erpnext"]
 categories: ["Tech"]
 viewMode: docs
@@ -233,5 +233,3 @@ This should complete without any connection errors.
 | `Connection refused`                      | Wrong hostname in config            | Use container names (`redis-cache`, `redis-queue`, `redis-socketio`) |
 | Redis processes missing                   | Supervisor not installed or running | Install and restart Supervisor                                       |
 | Docker network issue                      | Containers not on same network      | Use `--network frappe-net` or Docker Compose                         |
-
-

@@ -1,7 +1,7 @@
 ---
 title: "How to Run Cloudflare WARP and a Corporate VPN Simultaneously on Linux"
 date: 2026-07-26
-draft: false
+draft: true
 tags: ["vpn", "cloudflare", "warp", "motionpro", "linux", "routing", "split-tunnel"]
 categories: ["Tech"]
 viewMode: docs

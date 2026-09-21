@@ -1,7 +1,7 @@
 ---
 title: "The Telescoping Blueprint: A Simple Way to Derive Every Sum-of-Powers Formula"
 date: 2026-08-07
-draft: false
+draft: false 
 tags: ["math", "sum-of-powers"]
 categories: ["Tech"]
 viewMode: docs
@@ -405,5 +405,3 @@ In mathematical shorthand, this means:
 \]
 
 The engine \( (n+1)^{x+1} - 1 \) provides the raw horsepower. The lower sums (\( \sum k^{x-1}, \sum k^{x-2}, \dots \)) act as the gears that we recursively subtract to extract the exact power we want. This is the foundation of **Faulhaber's Formula** — and its core mechanism is exactly the telescoping trick from Part 1.
-
-

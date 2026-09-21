@@ -1,7 +1,7 @@
 ---
 title: "How to Set Up Multiple Frappe Benches on One Machine"
 date: 2026-06-23
-draft: false
+draft: true
 viewMode: docs
 tags: ["frappe"]
 categories: ["Tech"]

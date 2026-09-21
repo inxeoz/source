@@ -1,7 +1,7 @@
 ---
 title: "KVM/QEMU Virtual Machine on Arch Linux"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["virtual", "machine", "archlinux", "quick", "prerequisites", "check", "your", "hardware"]
 categories: ["Tech"]
 viewMode: docs

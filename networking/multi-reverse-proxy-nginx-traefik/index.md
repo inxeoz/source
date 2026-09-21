@@ -1,7 +1,7 @@
 ---
 title: "NGINX in Front of Traefik: Enterprise Frappe Deployments on RHEL"
 date: 2026-07-26
-draft: false
+draft: true
 tags: ["nginx", "traefik", "frappe", "reverse-proxy", "selinux", "firewalld", "enterprise"]
 categories: ["Tech"]
 viewMode: docs

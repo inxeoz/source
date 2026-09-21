@@ -1,7 +1,7 @@
 ---
 title: "Fixing ERPNext / Frappe Error"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["fixing", "db", "external", "erpnext", "frappe", "error"]
 categories: ["Tech"]
 viewMode: docs
@@ -288,4 +288,3 @@ Before installing apps:
 * [ ] No container restarts done
 
 If all are true → ERPNext will install.
-

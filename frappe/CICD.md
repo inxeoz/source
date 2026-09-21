@@ -1,7 +1,7 @@
 ---
 title: "CI/CD for Frappe Bench using Jenkins (Offline / Air-Gapped Setup)"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["cicd", "ci", "cd", "frappe", "bench", "jenkins", "offline", "air"]
 categories: ["Tech"]
 viewMode: docs
@@ -362,4 +362,3 @@ This CI/CD design is:
 * Frappe-compatible
 
 It is **the recommended way** to deploy Frappe Bench in restricted environments.
-

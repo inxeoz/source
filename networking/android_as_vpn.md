@@ -1,7 +1,7 @@
 ---
 title: "Android VPN Gateway for Linux Development Using Termux, ADB, SSH ProxyJump, and rsync"
 date: 2026-07-21
-draft: false
+draft: true
 tags: ["android", "as", "vpn", "gateway", "linux", "development", "termux", "adb"]
 categories: ["Tech"]
 viewMode: docs

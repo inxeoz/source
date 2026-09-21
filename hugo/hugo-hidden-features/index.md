@@ -1,7 +1,7 @@
 ---
 title: "Hugo Is More Extensible Than You Think"
 date: 2026-08-09
-draft: false
+draft: true
 viewMode: docs
 showToc: True
 tags: ["hugo", "static-site-generator", "cli", "extensibility"]

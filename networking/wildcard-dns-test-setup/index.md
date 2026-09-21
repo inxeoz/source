@@ -1,7 +1,7 @@
 ---
 title: "How to Set Up *.test Domains Locally Without Breaking Your DNS"
 date: 2026-07-26
-draft: false
+draft: true
 tags: ["dns", "dnsmasq", "systemd-resolved", "linux", "development", "networking"]
 categories: ["Tech"]
 viewMode: docs

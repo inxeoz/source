@@ -1,7 +1,7 @@
 ---
 title: "Learn Python by Projects"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["learn", "python", "by", "projects", "level", "0", "absolute", "beginner"]
 categories: ["Tech"]
 viewMode: docs

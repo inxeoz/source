@@ -1,7 +1,7 @@
 ---
 title: "Unlocking the Fibonacci Sequence: The Power of Matrix Exponentiation"
 date: 2026-09-21
-draft: false
+draft: true
 tags: ["index", "unlocking", "fibonacci", "sequence", "power", "matrix", "exponentiation"]
 categories: ["Tech"]
 viewMode: docs
@@ -175,4 +175,3 @@ Instead of performing 100 iterations of addition, the `matrix_power` function pr
 The matrix method is the gold standard for computing gigantic Fibonacci numbers. By reframing the recurrence as a linear transformation, we weaponize the mathematical identity of exponentiation. By implementing that exponentiation via binary squaring, we make the computer process the exponent as bits, slashing time requirements.
 
 The code we dissected is a perfect synergy of **Linear Algebra** and **Algorithmic Optimization**. The next time you need the 10-millionth Fibonacci number, skip the loop—unleash the matrix.
-

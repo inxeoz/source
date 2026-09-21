@@ -1,7 +1,7 @@
 ---
 title: "Frappe Docker Setup (Custom Image + App)"
 date: 2026-05-21
-draft: false
+draft: true
 tags: ["frappe", "docker", "frappe-docker"]
 categories: ["Tech"]
 viewMode: docs

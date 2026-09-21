@@ -1,7 +1,7 @@
 ---
 title: "EPUB Reader"
 date: 2026-08-20
-draft: false
+draft: true
 tags: ["epub", "books", "reader", "tools"]
 categories: ["Tech"]
 viewMode: docs

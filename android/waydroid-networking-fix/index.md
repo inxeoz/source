@@ -1,7 +1,7 @@
 ---
 title: "How to Fix and Automate Waydroid Internet Connectivity on Linux"
 date: 2026-07-26
-draft: false
+draft: true 
 tags: ["waydroid", "android", "linux", "networking", "systemd", "lxc"]
 categories: ["Tech"]
 viewMode: docs

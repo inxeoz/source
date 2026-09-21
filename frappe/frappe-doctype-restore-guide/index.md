@@ -1,7 +1,7 @@
 ---
 title: "Fixing Frappe DocTypes After a Restore Without Source Code"
 date: 2026-07-26
-draft: false
+draft: true
 tags: ["frappe", "erpnext", "doctype", "restore", "database", "docker"]
 categories: ["Tech"]
 viewMode: docs

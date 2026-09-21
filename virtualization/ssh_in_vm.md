@@ -1,7 +1,7 @@
 ---
 title: "SSH into a Virtual Machine"
 date: 2026-01-30
-draft: false
+draft: true
 tags: ["ssh", "vm", "method", "1", "port", "forwarding", "workaround"]
 categories: ["Tech"]
 viewMode: docs

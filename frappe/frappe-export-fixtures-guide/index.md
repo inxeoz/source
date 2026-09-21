@@ -1,7 +1,7 @@
 ---
 title: "How to Version-Control Everything You Built in Frappe's UI"
 date: 2026-07-26
-draft: false
+draft: true
 tags: ["frappe", "erpnext", "fixtures", "version-control", "export", "git"]
 categories: ["Tech"]
 viewMode: docs

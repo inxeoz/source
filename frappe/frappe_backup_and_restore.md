@@ -1,7 +1,7 @@
 ---
 title: "Complete Guide: Full Backup & Restore in Frappe / ERPNext (Production-Ready)"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["frappe", "backup", "restore", "full", "erpnext", "production", "ready"]
 categories: ["Tech"]
 viewMode: docs
@@ -321,4 +321,3 @@ This ensures your **next restore is painless**.
 * **Never interrupt restore**
 * **Always migrate**
 * **Always test once**
-

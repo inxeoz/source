@@ -1,7 +1,7 @@
 ---
 title: "How to Restore frappe_db_backup_utf8.sql"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["restore", "frappe", "db", "backup", "utf8", "sql"]
 categories: ["Tech"]
 viewMode: docs
@@ -145,5 +145,3 @@ bench start
 - **Permission Issues**: Ensure the MySQL user has sufficient privileges.
 - **Import Errors**: Check MySQL error logs for specific issues.
 - **Site Not Loading**: Run `bench doctor` to diagnose issues.
-
-

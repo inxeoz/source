@@ -1,7 +1,7 @@
 ---
 title: "Attention Is All You Need — Explained Simply"
 date: 2026-05-21
-draft: false
+draft: true 
 tags: ["ai", "deep-learning", "transformer", "paper"]
 categories: ["Tech"]
 viewMode: docs

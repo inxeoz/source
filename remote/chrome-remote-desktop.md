@@ -1,7 +1,7 @@
 ---
 title: "Complete Guide to Chrome Remote Desktop"
 date: 2026-04-17
-draft: false
+draft: false 
 tags: ["chrome", "remote", "desktop"]
 categories: ["Tech"]
 viewMode: docs

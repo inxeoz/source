@@ -1,7 +1,7 @@
 ---
 title: "How to Run React Native on Arch Linux (and Fix Common Errors)"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["react", "native", "run", "arch", "linux", "common", "errors"]
 categories: ["Tech"]
 viewMode: docs

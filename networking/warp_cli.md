@@ -1,7 +1,7 @@
 ---
 title: "Cloudflare WARP (`warp-cli`) Split-Tunneling — Key Notes"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["warp", "cli", "cloudflare", "split", "tunneling", "key", "notes"]
 categories: ["Tech"]
 viewMode: docs

@@ -1,7 +1,7 @@
 ---
 title: "How to Export Everything Created via UI in Frappe / ERPNext"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["export", "config", "everything", "created", "via", "ui", "frappe", "erpnext"]
 categories: ["Tech"]
 viewMode: docs

@@ -1,7 +1,7 @@
 ---
 title: "Connecting to an Array Networks VPN from Linux using MotionPro (Android) + Termux + SOCKS Proxy"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["connecting", "array", "networks", "vpn", "linux", "motionpro", "android", "termux"]
 categories: ["Tech"]
 viewMode: docs
@@ -350,4 +350,3 @@ This is equivalent to:
 - Optionally use `tmux` in Termux
 
 ------
-

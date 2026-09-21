@@ -1,7 +1,7 @@
 ---
 title: "Running MotionPro (Array Networks SSL VPN) GUI on Arch Linux — Full Guide"
 date: 2026-08-06
-draft: false
+draft: true
 tags: ["motion", "pro", "archlinux", "running", "motionpro", "array", "networks", "ssl"]
 categories: ["Tech"]
 viewMode: docs

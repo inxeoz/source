@@ -1,7 +1,7 @@
 ---
 title: "Spaceboy Theme: Configuration Reference"
 date: 2026-05-29
-draft: false
+draft: true
 tags: ["hugo", "theme", "configuration", "docs"]
 categories: ["Tech"]
 showToc: True

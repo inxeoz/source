@@ -1,7 +1,7 @@
 ---
 title: "Getting MotionPro VPN Working on Arch Linux (Every Fix I Found)"
 date: 2026-07-26
-draft: false
+draft: true
 tags: ["motionpro", "vpn", "archlinux", "networking", "wayland", "qt"]
 categories: ["Tech"]
 viewMode: docs

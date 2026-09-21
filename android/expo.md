@@ -1,7 +1,7 @@
 ---
 title: "Why `adb reverse tcp:8081 tcp:8081` Fixed My Expo Connection (And Why Everything Else Failed)"
 date: 2026-02-25
-draft: false
+draft: true 
 tags: ["expo", "why", "adb", "reverse", "tcp", "8081", "fixed", "my"]
 categories: ["Tech"]
 viewMode: docs

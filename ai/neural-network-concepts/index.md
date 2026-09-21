@@ -1,7 +1,7 @@
 ---
 title: "Neural Network Concepts & Architecture"
 date: 2026-04-21
-draft: false
+draft: true 
 tags: ["ai", "neuron"]
 categories: ["Tech"]
 viewMode: docs

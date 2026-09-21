@@ -1,7 +1,7 @@
 ---
 title: "How to Set Up Automatic Wi-Fi Connection & Disconnection Alerts on Arch Linux (Hyprland / Wayland)"
 date: 2026-08-03
-draft: false
+draft: true
 tags: ["notify", "wifi", "status", "set", "up", "automatic", "wi", "fi"]
 categories: ["Tech"]
 viewMode: docs

@@ -1,7 +1,7 @@
 ---
 title: "Strict Vertical Curvy Corners Navigation — TOC Design"
 date: 2026-07-26
-draft: false
+draft: true
 tags: ["toc", "design", "navigation", "svg", "scrollspy", "intersectionobserver"]
 categories: ["Tech"]
 viewMode: docs

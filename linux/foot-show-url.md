@@ -1,7 +1,7 @@
 ---
 title: "Foot Terminal: URL Handling Made Simple"
 date: 2026-08-31
-draft: false
+draft: true
 tags: ["foot", "show", "url", "terminal", "handling", "made", "simple"]
 categories: ["Tech"]
 viewMode: docs
@@ -163,5 +163,3 @@ launch=/home/inxeoz/.local/bin/url-open.sh ${url}
 regex=((https?://)?(([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}|localhost|([0-9]{1,3}\.){3}[0-9]{1,3})(:[0-9]{1,5})?(/[^\s<>"']*)?)
 
 ```
-
-

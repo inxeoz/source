@@ -1,7 +1,7 @@
 ---
 title: "Rust In HTML/JS"
 date: 2026-03-22
-draft: false
+draft: false 
 tags: ["rust", "wasm", "html"]
 categories: ["Tech"]
 viewMode: docs
@@ -148,4 +148,4 @@ Or with Node.js:
 npx serve .
 ```
 
-Then, open `http://localhost:8080/index.html` in a browser and test the phonetic converter! 
+Then, open `http://localhost:8080/index.html` in a browser and test the phonetic converter!

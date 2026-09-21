@@ -1,7 +1,7 @@
 ---
 title: "Setting Up Local *.test DNS Resolution Without Breaking System DNS"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["dnstest", "up", "local", "test", "dns", "resolution", "without", "breaking"]
 categories: ["Tech"]
 viewMode: docs

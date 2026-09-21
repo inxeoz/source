@@ -1,7 +1,7 @@
 ---
 title: "TOC Design Sample Article"
 date: 2026-07-26
-draft: false
+draft: true
 tags: ["sample", "toc", "design", "test"]
 categories: ["Tech"]
 viewMode: docs

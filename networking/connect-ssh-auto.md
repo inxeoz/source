@@ -1,7 +1,7 @@
 ---
 title: "How to Connect to a Server Using SSH Keys and an SSH Config File"
 date: 2026-09-10
-draft: false
+draft: true
 tags: ["connect", "ssh", "auto", "server", "keys", "config", "file"]
 categories: ["Tech"]
 viewMode: docs

@@ -1,7 +1,7 @@
 ---
 title: "data-testid — From Zero to Hero"
 date: 2026-05-21
-draft: false
+draft: false 
 tags: ["testing", "playwright", "eslint", "e2e"]
 categories: ["Tech"]
 viewMode: docs

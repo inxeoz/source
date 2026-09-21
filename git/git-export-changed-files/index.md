@@ -1,7 +1,7 @@
 ---
 title: "Export Only Changed Files From Git While Preserving Folder Structure"
 date: 2026-07-26
-draft: false
+draft: true
 tags: ["git", "deployment", "linux", "devops"]
 categories: ["Tech"]
 viewMode: docs

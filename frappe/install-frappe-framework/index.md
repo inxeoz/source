@@ -1,7 +1,7 @@
 ---
 title: "Install Frappe Framework"
 date: 2026-03-23
-draft: false
+draft: true
 tags: ["frappe", "erpnext"]
 categories: ["Tech"]
 viewMode: docs

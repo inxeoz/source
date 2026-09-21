@@ -1,7 +1,7 @@
 ---
 title: "Classic 2D Games — Play in Browser"
 date: 2026-05-31
-draft: false
+draft: true
 viewMode: docs
 tags: ["games", "javascript", "canvas", "fun"]
 categories: ["Tech"]

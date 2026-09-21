@@ -1,7 +1,7 @@
 ---
 title: "Frappe Production Setup: Supervisor, Process Management, Custom Domains, and Domain Sync"
 date: 2026-09-09
-draft: false
+draft: true
 tags: ["supervisor", "custom", "domains", "frappe", "production", "process", "management", "domain"]
 categories: ["Tech"]
 viewMode: docs

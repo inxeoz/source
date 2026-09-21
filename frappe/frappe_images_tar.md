@@ -1,7 +1,7 @@
 ---
 title: "Running Frappe / ERPNext Docker Deployments Fully Offline"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["frappe", "images", "tar", "running", "erpnext", "docker", "deployments", "fully"]
 categories: ["Tech"]
 viewMode: docs
@@ -408,4 +408,3 @@ docker save … -o bundle.tar
 docker load -i bundle.tar
 docker compose up -d --pull=never
 ```
-

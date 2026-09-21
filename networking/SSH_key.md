@@ -1,7 +1,7 @@
 ---
 title: "Complete GitHub SSH Setup Guide for Linux Developers"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["ssh", "key", "github", "linux", "developers"]
 categories: ["Tech"]
 viewMode: docs
@@ -101,4 +101,3 @@ Host github.com
 - **i3/Hyprland:** Agent persists via systemd; no PAM issues like GNOME.
 - **Docker:** Mount agent socket: `-v $SSH_AUTH_SOCK:/agent.sock -e SSH_AUTH_SOCK=/agent.sock`.
 - **Cloudflare Warp:** Ensure `warp-cli disconnect` during SSH setup if routing interferes.
-

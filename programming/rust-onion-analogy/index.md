@@ -1,7 +1,7 @@
 ---
 title: "Rust Patterns: Don’t Peel the Onion"
 date: 2026-03-31
-draft: false
+draft: true
 viewMode: docs 
 tags: ["rust"]
 categories: ["Tech"]

@@ -1,7 +1,7 @@
 ---
 title: "Running Split VPNs on Linux"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["arrayvpn", "linux", "running", "split", "vpns"]
 categories: ["Tech"]
 viewMode: docs
@@ -350,4 +350,3 @@ Internet traffic        → Cloudflare WARP
 172.16.50.10 (SSH)      → MotionPro VPN (tun0)
 Everything else         → unchanged
 ```
-

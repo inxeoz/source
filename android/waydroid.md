@@ -1,7 +1,7 @@
 ---
 title: "How to Fix and Automate Internet Connectivity in Waydroid"
 date: 2026-07-23
-draft: true
+draft:  true 
 tags: ["waydroid", "automate", "internet", "connectivity"]
 categories: ["Tech"]
 viewMode: docs

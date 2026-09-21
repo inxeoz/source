@@ -1,7 +1,7 @@
 ---
 title: "SVG Icons In Font Using Fantasticon"
 date: 2026-03-22
-draft: false
+draft: true
 tags: ["fonts", "svg"]
 categories: ["Tech"]
 viewMode: docs

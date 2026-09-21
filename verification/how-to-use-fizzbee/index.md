@@ -1,7 +1,7 @@
 ---
 title: "How to Use FizzBee for Formal Verification of Distributed Systems"
 date: 2026-06-16
-draft: false
+draft: true
 tags: ["fizzbee", "formal methods", "model checking", "distributed systems", "tla+"]
 categories: ["Tech"]
 viewMode: docs

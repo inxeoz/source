@@ -1,7 +1,7 @@
 ---
 title: "Export Only Changed Files From Git (Branches or Commits) While Preserving Folder Structure"
 date: 2026-05-06
-draft: false
+draft: true
 tags: ["export", "changes", "only", "changed", "files", "git", "branches", "or"]
 categories: ["Tech"]
 viewMode: docs

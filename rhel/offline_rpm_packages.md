@@ -1,7 +1,7 @@
 ---
 title: "Run RHEL 9 in Docker (Offline-Friendly)"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["offline", "rpm", "packages", "run", "rhel", "9", "docker", "friendly"]
 categories: ["Tech"]
 viewMode: docs
@@ -124,5 +124,4 @@ docker stop rhel9   # Stop when done
 docker start rhel9  # Restart later  
 ```  
   
----  
- 
+---

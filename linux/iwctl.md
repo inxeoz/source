@@ -1,7 +1,7 @@
 ---
 title: "Complete Guide: Setting up `iwctl` / iwd Networking on Linux (Arch-style)"
 date: 2026-03-11
-draft: false
+draft: true
 tags: ["iwctl", "up", "iwd", "networking", "linux", "arch", "style"]
 categories: ["Tech"]
 viewMode: docs

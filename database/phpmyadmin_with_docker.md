@@ -1,7 +1,7 @@
 ---
 title: "Running phpMyAdmin with Docker on Linux (Fast + Correct Setup)"
 date: 2026-04-29
-draft: false
+draft: true
 tags: ["phpmyadmin", "docker", "running", "linux", "fast", "correct"]
 categories: ["Tech"]
 viewMode: docs

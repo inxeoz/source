@@ -1,7 +1,7 @@
 ---
 title: "Multi Reverse Proxy Architecture on RHEL"
 date: 2026-01-27
-draft: false
+draft: true
 tags: ["reverse", "proxy", "80", "multi", "architecture", "rhel"]
 categories: ["Tech"]
 viewMode: docs

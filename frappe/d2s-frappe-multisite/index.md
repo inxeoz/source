@@ -1,7 +1,7 @@
 ---
 title: "Docker to Setup (D2S) - Frappe Multi-Site Bench"
 date: 2026-05-25
-draft: false
+draft: true
 tags: ["frappe", "docker", "traefik", "frappe-docker", "multi-site"]
 categories: ["Tech"]
 viewMode: docs
