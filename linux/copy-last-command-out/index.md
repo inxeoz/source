@@ -1,6 +1,6 @@
 # `cwdsync` — Setup Guide
 
-A pty wrapper that logs your shell session and keeps your terminal's cwd in sync, so `Ctrl+Shift+Enter` (new window) and `Ctrl+Shift+T` (new tab) open in the right directory even when you're running a logging wrapper.
+A pty wrapper that logs your shell session, plus a small shadow of Omarchy's cwd helper so new terminals open in the right directory even though the logging wrapper sits between the terminal and the shell.
 
 ---
 
@@ -9,7 +9,7 @@ A pty wrapper that logs your shell session and keeps your terminal's cwd in sync
 - Every shell session is logged to a file.
 - `x` copies the last command's output to the clipboard.
 - `x N` copies the output of the N-th most recent command.
-- `Ctrl+Shift+Enter` / `Ctrl+Shift+T` open in the current directory.
+- `SUPER+RETURN` (and other cwd launchers) open in the current directory.
 - No tmux, no keybinding conflicts.
 
 ---
@@ -481,7 +481,13 @@ Inside the shell:
 cd /tmp
 ```
 
-Now press `Ctrl+Shift+Enter` in kitty. The new window should open in `/tmp`. If it does, the wrapper works.
+Now check where a launcher thinks this window is. With the shadow from [Fix cwd inheritance](#fix-cwd-inheritance-omarchy-omarchy-cmd-terminal-cwd) installed it should print `/tmp`:
+
+```bash
+~/.local/bin/omarchy-cmd-terminal-cwd   # -> /tmp
+```
+
+A terminal's own new-window shortcut (e.g. kitty's `Ctrl+Shift+Enter`) is **not** a reliable test: it inherits the cwd the terminal tracks for its foreground process, which under `cwdsync` is the frozen launch directory.
 
 Exit that shell. Confirm the log was written:
 
@@ -669,6 +675,302 @@ Everything below assumes a fresh window so the new `~/.x.sh` is loaded.
 
 ---
 
+# Fix cwd inheritance (Omarchy: `omarchy-cmd-terminal-cwd`)
+
+The wrapper breaks the usual "which directory is this terminal in?" lookup, so new windows open in `~` instead of your current directory.
+
+Terminals and desktop helpers find a window's directory by reading `/proc/<pid>/cwd` of the window's **direct child** — or, for kitty, of the window's **foreground process**. With `cwdsync` in between, that process is `cwdsync` itself, which never `chdir`s, so its cwd is frozen at the directory the window started in. Your real shell (`bash -l`) is now a **grandchild**, and it is the only process whose cwd follows your `cd`s.
+
+The effect differs by terminal:
+
+| Terminal | What the helper reads | Result with `cwdsync` |
+|---|---|---|
+| Alacritty / foot / … | `/proc/<direct child>/cwd`, rejecting non-shells | direct child is `cwdsync` → fails the shell check → falls back to `$HOME` |
+| kitty | `kitten @ ls`, which reports the window's **foreground** cwd | foreground is `cwdsync` → reports the frozen launch directory |
+
+Omarchy's `SUPER+RETURN` (and the "Files (cwd)" binding) call `omarchy-cmd-terminal-cwd` to choose the start directory. We fix both cases by **shadowing** that script with one that walks *all* descendants to the deepest login shell and reads **that** process's `/proc/cwd`.
+
+## The shadow script
+
+```bash
+cat > ~/.local/bin/omarchy-cmd-terminal-cwd <<'EOF'
+#!/bin/bash
+#
+# omarchy-cmd-terminal-cwd
+#
+# User shadow of /usr/bin/omarchy-cmd-terminal-cwd, aware of PTY-wrapper
+# processes (e.g. ~/.local/bin/cwdsync launched from ~/.x.sh).
+#
+# Upstream reads /proc/<pid>/cwd of the terminal window's DIRECT child and
+# requires its exe to be a login shell. With x.sh active the direct child is
+# the compiled cwdsync binary (not in /etc/shells) whose own /proc/cwd is
+# frozen at spawn time, so upstream always falls back to $HOME.
+#
+# This script instead finds the DEEPEST descendant whose exe is listed in
+# /etc/shells (the inner interactive bash) and reads THAT process's /proc/cwd.
+#
+# Kitty needs special handling: `kitten @ ls` reports a window's cwd from its
+# foreground process, which under x.sh is cwdsync (frozen) -- so kitty's own
+# answer is wrong. We use the kitty socket only to find the focused window's
+# foreground pid, then resolve the real shell beneath it.
+
+# Echo the cwd of the deepest login-shell process in the subtree rooted at $1
+# (including $1 itself). Returns non-zero if none is found.
+deepest_shell_cwd() {
+  local root="$1"
+  [[ -n $root && -d /proc/$root ]] || return 1
+
+  local -a queue=("$root")
+  local -A depth=([$root]=0)
+  local best_pid="" best_depth=-1
+  local cur d child exe
+
+  while ((${#queue[@]})); do
+    cur=${queue[0]}
+    queue=("${queue[@]:1}")
+    d=${depth[$cur]:-0}
+
+    exe=$(readlink -f "/proc/$cur/exe" 2>/dev/null)
+    if [[ -n $exe ]] && grep -Fqsx "$exe" /etc/shells; then
+      if ((d > best_depth)) ||
+        { ((d == best_depth)) && [[ -n $best_pid ]] && ((cur > best_pid)); }; then
+        best_depth=$d
+        best_pid=$cur
+      fi
+    fi
+
+    while IFS= read -r child; do
+      [[ $child =~ ^[0-9]+$ ]] || continue
+      depth[$child]=$((d + 1))
+      queue+=("$child")
+    done < <(pgrep -P "$cur" 2>/dev/null)
+  done
+
+  [[ -n $best_pid ]] || return 1
+  readlink -f "/proc/$best_pid/cwd" 2>/dev/null
+}
+
+terminal_pid=$(hyprctl activewindow 2>/dev/null | awk '/pid:/ {print $2}')
+kitty_socket="${XDG_RUNTIME_DIR}/omarchy-kitty-${terminal_pid}"
+cwd=""
+
+if [[ -S $kitty_socket ]]; then
+  # Resolve via the focused kitty window's foreground pid (per-window correct
+  # even with multiple kitty windows sharing one socket).
+  while IFS= read -r wp; do
+    [[ $wp =~ ^[0-9]+$ ]] || continue
+    cwd=$(deepest_shell_cwd "$wp") && [[ -n $cwd ]] && break
+    cwd=""
+  done < <(kitten @ --to "unix:$kitty_socket" ls --match "state:focused" 2>/dev/null |
+    jq -r '.[].tabs[].windows[].pid // empty')
+fi
+
+if [[ -z $cwd ]]; then
+  cwd=$(deepest_shell_cwd "$terminal_pid")
+fi
+
+if [[ -d $cwd ]]; then
+  echo "$cwd"
+else
+  echo "$HOME"
+fi
+EOF
+chmod +x ~/.local/bin/omarchy-cmd-terminal-cwd
+```
+
+## Make the shadow win over `/usr/bin`
+
+The session `PATH` puts `/usr/bin` before `~/.local/bin`, so the bare name still resolves to the packaged script. Prepend `~/.local/bin` for the whole session:
+
+```bash
+mkdir -p ~/.config/uwsm/env.d
+cat > ~/.config/uwsm/env.d/50-user-bin-first <<'EOF'
+# Prefer user shadows in ~/.local/bin over packaged binaries.
+# Needed so omarchy-cmd-terminal-cwd resolves to the cwdsync-aware
+# ~/.local/bin/omarchy-cmd-terminal-cwd instead of /usr/bin/omarchy-cmd-terminal-cwd.
+# (env-bootstrap appends ~/.local/bin after system dirs.)
+# Changes require a relogin to take effect.
+
+_without=$(echo "$PATH" | tr ':' '\n' | grep -v -F -x "$HOME/.local/bin" | tr '\n' ':' | sed 's/:$//')
+PATH="$HOME/.local/bin${_without:+:$_without}"
+export PATH
+unset _without
+EOF
+```
+
+Takes effect after a relogin.
+
+## Apply immediately (no relogin)
+
+Point the live Lua bindings at the shadow by absolute path. `$HOME` is expanded because Hyprland runs `exec` through a shell.
+
+```bash
+# append to ~/.config/hypr/bindings.lua
+cat >> ~/.config/hypr/bindings.lua <<'EOF'
+
+-- cwdsync-aware terminal cwd (x.sh wraps the shell, so upstream
+-- omarchy-cmd-terminal-cwd falls back to $HOME).
+hl.unbind("SUPER + RETURN")
+o.bind("SUPER + RETURN", "Terminal", 'uwsm-app -- xdg-terminal-exec --dir="$("$HOME/.local/bin/omarchy-cmd-terminal-cwd")"')
+hl.unbind("SUPER + ALT + RETURN")
+o.bind("SUPER + ALT + RETURN", "Tmux", 'uwsm-app -- xdg-terminal-exec --dir="$("$HOME/.local/bin/omarchy-cmd-terminal-cwd")" bash -c "tmux attach || tmux new -s Work"')
+hl.unbind("SUPER + ALT + SHIFT + F")
+o.bind("SUPER + ALT + SHIFT + F", "File manager (cwd)", 'uwsm-app -- nautilus --new-window "$("$HOME/.local/bin/omarchy-cmd-terminal-cwd")"')
+EOF
+
+hyprctl reload
+```
+
+> Re-running the `cat >>` above would append the block twice. Keep it idempotent by editing `bindings.lua` by hand after the first run, or use the update script below.
+
+## Update / re-apply script
+
+Self-contained: it writes the shadow and the `PATH` override, then reloads Hyprland. It does **not** touch `bindings.lua` (edit that once, above).
+
+```bash
+cat > ~/.local/bin/cwdsync-cwd-fix.sh <<'SCRIPT'
+#!/bin/bash
+set -euo pipefail
+
+mkdir -p "$HOME/.local/bin"
+cat > "$HOME/.local/bin/omarchy-cmd-terminal-cwd" <<'SHADOW'
+#!/bin/bash
+#
+# omarchy-cmd-terminal-cwd
+#
+# User shadow of /usr/bin/omarchy-cmd-terminal-cwd, aware of PTY-wrapper
+# processes (e.g. ~/.local/bin/cwdsync launched from ~/.x.sh).
+#
+# Upstream reads /proc/<pid>/cwd of the terminal window's DIRECT child and
+# requires its exe to be a login shell. With x.sh active the direct child is
+# the compiled cwdsync binary (not in /etc/shells) whose own /proc/cwd is
+# frozen at spawn time, so upstream always falls back to $HOME.
+#
+# This script instead finds the DEEPEST descendant whose exe is listed in
+# /etc/shells (the inner interactive bash) and reads THAT process's /proc/cwd.
+#
+# Kitty needs special handling: `kitten @ ls` reports a window's cwd from its
+# foreground process, which under x.sh is cwdsync (frozen) -- so kitty's own
+# answer is wrong. We use the kitty socket only to find the focused window's
+# foreground pid, then resolve the real shell beneath it.
+
+# Echo the cwd of the deepest login-shell process in the subtree rooted at $1
+# (including $1 itself). Returns non-zero if none is found.
+deepest_shell_cwd() {
+  local root="$1"
+  [[ -n $root && -d /proc/$root ]] || return 1
+
+  local -a queue=("$root")
+  local -A depth=([$root]=0)
+  local best_pid="" best_depth=-1
+  local cur d child exe
+
+  while ((${#queue[@]})); do
+    cur=${queue[0]}
+    queue=("${queue[@]:1}")
+    d=${depth[$cur]:-0}
+
+    exe=$(readlink -f "/proc/$cur/exe" 2>/dev/null)
+    if [[ -n $exe ]] && grep -Fqsx "$exe" /etc/shells; then
+      if ((d > best_depth)) ||
+        { ((d == best_depth)) && [[ -n $best_pid ]] && ((cur > best_pid)); }; then
+        best_depth=$d
+        best_pid=$cur
+      fi
+    fi
+
+    while IFS= read -r child; do
+      [[ $child =~ ^[0-9]+$ ]] || continue
+      depth[$child]=$((d + 1))
+      queue+=("$child")
+    done < <(pgrep -P "$cur" 2>/dev/null)
+  done
+
+  [[ -n $best_pid ]] || return 1
+  readlink -f "/proc/$best_pid/cwd" 2>/dev/null
+}
+
+terminal_pid=$(hyprctl activewindow 2>/dev/null | awk '/pid:/ {print $2}')
+kitty_socket="${XDG_RUNTIME_DIR}/omarchy-kitty-${terminal_pid}"
+cwd=""
+
+if [[ -S $kitty_socket ]]; then
+  # Resolve via the focused kitty window's foreground pid (per-window correct
+  # even with multiple kitty windows sharing one socket).
+  while IFS= read -r wp; do
+    [[ $wp =~ ^[0-9]+$ ]] || continue
+    cwd=$(deepest_shell_cwd "$wp") && [[ -n $cwd ]] && break
+    cwd=""
+  done < <(kitten @ --to "unix:$kitty_socket" ls --match "state:focused" 2>/dev/null |
+    jq -r '.[].tabs[].windows[].pid // empty')
+fi
+
+if [[ -z $cwd ]]; then
+  cwd=$(deepest_shell_cwd "$terminal_pid")
+fi
+
+if [[ -d $cwd ]]; then
+  echo "$cwd"
+else
+  echo "$HOME"
+fi
+SHADOW
+chmod +x "$HOME/.local/bin/omarchy-cmd-terminal-cwd"
+
+mkdir -p "$HOME/.config/uwsm/env.d"
+cat > "$HOME/.config/uwsm/env.d/50-user-bin-first" <<'ENV'
+# Prefer user shadows in ~/.local/bin over packaged binaries.
+# Needed so omarchy-cmd-terminal-cwd resolves to the cwdsync-aware
+# ~/.local/bin/omarchy-cmd-terminal-cwd instead of /usr/bin/omarchy-cmd-terminal-cwd.
+# (env-bootstrap appends ~/.local/bin after system dirs.)
+# Changes require a relogin to take effect.
+
+_without=$(echo "$PATH" | tr ':' '\n' | grep -v -F -x "$HOME/.local/bin" | tr '\n' ':' | sed 's/:$//')
+PATH="$HOME/.local/bin${_without:+:$_without}"
+export PATH
+unset _without
+ENV
+
+command -v hyprctl >/dev/null 2>&1 && hyprctl reload >/dev/null 2>&1 || true
+echo "cwdsync cwd fix applied"
+SCRIPT
+chmod +x ~/.local/bin/cwdsync-cwd-fix.sh
+```
+
+Run it any time to re-apply:
+
+```bash
+~/.local/bin/cwdsync-cwd-fix.sh
+```
+
+## Verify
+
+In a focused, `cwdsync`-wrapped terminal:
+
+```bash
+cd /etc
+```
+
+Then, from another shell:
+
+```bash
+hyprctl activewindow | awk '/pid:/ {print $2}'   # terminal pid
+omarchy-cmd-terminal-cwd                          # -> /etc
+/usr/bin/omarchy-cmd-terminal-cwd                 # -> /home/you  (upstream still broken)
+```
+
+If the first prints `/etc` and the second prints your home, the shadow is active. Now `SUPER+RETURN` opens in `/etc`.
+
+To see the tree the shadow reasons about:
+
+```bash
+T=$(hyprctl activewindow | awk '/pid:/ {print $2}')
+pgrep -aP "$T"                                    # cwdsync (frozen cwd)
+pgrep -aP "$(pgrep -P "$T" | tail -n1)"           # inner bash (live cwd)
+```
+
+---
+
 # Usage
 
 ## Check that it's running
@@ -684,7 +986,7 @@ echo "$X_LOG"       # /home/you/.local/state/x-logs/shell-<pid>.log
 cd /tmp
 ```
 
-Press `Ctrl+Shift+Enter`. The new window should open in `/tmp`.
+Press `SUPER+RETURN`. The new window should open in `/tmp`. If it opens in `~`, apply [Fix cwd inheritance](#fix-cwd-inheritance-omarchy-omarchy-cmd-terminal-cwd).
 
 ## Copy last command's output
 
@@ -826,6 +1128,16 @@ rm -f ~/.local/state/x-logs/shell-*.log
 # Troubleshooting
 
 **New windows still open in `~`.**
+
+With `cwdsync` active this is expected until you install the cwd fix: the terminal's cwd-lookup sees `cwdsync` (frozen), not the inner shell. Apply [Fix cwd inheritance](#fix-cwd-inheritance-omarchy-omarchy-cmd-terminal-cwd), then confirm the shadow resolves first:
+
+```bash
+command -v omarchy-cmd-terminal-cwd   # ~/.local/bin/... first, not /usr/bin/...
+```
+
+If the shadow is installed but the launcher still uses the packaged one, the session `PATH` hasn't picked up `~/.config/uwsm/env.d/50-user-bin-first` — relogin, or use the absolute-path bindings.
+
+The `cwdsync`-independent check, if you have no wrapper at all:
 
 Run the wrapper by hand and test:
 
