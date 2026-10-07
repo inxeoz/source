@@ -190,17 +190,23 @@ __x_enable_markers() {
     esac
 }
 
+
 # ---- x: copy last (or N-th last) command output to clipboard ----
 x() {
     local idx="${1:-1}"
     [ -r "$X_LOG" ] || { echo "x: no log" >&2; return 1; }
     local out
     out=$(perl -e '
-        local $/; my $t = <>;
+        my $idx = shift @ARGV;
+        my $log = shift @ARGV;
+        open my $fh, "<", $log or die "open $log: $!";
+        local $/;
+        my $t = <$fh>;
+        close $fh;
+
         my @c = split /\x1f/, $t;
         pop @c while @c && $c[-1] eq "";
-        my $i = shift @ARGV;
-        my $p = @c >= $i ? $c[-$i] : "";
+        my $p = @c >= $idx ? $c[-$idx] : "";
         $p =~ s/\x1e[^\x1e]*$//s;
         $p =~ s/\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)//gs;
         $p =~ s/\x1b\[[0-?]*[ -\/]*[@-~]//g;
@@ -217,15 +223,21 @@ x() {
     printf 'x: copied %d bytes (block -%s)\n' "$(printf '%s' "$out" | wc -c)" "$idx" >&2
 }
 
-# ---- xl: list block boundaries (for debugging) ----
+# ---- xl: list block boundaries ----
 xl() {
     [ -r "$X_LOG" ] || { echo "xl: no log" >&2; return 1; }
     perl -e '
-        local $/; my $t = <>;
+        my $log = shift @ARGV;
+        open my $fh, "<", $log or die "open $log: $!";
+        local $/;
+        my $t = <$fh>;
+        close $fh;
+
         my @c = split /\x1f/, $t;
         pop @c while @c && $c[-1] eq "";
+        my $n = scalar @c;
         for my $i (0 .. $#c) {
-            my $n = @c - $i;
+            my $idx = $n - $i;
             my $p = $c[$i];
             $p =~ s/\x1e[^\x1e]*$//s;
             $p =~ s/\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)//gs;
@@ -238,19 +250,25 @@ xl() {
             $p =~ s/^\s+//; $p =~ s/\s+$//;
             my $line = $p =~ /^(.*)$/m ? $1 : "";
             $line = substr($line, 0, 80);
-            printf "%3d  %s\n", $n, $line;
+            printf "%3d  %s\n", $idx, $line;
         }
     ' "$X_LOG"
 }
 
-# ---- xf: write every block to a directory as separate files ----
+# ---- xf: dump all blocks to files ----
 xf() {
     local dir="${1:-/tmp/xblocks}"
     [ -r "$X_LOG" ] || { echo "xf: no log" >&2; return 1; }
     mkdir -p "$dir"
     rm -f "$dir"/*
     perl -e '
-        local $/; my $t = <>;
+        my $dir = shift @ARGV;
+        my $log = shift @ARGV;
+        open my $fh, "<", $log or die "open $log: $!";
+        local $/;
+        my $t = <$fh>;
+        close $fh;
+
         my @c = split /\x1f/, $t;
         pop @c while @c && $c[-1] eq "";
         my $n = scalar @c;
@@ -266,8 +284,9 @@ xf() {
             $p =~ s/\r//g;
             $p =~ s/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]//g;
             $p =~ s/\s+$//;
-            open my $fh, ">", sprintf("%s/%04d.txt", $ARGV[0], $idx) or next;
-            print $fh $p;
+            open my $out, ">", sprintf("%s/%04d.txt", $dir, $idx) or next;
+            print $out $p;
+            close $out;
         }
     ' "$dir" "$X_LOG"
     echo "xf: wrote blocks to $dir"
@@ -277,19 +296,21 @@ xf() {
 xc() {
     [ -r "$X_LOG" ] || { echo "xc: no log" >&2; return 1; }
     perl -e '
-        local $/; my $t = <>;
+        my $log = shift @ARGV;
+        open my $fh, "<", $log or die "open $log: $!";
+        local $/;
+        my $t = <$fh>;
+        close $fh;
         my @c = split /\x1f/, $t;
         pop @c while @c && $c[-1] eq "";
         print scalar(@c), "\n";
     ' "$X_LOG"
 }
 
+
 # ---- activate markers in the inner shell ----
 __x_enable_markers
 
-# ---- user config (keep if you had these) ----
-[[ -f "$HOME/.user_export" ]] && source "$HOME/.user_export"
-[[ -f "$HOME/.user_alias"  ]] && source "$HOME/.user_alias"
 ```
 
 ## 5. Make sure `~/.bashrc` sources it
