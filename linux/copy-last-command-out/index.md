@@ -19,104 +19,440 @@ A pty wrapper that logs your shell session and keeps your terminal's cwd in sync
 ```bash
 mkdir -p ~/.local/bin
 cat > ~/.local/bin/cwdsync.c <<'EOF'
-/* cwdsync.c — pty relay that logs output and syncs its own cwd to the child's */
 #define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
+
+#include <errno.h>
 #include <fcntl.h>
 #include <pty.h>
 #include <signal.h>
-#include <sys/select.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <sys/ioctl.h>
+#include <sys/select.h>
+#include <sys/types.h>
 #include <sys/wait.h>
 #include <termios.h>
+#include <unistd.h>
 
 static volatile sig_atomic_t got_winch = 0;
-static void on_winch(int sig) { (void)sig; got_winch = 1; }
+static volatile sig_atomic_t got_signal = 0;
 
-int main(int argc, char **argv) {
+static void on_winch(int sig)
+{
+    (void)sig;
+    got_winch = 1;
+}
+
+static void on_signal(int sig)
+{
+    (void)sig;
+    got_signal = 1;
+}
+
+/*
+ * Write exactly len bytes unless an error occurs.
+ */
+static int write_all(int fd, const void *buf, size_t len)
+{
+    const char *p = buf;
+
+    while (len > 0) {
+        ssize_t n = write(fd, p, len);
+
+        if (n > 0) {
+            p += n;
+            len -= (size_t)n;
+            continue;
+        }
+
+        if (n < 0 && errno == EINTR)
+            continue;
+
+        return -1;
+    }
+
+    return 0;
+}
+
+/*
+ * Copy the terminal size from the real terminal to the child PTY.
+ */
+static void sync_winsize(int master)
+{
+    struct winsize ws;
+
+    memset(&ws, 0, sizeof(ws));
+
+    if (ioctl(STDIN_FILENO, TIOCGWINSZ, &ws) == -1)
+        return;
+
+    (void)ioctl(master, TIOCSWINSZ, &ws);
+}
+
+static void restore_terminal(const struct termios *orig, int have_orig)
+{
+    if (have_orig)
+        tcsetattr(STDIN_FILENO, TCSANOW, orig);
+}
+
+int main(int argc, char **argv)
+{
     if (argc < 3) {
-        fprintf(stderr, "usage: %s LOGFILE CMD [ARGS...]\n", argv[0]);
+        fprintf(
+            stderr,
+            "usage: %s LOGFILE CMD [ARGS...]\n",
+            argv[0]
+        );
         return 2;
     }
+
     const char *logpath = argv[1];
 
-    struct winsize ws = {0};
-    ioctl(STDIN_FILENO, TIOCGWINSZ, &ws);
+    /*
+     * Get the size of the real terminal before creating the child PTY.
+     */
+    struct winsize ws;
 
-    int master;
-    pid_t pid = forkpty(&master, NULL, NULL, &ws);
-    if (pid < 0) { perror("forkpty"); return 1; }
+    memset(&ws, 0, sizeof(ws));
+
+    if (ioctl(STDIN_FILENO, TIOCGWINSZ, &ws) == -1) {
+        memset(&ws, 0, sizeof(ws));
+    }
+
+    /*
+     * Create PTY and child process.
+     *
+     * Child:
+     *     becomes session leader
+     *     gets slave PTY as controlling terminal
+     *     executes requested command
+     */
+    int master = -1;
+
+    pid_t pid = forkpty(
+        &master,
+        NULL,
+        NULL,
+        &ws
+    );
+
+    if (pid < 0) {
+        perror("forkpty");
+        return 1;
+    }
+
     if (pid == 0) {
         execvp(argv[2], &argv[2]);
+
+        perror("execvp");
         _exit(127);
     }
 
+    /*
+     * Open command-output log.
+     */
     FILE *log = fopen(logpath, "ab");
-    if (!log) { perror("fopen"); return 1; }
+
+    if (!log) {
+        perror("fopen");
+
+        /*
+         * Don't leave the child running.
+         */
+        kill(pid, SIGHUP);
+        close(master);
+        waitpid(pid, NULL, 0);
+
+        return 1;
+    }
+
+    /*
+     * Disable stdio buffering so output reaches the log immediately.
+     */
     setvbuf(log, NULL, _IONBF, 0);
 
-    struct termios orig, raw;
-    tcgetattr(STDIN_FILENO, &orig);
-    raw = orig; cfmakeraw(&raw);
-    tcsetattr(STDIN_FILENO, TCSANOW, &raw);
+    /*
+     * Save the user's terminal state.
+     */
+    struct termios orig;
+    int have_orig = 0;
 
-    struct sigaction sa = {0};
+    if (tcgetattr(STDIN_FILENO, &orig) == 0) {
+        have_orig = 1;
+
+        struct termios raw = orig;
+
+        cfmakeraw(&raw);
+
+        /*
+         * Keep output processing on the real terminal.
+         * Only input needs to be raw here.
+         */
+        tcsetattr(STDIN_FILENO, TCSANOW, &raw);
+    }
+
+    /*
+     * Signal handlers.
+     */
+    struct sigaction sa;
+
+    memset(&sa, 0, sizeof(sa));
+    sigemptyset(&sa.sa_mask);
+
     sa.sa_handler = on_winch;
     sigaction(SIGWINCH, &sa, NULL);
 
-    char cwd_link[64];
-    snprintf(cwd_link, sizeof(cwd_link), "/proc/%d/cwd", pid);
+    memset(&sa, 0, sizeof(sa));
+    sigemptyset(&sa.sa_mask);
 
-    char buf[8192];
-    while (1) {
+    sa.sa_handler = on_signal;
+
+    sigaction(SIGTERM, &sa, NULL);
+    sigaction(SIGINT,  &sa, NULL);
+    sigaction(SIGHUP,  &sa, NULL);
+
+    /*
+     * Make sure the child PTY has the current terminal size.
+     */
+    sync_winsize(master);
+
+    char buf[16384];
+
+    int running = 1;
+
+    while (running) {
+
+        /*
+         * Forward terminal resize.
+         */
         if (got_winch) {
             got_winch = 0;
-            struct winsize nw = {0};
-            ioctl(STDIN_FILENO, TIOCGWINSZ, &nw);
-            ioctl(master, TIOCSWINSZ, &nw);
+            sync_winsize(master);
         }
 
-        fd_set rfds; FD_ZERO(&rfds);
-        FD_SET(STDIN_FILENO, &rfds);
-        FD_SET(master, &rfds);
-        struct timeval tv = {0, 100000};
-        int n = select(master + 1, &rfds, NULL, NULL, &tv);
+        /*
+         * If we received a termination signal, tell the child.
+         */
+        if (got_signal) {
+            got_signal = 0;
+
+            /*
+             * Sending SIGTERM to the child is enough for normal
+             * shell shutdown. The child owns the PTY session.
+             */
+            kill(pid, SIGTERM);
+        }
+
+        fd_set readfds;
+
+        FD_ZERO(&readfds);
+
+        FD_SET(STDIN_FILENO, &readfds);
+        FD_SET(master, &readfds);
+
+        int maxfd =
+            (STDIN_FILENO > master)
+                ? STDIN_FILENO
+                : master;
+
+        struct timeval timeout;
+
+        timeout.tv_sec = 0;
+        timeout.tv_usec = 100000;
+
+        int n = select(
+            maxfd + 1,
+            &readfds,
+            NULL,
+            NULL,
+            &timeout
+        );
+
         if (n < 0) {
-            if (got_winch) continue;
+            if (errno == EINTR)
+                continue;
+
             break;
         }
 
-        if (FD_ISSET(STDIN_FILENO, &rfds)) {
-            ssize_t r = read(STDIN_FILENO, buf, sizeof buf);
-            if (r <= 0) break;
-            if (write(master, buf, r) < 0) break;
-        }
-        if (FD_ISSET(master, &rfds)) {
-            ssize_t r = read(master, buf, sizeof buf);
-            if (r <= 0) break;
-            if (write(STDOUT_FILENO, buf, r) < 0) break;
-            fwrite(buf, 1, r, log);
+        /*
+         * User → child PTY
+         */
+        if (FD_ISSET(STDIN_FILENO, &readfds)) {
+
+            ssize_t r = read(
+                STDIN_FILENO,
+                buf,
+                sizeof(buf)
+            );
+
+            if (r > 0) {
+                if (write_all(master, buf, (size_t)r) < 0) {
+                    if (errno != EINTR)
+                        running = 0;
+                }
+            }
+            else if (r == 0) {
+                /*
+                 * Terminal input closed.
+                 */
+                break;
+            }
+            else if (errno != EINTR) {
+                running = 0;
+            }
         }
 
-        char target[4096], cur[4096];
-        ssize_t rl = readlink(cwd_link, target, sizeof target - 1);
-        if (rl > 0) {
-            target[rl] = 0;
-            if (getcwd(cur, sizeof cur) && strcmp(cur, target) != 0)
-                (void)chdir(target);
+        /*
+         * Child PTY → terminal + log
+         */
+        if (FD_ISSET(master, &readfds)) {
+
+            ssize_t r = read(
+                master,
+                buf,
+                sizeof(buf)
+            );
+
+            if (r > 0) {
+
+                /*
+                 * Display exactly what the child produced.
+                 */
+                if (write_all(
+                        STDOUT_FILENO,
+                        buf,
+                        (size_t)r
+                    ) < 0) {
+
+                    running = 0;
+                }
+
+                /*
+                 * Record exactly what the child produced.
+                 */
+                if (running) {
+                    fwrite(
+                        buf,
+                        1,
+                        (size_t)r,
+                        log
+                    );
+                    fflush(log);
+                }
+            }
+            else if (r == 0) {
+                /*
+                 * PTY closed normally.
+                 */
+                running = 0;
+            }
+            else {
+
+                /*
+                 * Linux PTY masters commonly return EIO when
+                 * the slave side closes.
+                 */
+                if (errno == EIO) {
+                    running = 0;
+                }
+                else if (errno != EINTR) {
+                    running = 0;
+                }
+            }
+        }
+
+        /*
+         * Check whether the child has exited.
+         *
+         * WNOHANG prevents us from blocking while the PTY still
+         * has output waiting to be read.
+         */
+        int status;
+
+        pid_t result = waitpid(
+            pid,
+            &status,
+            WNOHANG
+        );
+
+        if (result == pid) {
+            /*
+             * Child exited. There may still be a small amount
+             * of PTY output available, so do one final drain.
+             */
+            for (;;) {
+                ssize_t r = read(
+                    master,
+                    buf,
+                    sizeof(buf)
+                );
+
+                if (r > 0) {
+
+                    (void)write_all(
+                        STDOUT_FILENO,
+                        buf,
+                        (size_t)r
+                    );
+
+                    fwrite(
+                        buf,
+                        1,
+                        (size_t)r,
+                        log
+                    );
+                }
+                else {
+                    break;
+                }
+            }
+
+            running = 0;
+        }
+        else if (result < 0 && errno != EINTR) {
+            running = 0;
         }
     }
 
-    tcsetattr(STDIN_FILENO, TCSANOW, &orig);
-    fclose(log);
+    /*
+     * Restore the terminal BEFORE returning to the parent shell.
+     */
+    restore_terminal(&orig, have_orig);
 
-    int status = 0;
-    waitpid(pid, &status, 0);
-    return WIFEXITED(status) ? WEXITSTATUS(status) : 1;
+    fclose(log);
+    close(master);
+
+    /*
+     * Reap the child if it hasn't already been reaped.
+     */
+    int status;
+
+    pid_t result = waitpid(
+        pid,
+        &status,
+        WNOHANG
+    );
+
+    if (result == 0) {
+        /*
+         * Give the shell a moment to terminate normally.
+         */
+        kill(pid, SIGHUP);
+
+        waitpid(pid, &status, 0);
+    }
+
+    if (WIFEXITED(status))
+        return WEXITSTATUS(status);
+
+    if (WIFSIGNALED(status))
+        return 128 + WTERMSIG(status);
+
+    return 1;
 }
+
 EOF
 ```
 
