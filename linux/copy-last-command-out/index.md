@@ -755,8 +755,9 @@ kitty_socket="${XDG_RUNTIME_DIR}/omarchy-kitty-${terminal_pid}"
 cwd=""
 
 if [[ -S $kitty_socket ]]; then
-  # Resolve via the focused kitty window's foreground pid (per-window correct
-  # even with multiple kitty windows sharing one socket).
+  # Each kitty OS window is its own process (own pid + socket), but all tabs
+  # in a window share that one process, so hyprctl alone cannot tell which tab
+  # is focused. Use the socket to get the focused tab's pid, then walk it.
   while IFS= read -r wp; do
     [[ $wp =~ ^[0-9]+$ ]] || continue
     cwd=$(deepest_shell_cwd "$wp") && [[ -n $cwd ]] && break
@@ -895,8 +896,9 @@ kitty_socket="${XDG_RUNTIME_DIR}/omarchy-kitty-${terminal_pid}"
 cwd=""
 
 if [[ -S $kitty_socket ]]; then
-  # Resolve via the focused kitty window's foreground pid (per-window correct
-  # even with multiple kitty windows sharing one socket).
+  # Each kitty OS window is its own process (own pid + socket), but all tabs
+  # in a window share that one process, so hyprctl alone cannot tell which tab
+  # is focused. Use the socket to get the focused tab's pid, then walk it.
   while IFS= read -r wp; do
     [[ $wp =~ ^[0-9]+$ ]] || continue
     cwd=$(deepest_shell_cwd "$wp") && [[ -n $cwd ]] && break
